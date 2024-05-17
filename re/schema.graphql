@@ -1,0 +1,2712 @@
+"""Exposes a URL that specifies the behaviour of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behaviour of this scalar."""
+  url: String!
+) on SCALAR
+
+enum AccessPermissionEntryActionTypeEnum {
+  OPEN_BARRIER
+  OPEN_GATE
+  INFORM_SECURITY_BEFORE_ENTER
+  INFORM_SECURITY_ON_ENTER
+  WAIT_SECURITY_CONFIRMATION
+  GET_PARKING_TICKET
+  GET_QR_CODE_ENTRY
+  GET_QR_CODE_EXIT
+}
+
+type AccessPermissionRequestData {
+  entryActionType: AccessPermissionEntryActionTypeEnum!
+  autoConfirmed: Boolean
+  canChooseTime: Boolean
+  openingHours: OpeningHoursType
+}
+
+enum AccessPermissionRequestTypeEnum {
+  SMS
+  EMAIL
+  CALL
+  WEBSITE
+}
+
+"""App Type Enum"""
+enum AppTypeEnum {
+  IOS
+  ANDROID
+  CP
+  QRC
+  WEB
+  OTHER
+}
+
+"""Audit object"""
+type Audit {
+  id: ID
+  requestId: String
+  model: String
+  action: String
+  userId: String
+  objectId: String
+  changedFields: [String!]
+  oldData: String
+  newData: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Audit list"""
+type AuditList {
+  rows: [Audit!]!
+  count: Float!
+}
+
+input AuditListRequestOrderInputType {
+  id: Sort
+  createdAt: Sort
+  updatedAt: Sort
+}
+
+"""Auth Initiator Enum"""
+enum AuthInitiatorEnum {
+  CUSTOMER
+  USER
+  CHARGING_STATION
+  OTHER
+}
+
+"""Authorization object"""
+type Authorization {
+  id: ID!
+  seqNo: Float
+  idToken: String
+  idTokenType: IdTokenEnumType
+  chargingStationId: String
+  chargingStation: ChargingStation
+  status: AuthorizationStatusEnumType
+  transactionId: String
+  transaction: Transaction
+  customerId: String
+  customer: Customer
+  userId: String
+  user: User
+  authorizationCardId: String
+  authorizationCard: AuthorizationCard
+  ocppVersion: OcppSupportedEnum
+  appVersion: String
+  initiator: AuthInitiatorEnum
+  app: AppTypeEnum
+  tenant: String
+  roamingAccessId: Float
+  roamingAccess: RoamingAccess
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Authorization card object"""
+type AuthorizationCard {
+  id: ID!
+  seqNo: Float
+  cardId: String!
+  blocked: Boolean
+  freeCharging: Boolean
+  name: String
+  description: String
+  type: AuthorizationCardTypeEnum
+  iso: AuthorizationCardIsoEnum
+  amount: Float
+  amountType: AuthorizationCardAmountTypeEnum
+  currency: CurrencyEnum
+  customerId: String
+  customer: Customer
+  userId: String
+  user: User
+  companyId: String
+  company: Company
+  chargingStations: [ChargingStation!]
+  tenant: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Authorization Card Amount Type"""
+enum AuthorizationCardAmountTypeEnum {
+  WATT
+  MINUTES
+  MONEY
+}
+
+"""Authorization card ISO"""
+enum AuthorizationCardIsoEnum {
+  ISO14443
+  ISO15693
+}
+
+input AuthorizationCardsListFilter {
+  id: FilterUuid
+  seqNo: FilterCompareNumber
+  cardId: FilterCompareString
+  name: FilterCompareString
+  description: FilterCompareString
+  companyId: FilterUuid
+  tenant: FilterCompareString
+}
+
+"""Authorization card type"""
+enum AuthorizationCardTypeEnum {
+  RFID
+  NFC
+}
+
+"""Authorizations list"""
+type AuthorizationsList {
+  rows: [Authorization!]!
+  count: Float!
+}
+
+input AuthorizationsListRequestOrderInputType {
+  seqNo: Sort
+  updatedAt: Sort
+  createdAt: Sort
+}
+
+"""Authorization status enum"""
+enum AuthorizationStatusEnumType {
+  ACCEPTED
+  BLOCKED
+  CONCURRENT_TX
+  EXPIRED
+  INVALID
+  NO_CREDIT
+  NOT_ALLOWED_TYPE_EVSE
+  NOT_AT_THIS_LOCATION
+  NOT_AT_THIS_TIME
+  UNKNOWN
+}
+
+enum AvailabilityStatusEnumType {
+  ACCEPTED
+  REJECTED
+  SCHEDULED
+}
+
+enum AvailabilityTypeEnumType {
+  INOPERATIVE
+  OPERATIVE
+}
+
+"""Available OCPP 1.6 Actions"""
+enum AvailableOCPP160Actions {
+  AUTHORIZE
+  BOOT_NOTIFICATION
+  CANCEL_RESERVATION
+  CHANGE_AVAILABILITY
+  CHANGE_CONFIGURATION
+  CLEAR_CACHE
+  CLEAR_CHARGING_PROFILE
+  DATA_TRANSFER
+  DIAGNOSTICS_STATUS_NOTIFICATION
+  FIRMWARE_STATUS_NOTIFICATION
+  GET_COMPOSITE_SCHEDULE
+  GET_CONFIGURATION
+  GET_DIAGNOSTICS
+  GET_LOCAL_LIST_VERSION
+  HEARTBEAT
+  METER_VALUES
+  REMOTE_START_TRANSACTION
+  REMOTE_STOP_TRANSACTION
+  RESERVE_NOW
+  RESET
+  SEND_LOCAL_LIST
+  SET_CHARGING_PROFILE
+  START_TRANSACTION
+  STATUS_NOTIFICATION
+  STOP_TRANSACTION
+  TRIGGER_MESSAGE
+  UNLOCK_CONNECTOR
+  UPDATE_FIRMWARE
+}
+
+"""Balance object"""
+type Balance {
+  id: ID!
+  customer: Customer
+  company: Company
+  seqNo: Float
+  total: Float!
+  debit: Float
+  credit: Float
+  currency: CurrencyEnum!
+  description: String
+  promocode: Promocode
+  discount: Discount
+  invoice: Invoice
+  payment: Payment
+  tenant: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Balance Brief"""
+type BalanceBrief {
+  total: Float!
+  currency: CurrencyEnum
+  status: BalanceStatusEnum!
+  invoicesInProcess: [Invoice!]
+}
+
+"""Balance Brief"""
+type BalanceStatus {
+  status: BalanceStatusEnum!
+}
+
+enum BalanceStatusEnum {
+  POSITIVE
+  NEGATIVE
+  NEED_TOPUP
+}
+
+"""Car"""
+type Car {
+  id: Int!
+  name: String
+  description: String
+  color: ColorEnum
+  vin: String
+  plateNumber: String
+  year: String
+  batteryAmountKW: Float
+  model: CarModel
+  images: [File!]
+}
+
+input Card {
+  first6: String!
+  last4: String!
+  expiryMonth: String!
+  expiryYear: String!
+}
+
+"""Car Maker"""
+type CarMaker {
+  id: Int!
+  name: String!
+  fullName: String
+  models: [CarModel!]
+  logo: File
+}
+
+"""Car Model"""
+type CarModel {
+  id: Int!
+  makerId: Int
+  name: String!
+  fullName: String
+  description: String
+  batteryAmountKW: Float
+  country: CountryCodeEnumType
+  year: String
+  connectors: [CarModelConnector!]
+  maker: CarMaker!
+  images: [File!]
+}
+
+"""Car Model Connector"""
+type CarModelConnector {
+  id: Int!
+  type: ConnectorEnumType
+  images: [File!]
+}
+
+input CarModelConnectorCreate {
+  type: ConnectorEnumType
+}
+
+input CarModelConnectorInputType {
+  id: Int
+  type: ConnectorEnumType
+}
+
+enum ChargingStateEnumType {
+  CHARGING
+  EVCONNECTED
+  SUSPENDED_EV
+  SUSPENDED_EVSE
+  IDLE
+}
+
+"""Charging station"""
+type ChargingStation {
+  id: ID!
+  seqNo: Float!
+  forceBlocked: Boolean
+  coordinates: Coordinates
+  evses: [Evses!]
+  name: String
+  address: String
+  photoUrls: [String!]
+  plugshareLink: String
+  description: String
+  internalPrivateUseDescription: String
+  openingHours: OpeningHoursType
+  active: Boolean
+  invisible: Boolean
+  connected: Boolean
+  disconnectedAt: DateTime
+  distance: Float
+  computedStatus: ChargingStationComputedStatusEnum
+  speed: SpeedEnum
+  specialIdentifier: SpecialIdentifierEnum
+  ocppVersion: OcppSupportedEnum
+  serialNumber: String
+  model: String
+  vendorName: String
+  firmwareVersion: String
+  bootNotificationRequestAcceptedAt: DateTime
+  blacklisted: Boolean
+  isTestCS: Boolean
+  ip: String
+  soapUrl: String
+  vpnServerIp: String
+  connectionHost: String
+  emulator: Boolean
+  autoAcceptAuthorizeRequests: Boolean
+  external: Boolean
+  company: Company
+  uptimeMonitorings(limit: Float): [UptimeMonitoring!]
+  transactions: [Transaction!]
+  images: [File!]
+  territoryAccessData: TerritoryAccessData
+  accessPermissionRequestData: AccessPermissionRequestData
+
+  """
+  E.g. "America/New_York", "Europe/Berlin", "Asia/Bangkok"
+  """
+  timezone: String
+  tenant: String
+  lastConnectionStatusChangedAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Charging station brief report response"""
+type ChargingStationBriefReportResponse {
+  chargingStationName: String!
+  evseId: Float!
+  connectorId: Float!
+  connectorTypeTranslated: String!
+  transactionSeqNo: Float!
+  totalKW: Float
+  amount: Float
+  transactionStep: String
+  transactionsPaid: String
+  transactionsFree: String
+  paidKwh: Float
+  freeKwh: Float
+  totalDuration: Float
+  transactionStartTimeMSK: String
+  SOCStart: String
+  SOCEnd: String
+  specialTransactionInfo: String
+  tariffName: String
+  tariffType: String
+  tariffAmount: String
+  tariffCurrency: String
+  customerId: String
+}
+
+"""ChargingStationCategory"""
+type ChargingStationCategory {
+  id: Float
+  name: String
+  description: String
+  tenant: String
+  chargingStations: [ChargingStation!]
+  discountId: String
+  privateAccess: PrivateAccess
+  ownersAccess: OwnersAccess
+  roamingAccess: RoamingAccess
+  subTenant: SubTenant
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Charging station change availability response"""
+type ChargingStationChangeAvailabilityResponse {
+  response: AvailabilityStatusEnumType
+}
+
+"""Charging station clear cache response"""
+type ChargingStationClearCacheResponse {
+  response: ClearCacheStatusEnumType
+}
+
+enum ChargingStationComputedStatusEnum {
+  ALL_AVAILABLE
+  ALL_OCCUPIED
+  ALL_UNAVAILABLE
+  AVAILABLE_UNAVAILABLE
+  AVAILABLE_OCCUPIED
+  OCCUPIED_UNAVAILABLE
+}
+
+type ChargingStationConfiguration {
+  configuration: String
+}
+
+input ChargingStationCoordinatesBox2d {
+  northLatitude: Float!
+  eastLongitude: Float!
+  southLatitude: Float!
+  westLongitude: Float!
+}
+
+"""Charging station get diagnostics response"""
+type ChargingStationGetDiagnosticsResponse {
+  fileName: String
+}
+
+type ChargingStationGraphInfo {
+  lastTransactionStep: TransactionStepsEnum
+  isOffline: Boolean
+  countUptimeForLast24H: Float
+  countUptimeForLast30D: Float
+  countKWForLast30D: [Float!]
+  last10Transactions: [LastTransactions!]
+}
+
+input ChargingStationInputFilter {
+  id: FilterUuid
+  name: FilterCompareString
+}
+
+"""ChargingStation Log Data"""
+type ChargingStationLogResponse {
+  ocpp_action: String
+  ocpp_message_direction: String
+  ocpp_request: String
+  ocpp_response: String
+  ocpp_raw_message: String
+  ocpp_message: String
+  ocpp_raw_request: String
+  ocpp_raw_response: String
+  log_level: String
+  message: String
+  timestamp: String
+}
+
+"""Charging station report"""
+type ChargingStationReport {
+  fileName: String!
+  fileBuffer: String!
+}
+
+"""Charging station reset response"""
+type ChargingStationResetResponse {
+  response: ResetStatusEnumType
+}
+
+"""ChargingStationsCategories list"""
+type ChargingStationsCategoriesList {
+  rows: [ChargingStationCategory!]!
+  count: Float!
+}
+
+input ChargingStationsCategoriesRequestOrderInputType {
+  id: Sort
+  name: Sort
+  createdAt: Sort
+  updatedAt: Sort
+}
+
+"""Charging stations list"""
+type ChargingStationsList {
+  rows: [ChargingStation!]!
+  count: Float!
+}
+
+input ChargingStationsListFilter {
+  id: FilterUuid
+  seqNo: FilterCompareNumber
+  connected: Boolean
+  blacklisted: Boolean
+  forceBlocked: Boolean
+  isTestCS: Boolean
+  invisible: Boolean
+  autoAcceptAuthorizeRequests: Boolean
+  emulator: Boolean
+  external: Boolean
+  name: FilterCompareString
+  serialNumber: FilterCompareString
+  companyIds: FilterArrayUuid
+  address: FilterCompareString
+  description: FilterCompareString
+  ocppVersion: FilterCompareOcppVersion
+  model: FilterCompareString
+  vendorName: FilterCompareString
+  ip: FilterCompareString
+  soapUrl: FilterCompareString
+  vpnServerIp: FilterCompareString
+  connectionHost: FilterCompareString
+  plugshareLink: FilterCompareString
+  tenant: FilterCompareString
+  excludeTestCS: Boolean
+  connectors: ConnectorType
+  distanceWithIn: FilterDistanceWithIn
+  coordinatesBox2d: FilterChargingStationCoordinatesBox2d
+}
+
+input ChargingStationsListRequestOrderInputType {
+  id: Sort
+  distance: DistanceSort
+  seqNo: Sort
+  evseId: Sort
+  connectorId: Sort
+  updatedAt: Sort
+  createdAt: Sort
+  lastConnectionStatusChangedAt: Sort
+  bootNotificationRequestAcceptedAt: Sort
+}
+
+"""Charging station unlock connector response"""
+type ChargingStationUnlockConnectorResponse {
+  response: UnlockStatusEnumType
+}
+
+type ChartElementSplittable {
+  total: Float
+  fromFirstDayOfMonth: Float
+  splitted: [Float!]
+}
+
+enum ClearCacheStatusEnumType {
+  ACCEPTED
+  REJECTED
+}
+
+enum ColorEnum {
+  BLACK
+  WHITE
+  SILVER
+  BLUE
+  GREY
+  RED
+  BROWN
+  GREEN
+  YELLOW
+  OTHER
+}
+
+"""Common reponse"""
+type CommonResponse {
+  success: Boolean!
+  error: Error
+}
+
+"""Company"""
+type Company {
+  id: ID!
+  seqNo: Float
+  name: String!
+  description: String
+  internalPrivateUseDescription: String
+  contactPerson: String
+  email: String
+  phone: String
+  country: CountryCodeEnumType
+  type: CompanyTypeEnum
+  zip: String
+  address: String
+  inn: Float
+  kpp: Float
+  contractNumber: String
+  contractIssuedAt: DateTime
+  contractValidTill: DateTime
+  bankAcccountNumber: String
+  bankAcccountBic: Float
+  customers: [Customer!]
+  chargingStations: [ChargingStation!]
+  authorizations: [Authorization!]
+  transactions: [Transaction!]
+  payments: [Payment!]
+  balances: [Balance!]
+  invoices: [Invoice!]
+  lastMonthConsumption: LastMonthConsumption
+  transactionsCount: TransactionsCount
+  last30dData: Last30dData
+  mostPopularByWeek: [MostPopularByWeek!]
+  tenant: String
+  tenantSettings: TenantSettings
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input CompanyId {
+  id: ID!
+}
+
+enum CompanyTypeEnum {
+  CHARGING_STATION_OPERATION
+  CHARGING_STATION_MAINTENANCE
+  CORPORATE_FLEET
+}
+
+input CompareBetween {
+  min: Float
+  max: Float
+}
+
+"""Charging station connector"""
+type Connector {
+  id: Float!
+  evseId: Float!
+  pending: Boolean
+  initiating: Boolean
+  emergencyButtonPressed: Boolean
+  type: ConnectorEnumType
+  status: ConnectorEnumStatus!
+  outletType: ConnectorOutletTypeEnum
+  power: Float
+  tariff: TariffType
+  tariffGroup: TariffGroup
+  oldOCPPStatus: String
+  oldOCPPErrorCode: String
+  info: String
+  vendorId: String
+  vendorErrorCode: String
+  updatedAt: DateTime!
+}
+
+enum ConnectorEnumStatus {
+  AVAILABLE
+  OCCUPIED
+  RESERVED
+  UNAVAILABLE
+  FAULTED
+}
+
+enum ConnectorEnumType {
+  C_CCS1
+  C_CCS2
+  C_G105
+  C_TESLA
+  C_TYPE1
+  C_TYPE2
+  GBT_AC
+  GBT_DC
+  S3091_P16_A
+  S3091_P32_A
+  S3093_P16_A
+  S3093_P32_A
+  S_BS1361
+  S_CEE77
+  S_TYPE2
+  S_TYPE3
+  OTHER1_PH_MAX16_A
+  OTHER1_PH_OVER16_A
+  OTHER3_PH
+  PAN
+  W_INDUCTIVE
+  W_RESONANT
+  UNDETERMINED
+  UNKNOWN
+}
+
+"""Charging station connector"""
+input ConnectorInput {
+  type: ConnectorEnumType
+  status: ConnectorEnumStatus!
+  power: Float!
+  tariffId: String
+  tariffGroupId: String
+  outletType: ConnectorOutletTypeEnum
+  pending: Boolean
+  initiating: Boolean
+}
+
+input ConnectorInputType {
+  type: ConnectorEnumType
+  outletType: ConnectorOutletTypeEnum
+}
+
+enum ConnectorOutletTypeEnum {
+  SOCKET
+  CABLE
+}
+
+input ConnectorType {
+  type: FilterCompareConnectorType
+  free: FilterCompareNull
+  speed: FilterConnectorSpeed
+  power: FilterConnectorPower
+}
+
+"""Coordinates lat lang"""
+type Coordinates {
+  latitude: Float!
+  longitude: Float!
+}
+
+"""Coordinates lat lang"""
+input CoordinatesInput {
+  latitude: Float!
+  longitude: Float!
+}
+
+input CoordinatesWithDistance {
+  latitude: Float!
+  longitude: Float!
+}
+
+input CoordinatesWithDistanceAndMeters {
+  latitude: Float!
+  longitude: Float!
+  meters: Float!
+}
+
+type CorporateFleetInfo {
+  company: Company
+  transactionsInProcess: [Transaction!]
+  countTotalCustomers: Float
+  countTransactionsTotal: Float
+  countKWAll: Float
+  countKWChargable: Float
+  last30dData: Last30dData
+  countKWForLast30D: [Float!]
+  countKWChargableForLast30D: [Float!]
+  countTotalKWForLast30D: [Float!]
+  countMoneyAll: Float
+  countMoneyForLast30D: [Float!]
+  mostPopularByWeek: [MostPopularByWeek!]
+}
+
+enum CountryCodeEnumType {
+  AFGHANISTAN
+  ALAND_ISLANDS
+  ALBANIA
+  ALGERIA
+  AMERICAN_SAMOA
+  ANDORRA
+  ANGOLA
+  ANGUILLA
+  ANTARCTICA
+  ANTIGUA_AND_BARBUDA
+  ARGENTINA
+  ARMENIA
+  ARUBA
+  AUSTRALIA
+  AUSTRIA
+  AZERBAIJAN
+  BAHAMAS
+  BAHRAIN
+  BANGLADESH
+  BARBADOS
+  BELARUS
+  BELGIUM
+  BELIZE
+  BENIN
+  BERMUDA
+  BHUTAN
+  BOLIVIA
+  BONAIRE_SINT_EUSTATIUS_SABA
+  BOSNIA_AND_HERZEGOVINA
+  BOTSWANA
+  BOUVET_ISLAND
+  BRAZIL
+  BRITISH_INDIAN_OCEAN_TERRITORY
+  BRUNEI_DARUSSALAM
+  BULGARIA
+  BURKINA_FASO
+  BURUNDI
+  CAMBODIA
+  CAMEROON
+  CANADA
+  CAPE_VERDE
+  CAYMAN_ISLANDS
+  CENTRAL_AFRICAN_REPUBLIC
+  CHAD
+  CHILE
+  CHINA
+  CHRISTMAS_ISLAND
+  COCOS_KEELING_ISLANDS
+  COLOMBIA
+  COMOROS
+  CONGO
+  CONGO_DEMOCRATIC_REPUBLIC
+  COOK_ISLANDS
+  COSTA_RICA
+  COTE_DIVOIRE
+  CROATIA
+  CUBA
+  CURACAO
+  CYPRUS
+  CZECH_REPUBLIC
+  DENMARK
+  DJIBOUTI
+  DOMINICA
+  DOMINICAN_REPUBLIC
+  ECUADOR
+  EGYPT
+  EL_SALVADOR
+  EQUATORIAL_GUINEA
+  ERITREA
+  ESTONIA
+  ETHIOPIA
+  FALKLAND_ISLANDS
+  FAROE_ISLANDS
+  FIJI
+  FINLAND
+  FRANCE
+  FRENCH_GUIANA
+  FRENCH_POLYNESIA
+  FRENCH_SOUTHERN_TERRITORIES
+  GABON
+  GAMBIA
+  GEORGIA
+  GERMANY
+  GHANA
+  GIBRALTAR
+  GREECE
+  GREENLAND
+  GRENADA
+  GUADELOUPE
+  GUAM
+  GUATEMALA
+  GUERNSEY
+  GUINEA
+  GUINEA_BISSAU
+  GUYANA
+  HAITI
+  HEARD_ISLAND_MCDONALD_ISLANDS
+  HOLY_SEE_VATICAN_CITY_STATE
+  HONDURAS
+  HONG_KONG
+  HUNGARY
+  ICELAND
+  INDIA
+  INDONESIA
+  IRAN
+  IRAQ
+  IRELAND
+  ISLE_OF_MAN
+  ISRAEL
+  ITALY
+  JAMAICA
+  JAPAN
+  JERSEY
+  JORDAN
+  KAZAKHSTAN
+  KENYA
+  KIRIBATI
+  KOREA
+  KOREA_DEMOCRATIC_PEOPLES_REPUBLIC
+  KUWAIT
+  KYRGYZSTAN
+  LAO_PEOPLES_DEMOCRATIC_REPUBLIC
+  LATVIA
+  LEBANON
+  LESOTHO
+  LIBERIA
+  LIBYAN_ARAB_JAMAHIRIYA
+  LIECHTENSTEIN
+  LITHUANIA
+  LUXEMBOURG
+  MACAO
+  MACEDONIA
+  MADAGASCAR
+  MALAWI
+  MALAYSIA
+  MALDIVES
+  MALI
+  MALTA
+  MARSHALL_ISLANDS
+  MARTINIQUE
+  MAURITANIA
+  MAURITIUS
+  MAYOTTE
+  MEXICO
+  MICRONESIA
+  MOLDOVA
+  MONACO
+  MONGOLIA
+  MONTENEGRO
+  MONTSERRAT
+  MOROCCO
+  MOZAMBIQUE
+  MYANMAR
+  NAMIBIA
+  NAURU
+  NEPAL
+  NETHERLANDS
+  NEW_CALEDONIA
+  NEW_ZEALAND
+  NICARAGUA
+  NIGER
+  NIGERIA
+  NIUE
+  NORFOLK_ISLAND
+  NORTHERN_MARIANA_ISLANDS
+  NORWAY
+  OMAN
+  PAKISTAN
+  PALAU
+  PALESTINIAN_TERRITORY
+  PANAMA
+  PAPUA_NEW_GUINEA
+  PARAGUAY
+  PERU
+  PHILIPPINES
+  PITCAIRN
+  POLAND
+  PORTUGAL
+  PUERTO_RICO
+  QATAR
+  REUNION
+  ROMANIA
+  RUSSIAN_FEDERATION
+  RWANDA
+  SAINT_BARTHELEMY
+  SAINT_HELENA
+  SAINT_KITTS_AND_NEVIS
+  SAINT_LUCIA
+  SAINT_MARTIN
+  SAINT_PIERRE_AND_MIQUELON
+  SAINT_VINCENT_AND_GRENADINES
+  SAMOA
+  SAN_MARINO
+  SAO_TOME_AND_PRINCIPE
+  SAUDI_ARABIA
+  SENEGAL
+  SERBIA
+  SEYCHELLES
+  SIERRA_LEONE
+  SINGAPORE
+  SINT_MAARTEN
+  SLOVAKIA
+  SLOVENIA
+  SOLOMON_ISLANDS
+  SOMALIA
+  SOUTH_AFRICA
+  SOUTH_GEORGIA_AND_SANDWICH_ISL
+  SOUTH_SUDAN
+  SPAIN
+  SRI_LANKA
+  SUDAN
+  SURINAME
+  SVALBARD_AND_JAN_MAYEN
+  SWAZILAND
+  SWEDEN
+  SWITZERLAND
+  SYRIAN_ARAB_REPUBLIC
+  TAIWAN
+  TAJIKISTAN
+  TANZANIA
+  THAILAND
+  TIMOR_LESTE
+  TOGO
+  TOKELAU
+  TONGA
+  TRINIDAD_AND_TOBAGO
+  TUNISIA
+  TURKEY
+  TURKMENISTAN
+  TURKS_AND_CAICOS_ISLANDS
+  TUVALU
+  UGANDA
+  UKRAINE
+  UNITED_ARAB_EMIRATES
+  UNITED_KINGDOM
+  UNITED_STATES
+  UNITED_STATES_OUTLYING_ISLANDS
+  URUGUAY
+  UZBEKISTAN
+  VANUATU
+  VENEZUELA
+  VIETNAM
+  VIRGIN_ISLANDS_BRITISH
+  VIRGIN_ISLANDS_US
+  WALLIS_AND_FUTUNA
+  WESTERN_SAHARA
+  YEMEN
+  ZAMBIA
+  ZIMBABWE
+}
+
+enum CurrencyEnum {
+  USD
+  CAD
+  EUR
+  AED
+  AFN
+  ALL
+  AMD
+  ARS
+  AUD
+  AZN
+  BAM
+  BDT
+  BGN
+  BHD
+  BIF
+  BND
+  BOB
+  BRL
+  BWP
+  BYN
+  BZD
+  CDF
+  CHF
+  CLP
+  CNY
+  COP
+  CRC
+  CVE
+  CZK
+  DJF
+  DKK
+  DOP
+  DZD
+  EEK
+  EGP
+  ERN
+  ETB
+  GBP
+  GEL
+  GHS
+  GNF
+  GTQ
+  HKD
+  HNL
+  HRK
+  HUF
+  IDR
+  ILS
+  INR
+  IQD
+  IRR
+  ISK
+  JMD
+  JOD
+  JPY
+  KES
+  KHR
+  KGS
+  KMF
+  KRW
+  KWD
+  KZT
+  LBP
+  LKR
+  LTL
+  LVL
+  LYD
+  MAD
+  MDL
+  MGA
+  MKD
+  MMK
+  MOP
+  MUR
+  MXN
+  MYR
+  MZN
+  NAD
+  NGN
+  NIO
+  NOK
+  NPR
+  NZD
+  OMR
+  PAB
+  PEN
+  PHP
+  PKR
+  PLN
+  PYG
+  QAR
+  RON
+  RSD
+  RUB
+  RWF
+  SAR
+  SDG
+  SEK
+  SGD
+  SOS
+  SYP
+  THB
+  TND
+  TOP
+  TRY
+  TTD
+  TWD
+  TZS
+  UAH
+  UGX
+  UYU
+  UZS
+  VEF
+  VND
+  XAF
+  XOF
+  YER
+  ZAR
+  ZMK
+  ZWL
+}
+
+"""Customer"""
+type Customer {
+  id: ID!
+  seqNo: Float
+  name: String
+  surname: String
+  middlename: String
+  description: String
+  phone: String
+  email: String
+  country: CountryCodeEnumType
+  paymentMethods: [PaymentMethod!]
+  hasActivePaymentMethod: Boolean
+  activePaymentMethodIssuer: String
+  totalPaymentsCount: Float
+  directPaidTransactionsCount: Float
+  payments: [Payment!]
+  balances: [Balance!]
+  invoices: [Invoice!]
+  authorizations: [Authorization!]
+  transactions: [Transaction!]
+  lastMonthConsumption: LastMonthConsumption
+  transactionsCount: TransactionsCount
+  last30dData: Last30dData
+  mostPopularByWeek: [MostPopularByWeek!]
+  otp: String
+  otpCreatedAt: DateTime
+  internalPrivateUseDescription: String
+  tenant: String
+  tenantSettings: TenantSettings
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""UserCategory"""
+type CustomerCategory {
+  id: Float
+  name: String
+  description: String
+  discountId: String
+  tenant: String
+  customers: [Customer!]
+  privateAccessId: Float
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input CustomerInputFilter {
+  phone: FilterCompareString
+  id: FilterUuid
+}
+
+"""Customer personal data"""
+type CustomerPersonalData {
+  id: ID!
+  phone: String
+  email: String
+  fullName: String
+}
+
+"""CustomerCategories list"""
+type CustomersCategoriesList {
+  rows: [CustomerCategory!]!
+  count: Float!
+}
+
+input CustomersCategoriesRequestOrderInputType {
+  id: Sort
+  createdAt: Sort
+  updatedAt: Sort
+}
+
+type CustomersLeaderboard {
+  customerPhone: String!
+  totalTransactions: Float!
+  totalKWH: Float
+  totalDuration: Float
+  totalAmount: Float
+}
+
+"""Customers list"""
+type CustomersList {
+  rows: [Customer!]!
+  count: Float!
+}
+
+input CustomersListFilter {
+  seqNo: FilterCompareNumber
+  id: FilterUuid
+  phone: FilterCompareString
+  email: FilterCompareString
+  surname: FilterCompareString
+  name: FilterCompareString
+  middlename: FilterCompareString
+  tenant: FilterCompareString
+  isOtpSet: FilterCompareNotNull
+  hasActivePaymentMethod: FilterCompareBoolean
+}
+
+input CustomersListRequestOrderInputType {
+  seqNo: Sort
+  internalPrivateUseDescription: String
+  otpCreatedAt: Sort
+  updatedAt: Sort
+  createdAt: Sort
+}
+
+type DashboardInfo {
+  transactionsInProcess: [Transaction!]
+  lastStatusChargingStations(count: Float): [LastStatusChargingStation!]
+  unpaidAuthorizations: [Authorization!]
+  countTotalCustomers: Float
+  countTransactionsTotal: Float
+  countTransactionsSuccess: Float
+  countTransactionsError: Float
+  countChargingStationsTotal: Float
+  countChargingStationsOnline: Float
+  countKWAll: Float
+  countKWChargable: Float
+  last30dData: Last30dData
+  countKWForLast30D: [Float!]
+  countKWChargableForLast30D: [Float!]
+  countTotalKWForLast30D: [Float!]
+  countMoneyAll: Float
+  countMoneyForLast30D: [Float!]
+  last10Transactions: [LastTransactions!]
+  mostPopularByWeek: [MostPopularByWeek!]
+  mostPopularCSTotalKWPerMonth: [MostPopularCSTotalKWPerMonth!]
+  mostPopularCSTotalDurationPerMonth: [MostPopularCSTotalDurationPerMonth!]
+  countNotPaidTransactions: Float
+  countNotPaidAmount: Float
+  tenantsBasedData: TenantsBasedData
+  transactionsForReview: [Transaction!]
+  countBalancesTotal: Float
+  customersLeaderboard(chargingStationId: [String!], dateFrom: DateTime!, dateTo: DateTime!): [CustomersLeaderboard!]
+}
+
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
+input DayAndTimeInput {
+  day: Float!
+  time: String!
+}
+
+type DayAndTimeType {
+  day: Float!
+  time: String!
+}
+
+"""Discount"""
+type Discount {
+  id: ID!
+  seqNo: Float
+  name: String
+  description: String
+  internalPrivateUseDescription: String
+  percent: Float
+  amount: Float
+  freeCharging: Boolean
+  active: Boolean
+  validFrom: DateTime
+  validTill: DateTime
+  discountTargets: [DiscountTarget!]
+  tenant: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""DiscountTarget"""
+type DiscountTarget {
+  id: ID!
+  discount: Discount
+  customer: Customer
+  chargingStation: ChargingStation!
+  tenant: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input DistanceSort {
+  latitude: Float!
+  longitude: Float!
+  sort: Sort!
+}
+
+"""Common error reponse object"""
+type Error {
+  code: Float!
+  errorText: String
+}
+
+type Evses {
+  id: Float!
+  power: Float
+  connectors: [Connector!]!
+  tariff: TariffType
+}
+
+input EvsesInput {
+  power: Float
+  connectors: [ConnectorInput!]!
+  tariffId: String
+}
+
+"""External Customer Authorize Response"""
+type ExternalCustomerAuthorizeResponse {
+  token: String!
+  customerId: String!
+  companies: [Company!]
+}
+
+type File {
+  id: String
+  seqNo: Float
+  name: String
+  description: String
+  fileType: FileTypeEnum
+  url: String
+  mimeType: String
+  extention: String
+  bucket: String
+  path: String
+  size: Float
+  imageInfo: ImageInfo
+  active: Boolean
+}
+
+enum FileTypeEnum {
+  IMAGE
+  VIDEO
+  AUDIO
+  TEXT
+  APPLICATION
+}
+
+input FilterArrayUuid {
+  in: [String!]
+  nin: [String!]
+}
+
+input FilterChargingStationCoordinatesBox2d {
+  northLatitude: Float!
+  eastLongitude: Float!
+  southLatitude: Float!
+  westLongitude: Float!
+}
+
+input FilterCompareAppType {
+  eq: AppTypeEnum
+  in: [AppTypeEnum!]
+  nin: [AppTypeEnum!]
+}
+
+input FilterCompareAuthInitiator {
+  eq: AuthInitiatorEnum
+  in: [AuthInitiatorEnum!]
+  nin: [AuthInitiatorEnum!]
+}
+
+input FilterCompareAuthorizationStatusEnumType {
+  eq: AuthorizationStatusEnumType
+  in: [AuthorizationStatusEnumType!]
+  nin: [AuthorizationStatusEnumType!]
+}
+
+input FilterCompareBoolean {
+  eq: Boolean
+}
+
+input FilterCompareChargingState {
+  eq: ChargingStateEnumType
+  in: [ChargingStateEnumType!]
+  nin: [ChargingStateEnumType!]
+}
+
+input FilterCompareConnectorType {
+  eq: ConnectorEnumType
+  in: [ConnectorEnumType!]
+  nin: [ConnectorEnumType!]
+}
+
+input FilterCompareIdTokenEnumType {
+  eq: IdTokenEnumType
+  in: [IdTokenEnumType!]
+  nin: [IdTokenEnumType!]
+}
+
+input FilterCompareNotNull {
+  eq: Boolean
+}
+
+input FilterCompareNull {
+  eq: Boolean
+}
+
+input FilterCompareNumber {
+  eq: Float
+  ne: Float
+  gt: Float
+  lt: Float
+  gte: Float
+  lte: Float
+  between: CompareBetween
+  in: [Float!]
+  nin: [Float!]
+}
+
+input FilterCompareOcppSupported {
+  eq: OcppSupportedEnum
+  in: [OcppSupportedEnum!]
+  nin: [OcppSupportedEnum!]
+}
+
+input FilterCompareOcppVersion {
+  eq: OcppSupportedEnum
+  in: [OcppSupportedEnum!]
+  nin: [OcppSupportedEnum!]
+}
+
+input FilterCompareStopInitiator {
+  eq: StopInitiatorEnum
+  in: [StopInitiatorEnum!]
+  nin: [StopInitiatorEnum!]
+}
+
+input FilterCompareStoppedReason {
+  eq: ReasonEnumType
+  in: [ReasonEnumType!]
+  nin: [ReasonEnumType!]
+}
+
+input FilterCompareString {
+  eq: String
+  ieq: String
+  contains: String
+  in: [String!]
+  nin: [String!]
+  regex: String
+}
+
+input FilterCompareTime {
+  eq: String
+  ieq: String
+  contains: String
+  in: [String!]
+  nin: [String!]
+  regex: String
+  gt: String
+  lt: String
+  gte: String
+  lte: String
+}
+
+input FilterCompareTransactionSteps {
+  eq: TransactionStepsEnum
+  in: [TransactionStepsEnum!]
+  nin: [TransactionStepsEnum!]
+}
+
+input FilterConnectorPower {
+  eq: PowerEnum
+  in: [PowerEnum!]
+}
+
+input FilterConnectorSpeed {
+  eq: SpeedEnum
+  in: [SpeedEnum!]
+}
+
+input FilterDistanceWithIn {
+  latitude: Float!
+  longitude: Float!
+  meters: Float!
+}
+
+input FilterIsRoaming {
+  isRoamingAccess: FilterCompareNotNull
+}
+
+input FilterUuid {
+  eq: String
+  in: [String!]
+  nin: [String!]
+}
+
+"""Force Payment Error Enum"""
+enum ForcePaymentErrorEnum {
+  ALREADY_PAID
+  NO_PAYMENT
+  NO_ACTIVE_PAYMENT_METHOD
+  PAYMENT_SERVICE_ERROR
+}
+
+"""Force Payment Response"""
+type ForcePaymentResponse {
+  status: PaymentStatusEnum
+  error: ForcePaymentErrorEnum
+}
+
+"""Id Token enum"""
+enum IdTokenEnumType {
+  CENTRAL
+  E_MAID
+  ISO14443
+  ISO15693
+  KEY_CODE
+  LOCAL
+  MAC_ADDRESS
+  NO_AUTHORIZATION
+}
+
+type ImageData {
+  id: String!
+  width: Float!
+  height: Float!
+}
+
+type ImageInfo {
+  original: ImageData
+  resized: ImageProcessedData
+  cropped: ImageProcessedData
+  extracted: ImageProcessedData
+}
+
+type ImageProcessedData {
+  small: ImageData
+  medium: ImageData
+  large: ImageData
+}
+
+"""Invoice object"""
+type Invoice {
+  id: ID!
+  seqNo: Float
+  amount: Float!
+  currency: CurrencyEnum!
+  status: InvoiceStatusEnum
+  vatRate: VatRate
+  internalPrivateUseDescription: String
+  invoiceItems: [InvoiceItem!]
+  payments: [Payment!]
+  customer: Customer
+  company: Company
+  tenant: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Invoice item"""
+type InvoiceItem {
+  id: Float!
+  amount: Float!
+  currency: CurrencyEnum!
+  vatRate: VatRate
+  purpose: InvoiceItemPurposeEnum
+  description: String
+  transaction: Transaction
+  discount: Discount
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Invoice Item Purpose Enum"""
+enum InvoiceItemPurposeEnum {
+  BOOKING
+  TRANSACTION
+  PARKING_TIME
+  PRIORITY_CHARGING
+  BALANCE_TOP_UP
+  DISCOUNT
+  GIFT
+  ADJUSTMENT_ENTRY
+}
+
+"""Invoice Status Enum"""
+enum InvoiceStatusEnum {
+  PAID
+  PENDING
+  CANCELED
+}
+
+type Last30dData {
+  totalKWH: ChartElementSplittable
+  paidKWH: ChartElementSplittable
+  totalAmount: ChartElementSplittable
+}
+
+type LastMonthConsumption {
+  totalKW: Float
+  totalDuration: Float
+}
+
+type LastStatusChargingStation {
+  id: ID!
+  seqNo: Float!
+  name: String
+  tenant: String
+  lastStatus: UptimeMonitoring
+  uptimeMonitorings: [UptimeMonitoring!]
+}
+
+type LastTransactions {
+  totalKW: Float
+  transactionStep: TransactionStepsEnum
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type MeterValue {
+  timestamp: String
+  messageId: String
+  power: MeterValueUnit
+  voltage: MeterValueUnit
+  current: MeterValueUnit
+  soc: MeterValueUnit
+  rawData: String!
+}
+
+type MeterValueUnit {
+  value: Float
+  unit: UnitOfMeasureEnumType
+}
+
+type MostPopularByWeek {
+  id: String
+  seqNo: Float
+  name: String
+  totalKWPerWeek: [Float!]
+}
+
+type MostPopularCSTotalDurationPerMonth {
+  id: String
+  seqNo: Float
+  name: String
+  totalDurationPerMonth: Float
+}
+
+type MostPopularCSTotalKWPerMonth {
+  id: String
+  seqNo: Float
+  name: String
+  totalKWPerMonth: Float
+}
+
+type Mutation {
+  AuthorizationCardCreate(cardId: String!, type: AuthorizationCardTypeEnum, iso: AuthorizationCardIsoEnum, blocked: Boolean, freeCharging: Boolean, name: String, customerId: String, userId: String, companyId: String, chargingStationIds: [String!], description: String, amount: Float, amountType: AuthorizationCardAmountTypeEnum, currency: CurrencyEnum): AuthorizationCard!
+  AuthorizationCardUpdate(cardId: String!, type: AuthorizationCardTypeEnum, iso: AuthorizationCardIsoEnum, blocked: Boolean, freeCharging: Boolean, name: String, customerId: String, userId: String, companyId: String, chargingStationIds: [String!], description: String, amount: Float, amountType: AuthorizationCardAmountTypeEnum, currency: CurrencyEnum, id: String!): AuthorizationCard!
+  AuthorizationCardRemove(id: String!): CommonResponse!
+  BalanceRefund(refundNumber: String, customerId: String!): BalanceBrief
+  CarMakerCreate(name: String!, fullName: String): CarMaker!
+  CarMakerUpdate(name: String!, fullName: String, id: Int!): CarMaker!
+  CarMakerRemove(id: Int!): CommonResponse!
+  CarModelCreate(makerId: Int!, name: String!, fullName: String, description: String, batteryAmountKW: Float, country: CountryCodeEnumType, year: String, connectors: [CarModelConnectorCreate!]!): CarModel!
+  CarModelUpdate(id: Int!, name: String!, fullName: String, description: String, batteryAmountKW: Float, country: CountryCodeEnumType, year: String, connectors: [CarModelConnectorInputType!]!): CarModel!
+  CarModelRemove(id: Int!): CommonResponse!
+  CustomerCarCreate(modelId: Int!, name: String, description: String, color: ColorEnum, vin: String, plateNumber: String, year: String, batteryAmountKW: Float): Car
+  CustomerCarUpdate(id: Int!, name: String, description: String, color: ColorEnum, vin: String, plateNumber: String, year: String, batteryAmountKW: Float): Car
+  CustomerCarRemove(id: Int!): CommonResponse!
+  ChargingStationCreateUpdate(
+    id: String
+    coordinates: CoordinatesInput
+    evses: [EvsesInput!]
+    name: String
+    serialNumber: String
+    address: String
+    blacklisted: Boolean
+    invisible: Boolean
+    isTestCS: Boolean
+    forceBlocked: Boolean
+    emulator: Boolean
+    external: Boolean
+    autoAcceptAuthorizeRequests: Boolean
+    photoUrls: [String!]
+    plugshareLink: String
+    description: String
+    internalPrivateUseDescription: String
+    ocppVersion: OcppSupportedEnum
+    openingHours: OpeningHoursInput
+    model: String
+    vendorName: String
+    companyId: String
+
+    """
+    E.g. "America/New_York", "Europe/Berlin", "Asia/Bangkok"
+    """
+    timezone: String = "Europe/Moscow"
+    soapUrl: String
+  ): ChargingStation!
+  ChargingStationReset(chargingStationId: String!, type: ResetTypeEnum): ChargingStationResetResponse!
+  ChargingStationClearCache(chargingStationId: String!): ChargingStationClearCacheResponse!
+  ChargingStationChangeAvailability(chargingStationId: String!, type: AvailabilityTypeEnumType, evseId: Float!, connectorId: Float!): ChargingStationChangeAvailabilityResponse!
+  ChargingStationUnlockConnector(chargingStationId: String!, evseId: Float!, connectorId: Float!): ChargingStationUnlockConnectorResponse!
+  ChargingStationChangeConfiguration(chargingStationId: String!, key: String!, value: String!): CommonResponse!
+  ChargingStationUpdateFirmwareRequest(chargingStationId: String!, location: String!): CommonResponse
+  CompanyCreateUpdate(id: ID, name: String!, description: String, type: CompanyTypeEnum, internalPrivateUseDescription: String, contactPerson: String, email: String!, phone: String, country: CountryCodeEnumType!, zip: String, address: String, inn: Float, kpp: Float, contractNumber: String, contractIssuedAt: DateTime, contractValidTill: DateTime, bankAcccountNumber: String, bankAcccountBic: Float): Company!
+  CurrentUserEdit(
+    email: String
+    name: String
+    surname: String
+    middlename: String
+
+    """Only first set is allowed"""
+    country: CountryCodeEnumType
+  ): UserBrief!
+  CurrentUserDestroy: CommonResponse!
+  CustomerCreateForCorporateFleet(name: String, surname: String, middlename: String, description: String, email: String, phone: String!): Customer!
+  CustomerUpdate(name: String, surname: String, middlename: String, description: String, email: String, id: ID!, country: CountryCodeEnumType, internalPrivateUseDescription: String): Customer!
+  CustomerRemove(id: ID!): CommonResponse!
+  DiscountCreate(name: String, description: String, internalPrivateUseDescription: String, percent: Float, amount: Float, freeCharging: Boolean, active: Boolean, validFrom: DateTime, validTill: DateTime, chargingStationIds: [String!]!, customerIds: [String!]!): Discount!
+  DiscountUpdate(name: String, description: String, internalPrivateUseDescription: String, percent: Float, amount: Float, freeCharging: Boolean, active: Boolean, validFrom: DateTime, validTill: DateTime, chargingStationIds: [String!]!, customerIds: [String!]!, id: String!): Discount!
+  DiscountRemove(id: String!): CommonResponse!
+  PushTokenSave(pushToken: String!): CommonResponse!
+  PushTokenUpdate(oldPushToken: String!, newPushToken: String!): CommonResponse!
+  PushTokenRemove(pushToken: String!): CommonResponse!
+  OwnersGroupCreate(name: String, description: String, userIds: [String!], chargingStationIds: [String!]): OwnersGroup!
+  OwnersGroupUpdate(name: String, description: String, userIds: [String!], chargingStationIds: [String!], id: ID!): OwnersGroup!
+  OwnersGroupRemove(id: ID!): CommonResponse!
+  AddNewPayment(paymentType: PaymentTypeEnum!, paymentToken: String, idempotenceKey: String, card: Card): PaymentResponse
+  RemovePaymentMethod(id: ID!): CommonResponse
+  SetPaymentMethodSelected(id: ID!): CommonResponse
+  PayTransaction(transactionId: ID!, idempotenceKey: String!): PaymentResponse!
+  ForcePayUnpaidTransaction(transactionId: ID!, idempotenceKey: String!): ForcePaymentResponse!
+  PaymentsTopUp(idempotenceKey: String!, amount: Float!): PaymentTopUpResponse!
+  PromocodeGenerate(name: String, amount: Float!, currency: CurrencyEnum!, internalPrivateUseDescription: String, tenant: String): Promocode!
+  PromocodeRedeem(code: String!): Promocode!
+  PromocodeEdit(id: String!, name: String, amount: Float!, currency: CurrencyEnum!, internalPrivateUseDescription: String, tenant: String): Promocode!
+  PromocodeExpire(id: String!): Promocode!
+  ProxyChargingStationCreateUpdate(_id: String, serialNumber: String!, csmsURI: String!, name: String, description: String, coordinates: CoordinatesInput): ProxyChargingStation!
+  ProxyChargingStationRemove(_id: ID!): CommonResponse!
+  ProxyChargingStationRawRequest(id: ID!, destination: OcppMessageDirection!, rawRequest: String!): CommonResponse!
+  SystemMessageCreateUpdate(id: Float, title: String, text: String, visibilityType: SystemMessageVisibilityEnum, androidAppVersion: String, iosAppVersion: String, tenant: String): SystemMessage!
+  SystemMessageRemove(id: Float!): CommonResponse!
+  TariffCreateUpdate(id: String, type: TariffTypeEnum!, currency: CurrencyEnum, amount: Float!, name: String, description: String): [TariffItem!]!
+  TariffRemove(id: String!): CommonResponse!
+  TariffGroupCreate(name: String!, description: String, timetables: [TariffGroupTimetableCreateInput!]!): TariffGroup!
+  TariffGroupUpdate(name: String!, description: String, id: ID!, timetables: [TariffGroupTimetableUpdateInput!]!): TariffGroup!
+  TariffGroupRemove(id: String!): CommonResponse!
+  StartTransaction(chargingStationId: String!, evseId: Float!, connectorId: Int): StartTransactionResponse!
+  StopTransaction(transactionId: String, remoteStartId: String): CommonResponse!
+  SuspendTransaction(transactionId: String!): CommonResponse!
+  ForceFinalizeTransaction(id: String!, stoppedTimestamp: DateTime!, latestKW: Float): CommonResponse!
+  MarkTransactionReviewed(transactionId: String!): CommonResponse!
+  TransferTransaction(transactionId: String!, customerId: String!): CommonResponse!
+  CreateUser(name: String!, surname: String!, middlename: String, role: UserRoleEnumType!, company: CompanyId, description: String, phone: String!, email: String!, active: Boolean!, password: String!): User!
+  UpdateUser(name: String!, surname: String!, middlename: String, role: UserRoleEnumType!, company: CompanyId, description: String, phone: String!, email: String!, active: Boolean!, id: ID!, newPassword: String): User!
+  ChargingStationCategoryCreate(name: String, tenant: String, description: String, discountId: String, privateAccessId: Float, ownersAccessId: Float, roamingAccessId: Float, subTenantId: String, chargingStationIds: [String!]!): ChargingStationCategory!
+  ChargingStationCategoryUpdate(name: String, tenant: String, description: String, discountId: String, privateAccessId: Float, ownersAccessId: Float, roamingAccessId: Float, subTenantId: String, chargingStationIds: [String!]!, id: Float): ChargingStationCategory!
+  ChargingStationCategoryRemove(id: Float!): CommonResponse!
+  UserCategoryCreate(name: String, tenant: String, description: String, ownersAccessId: Float, userIds: [String!]): UserCategory!
+  UserCategoryUpdate(name: String, tenant: String, description: String, ownersAccessId: Float, userIds: [String!], id: Float): UserCategory!
+  UserCategoryRemove(id: Float!): CommonResponse!
+  CustomerCategoryCreate(name: String, tenant: String, discountId: String, description: String, privateAccessId: Float, customerIds: [String!]): CustomerCategory!
+  CustomerCategoryUpdate(name: String, tenant: String, discountId: String, description: String, privateAccessId: Float, customerIds: [String!], id: Float): CustomerCategory!
+  CustomerCategoryRemove(id: Float!): CommonResponse!
+}
+
+"""OCPP Message Direction"""
+enum OcppMessageDirection {
+  TO_CS
+  TO_CSMS
+}
+
+enum OcppSupportedEnum {
+  V120SOAP
+  V150SOAP
+  V160SOAP
+  V160
+  V200
+  V201
+  ENSTO
+}
+
+input OpeningHoursInput {
+  periods: [PeriodInput!]!
+}
+
+type OpeningHoursType {
+  periods: [PeriodType!]!
+}
+
+"""Owners Access"""
+type OwnersAccess {
+  id: ID!
+  name: String
+  description: String
+  chargingStationCategories: [ChargingStationCategory!]
+  userCategories: [UserCategory!]
+  tenant: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Owners Group object"""
+type OwnersGroup {
+  id: ID!
+  name: String
+  description: String
+  users: [User!]
+  chargingStations: [ChargingStation!]
+  tenant: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input Page {
+  number: Float!
+  size: Float!
+}
+
+type Payment {
+  id: ID
+  seqNo: Float
+  paid: Boolean
+  refunded: Boolean
+  refundId: String
+  test: Boolean
+  externalPaymentId: String
+  customerId: String
+  invoice: Invoice
+  customerPhone: String
+  paymentMethodId: String
+  transactionId: String
+  transaction: Transaction
+  chargingStationName: String
+  paymentService: PaymentServiceEnum
+  amount: String
+  vatRate: VatRate
+  incomeAmount: String
+  currency: CurrencyEnum
+  description: String
+  status: PaymentStatusEnum
+  capturedAt: DateTime
+  expiresAt: DateTime
+  receiptStatus: PaymentReceiptStatusEnum
+  receiptId: String
+  receiptUrl: String
+  receiptService: ReceiptServiceEnum
+  cancellationParty: PaymentCancellationPartyEnum
+  cancellationReason: String
+  tenant: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Payment Cancellation Party"""
+enum PaymentCancellationPartyEnum {
+  YANDEX_CHECKOUT
+  YOO_MONEY
+  PAYMENT_NETWORK
+  MERCHANT
+}
+
+"""Please choose one of payment card type"""
+enum PaymentCardTypeEnum {
+  MASTER_CARD
+  VISA
+  MIR
+  UNION_PAY
+  JCB
+  AMERICAN_EXPRESS
+  DINERS_CLUB
+  UNKNOWN
+}
+
+input PaymentInputFilter {
+  isPaid: FilterCompareBoolean
+}
+
+"""Available Payment Types"""
+type PaymentMethod {
+  id: ID!
+  paymentType: PaymentTypeEnum
+  paymentService: PaymentServiceEnum
+  selected: Boolean
+  first6: Float
+  last4: Float
+  expiryMonth: String
+  expiryYear: String
+  cardType: PaymentCardTypeEnum
+  issuerCountry: CountryCodeEnumType
+  issuerName: String
+}
+
+"""Payment Receipt Status"""
+enum PaymentReceiptStatusEnum {
+  PENDING
+  SUCCEEDED
+  CANCELED
+}
+
+"""Payments Add Payment Response"""
+type PaymentResponse {
+  status: PaymentStatusEnum!
+  redirectUrl: String
+  returnUrl: String
+  confirmationToken: String
+}
+
+"""Payment service"""
+enum PaymentServiceEnum {
+  YOOKASSA
+  WEBPAY
+  BELASSIST
+  CLOUDPAYMENTS
+  PAYBOX
+}
+
+"""Payment Status"""
+enum PaymentStatusEnum {
+  PENDING
+  SUCCEEDED
+  CANCELED
+  WAITING_FOR_CAPTURE
+}
+
+"""Payments Top up Response"""
+type PaymentTopUpResponse {
+  redirectUrl: String!
+}
+
+"""Please choose one of payment type"""
+enum PaymentTypeEnum {
+  BANK_CARD
+  APPLE_PAY
+  GOOGLE_PAY
+}
+
+input PeriodInput {
+  open: DayAndTimeInput!
+  close: DayAndTimeInput
+}
+
+type PeriodType {
+  open: DayAndTimeType!
+  close: DayAndTimeType
+}
+
+enum PowerEnum {
+  SLOW
+  FAST
+  ULTRAFAST
+}
+
+"""Private Access"""
+type PrivateAccess {
+  id: ID!
+  name: String
+  description: String
+  chargingStationCategories: [ChargingStationCategory!]
+  customerCategories: [CustomerCategory!]
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Promocode object"""
+type Promocode {
+  id: ID!
+  seqNo: Float
+  code: String!
+  name: String
+  amount: Float!
+  currency: CurrencyEnum!
+  active: Boolean
+  internalPrivateUseDescription: String
+  customerId: String
+  customer: Customer
+  tenant: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""ProxyChargingStation"""
+type ProxyChargingStation {
+  _id: ID!
+  serialNumber: String!
+  csmsURI: String!
+  name: String
+  description: String
+  connectedToCS: Boolean
+  connectedToCSMS: Boolean
+  coordinates: Coordinates
+}
+
+type Query {
+  AuthorizationCards: [AuthorizationCard!]
+  AuthorizationCard(authorizationCardId: String!): AuthorizationCard
+  Authorizations: [Authorization!]
+  AuthorizationsList(id: FilterUuid, seqNo: FilterCompareNumber, idToken: FilterCompareString, tenant: FilterCompareString, appVersion: FilterCompareString, app: FilterCompareAppType, initiator: FilterCompareAuthInitiator, idTokenType: FilterCompareIdTokenEnumType, ocppVersion: FilterCompareOcppSupported, status: FilterCompareAuthorizationStatusEnumType, updatedAt: FilterCompareTime, createdAt: FilterCompareTime, customer: CustomersListFilter, chargingStation: ChargingStationsListFilter, transaction: TransactionsListFilter, authorizationCard: AuthorizationCardsListFilter, page: Page!, orderBy: [AuthorizationsListRequestOrderInputType!]): AuthorizationsList
+  Balances(limit: Float, customerId: String, companyId: String): [Balance!]
+  Balance(id: ID!): Balance
+  BalanceBrief(customerId: String, companyId: String): BalanceBrief
+  BalanceCheckStatus: BalanceStatus
+  CarMakers: [CarMaker!]
+  CarMaker(id: Int!): CarMaker
+  CarModel(id: Int!): CarModel
+  CustomerCars: [Car!]
+  ChargingStations(connected: Boolean, free: Boolean, excludeTestCS: Boolean, speed: SpeedEnum, power: [PowerEnum!], connectors: [ConnectorInputType!], distance: CoordinatesWithDistance, distanceWithIn: CoordinatesWithDistanceAndMeters, coordinatesBox2d: ChargingStationCoordinatesBox2d, page: Page, companyIds: [String!]): [ChargingStation!]
+  ChargingStationsList(id: FilterUuid, seqNo: FilterCompareNumber, connected: Boolean, blacklisted: Boolean, forceBlocked: Boolean, isTestCS: Boolean, invisible: Boolean, autoAcceptAuthorizeRequests: Boolean, emulator: Boolean, external: Boolean, name: FilterCompareString, serialNumber: FilterCompareString, companyIds: FilterArrayUuid, address: FilterCompareString, description: FilterCompareString, ocppVersion: FilterCompareOcppVersion, model: FilterCompareString, vendorName: FilterCompareString, ip: FilterCompareString, soapUrl: FilterCompareString, vpnServerIp: FilterCompareString, connectionHost: FilterCompareString, plugshareLink: FilterCompareString, tenant: FilterCompareString, excludeTestCS: Boolean, connectors: ConnectorType, distanceWithIn: FilterDistanceWithIn, coordinatesBox2d: FilterChargingStationCoordinatesBox2d, page: Page, orderBy: [ChargingStationsListRequestOrderInputType!]): ChargingStationsList
+  ChargingStation(chargingStationId: String!, editMode: Boolean): ChargingStation
+  ChargingStationGraphInfo(chargingStationId: String!): ChargingStationGraphInfo
+  ChargingStationGetDiagnostics(chargingStationId: String!, startTime: String, stopTime: String): ChargingStationGetDiagnosticsResponse
+  ChargingStationGetConfiguration(chargingStationId: String!): ChargingStationConfiguration
+  ChargingStationGetLog(id: ID!, ocppAction: AvailableOCPP160Actions, destination: OcppMessageDirection, dateFrom: String, dateTo: String): [ChargingStationLogResponse!]
+  Companies(page: Page, types: [CompanyTypeEnum!]): [Company!]
+  Company(companyId: String!): Company
+  CorporateFleetInfo: CorporateFleetInfo
+  CurrentUserBrief: UserBrief
+  ExternalCustomerAuthorize(tenant: String!, token: String!): ExternalCustomerAuthorizeResponse
+  CustomersPersonalData(customerId: String!): CustomerPersonalData
+  Customers(page: Page, phone: String, email: String): [Customer!]
+  CustomersList(seqNo: FilterCompareNumber, id: FilterUuid, phone: FilterCompareString, email: FilterCompareString, surname: FilterCompareString, name: FilterCompareString, middlename: FilterCompareString, tenant: FilterCompareString, isOtpSet: FilterCompareNotNull, hasActivePaymentMethod: FilterCompareBoolean, page: Page!, orderBy: [CustomersListRequestOrderInputType!]): CustomersList
+  Customer(customerId: String!): Customer
+  DashboardInfo: DashboardInfo
+  Discounts: [Discount!]
+  Discount(id: String!): Discount
+  Invoices(limit: Float, customerId: String): [Invoice!]
+  Invoice(id: ID!): Invoice
+  PushTokenCheck(pushToken: String!): ValidateResponse
+  OwnersGroups: [OwnersGroup!]
+  OwnersGroup(id: ID!): OwnersGroup
+  Payments: [Payment!]
+  Payment(id: ID!): Payment
+  PaymentMethods: [PaymentMethod!]
+  ActivePaymentMethod: PaymentMethod
+  Promocodes: [Promocode!]
+  ProxyChargingStations: [ProxyChargingStation!]
+  ProxyChargingStation(_id: ID!): ProxyChargingStation
+  ProxyLog(id: ID!, ocppAction: AvailableOCPP160Actions, destination: OcppMessageDirection, dateFrom: String, dateTo: String): [ChargingStationLogResponse!]
+  ChargingStationReport(id: String, dateFrom: DateTime, dateTo: DateTime): ChargingStationReport
+  CompanyFleetDriversReport(companyId: String, customerIds: [String!]!, dateFrom: DateTime, dateTo: DateTime): ChargingStationReport
+  ChargingStationsAggregateReport(ids: [String!], dateFrom: DateTime, dateTo: DateTime): ChargingStationReport
+  ChargingStationsBriefReport(ids: [String!]!, dateFrom: DateTime!, dateTo: DateTime!): [ChargingStationBriefReportResponse!]
+  SystemMessages(tenant: String): [SystemMessage!]
+  Tariffs: [TariffItem!]
+  TariffsList(id: FilterCompareString, name: FilterCompareString, amount: FilterCompareNumber, page: Page!, orderBy: [TariffsListRequestOrderInputType!]): TariffsList
+  TariffGroups: [TariffGroup!]
+  TariffGroup(id: String!): TariffGroup
+  TransactionsList(transactionSeqNo: FilterCompareNumber, seqNo: FilterCompareNumber, id: FilterUuid, customer: CustomerInputFilter, chargingStation: ChargingStationInputFilter, evseId: FilterCompareNumber, connectorId: FilterCompareNumber, authorization: FilterIsRoaming, transactionStep: FilterCompareTransactionSteps, payment: PaymentInputFilter, chargingState: FilterCompareChargingState, onReview: TransactionsOnReviewInputFilter, stoppedReason: FilterCompareStoppedReason, stopInitiator: FilterCompareStopInitiator, startedKW: FilterCompareNumber, latestKW: FilterCompareNumber, totalKW: FilterCompareNumber, tariff: TariffsListFilter, tenant: FilterCompareString, createdAt: FilterCompareTime, isRoaming: FilterCompareBoolean, updatedAt: FilterCompareTime, page: Page!, orderBy: [TransactionsListRequestOrderInputType!]): TransactionsList
+  Transactions: [Transaction!]
+  Transaction(transactionId: String, remoteStartId: Float, activeTransaction: Boolean, unpaidTransaction: Boolean): Transaction
+  UserLogin(email: String!, password: String!, tenant: String): UserAuthData!
+  Users(page: Page): [User!]
+  User(userId: String!): User
+  Tenants(orderBy: [TenantsRequestOrderInputType!]): Tenants
+  ChargingStationsCategoriesList(ids: FilterCompareNumber, page: Page, orderBy: [ChargingStationsCategoriesRequestOrderInputType!]): ChargingStationsCategoriesList
+  ChargingStationCategory(id: Float): ChargingStationCategory
+  AuditList(userId: FilterUuid, model: FilterCompareString, createdAt: FilterCompareTime, page: Page, orderBy: [AuditListRequestOrderInputType!]): AuditList
+  Audit(userId: FilterUuid, model: FilterCompareString, createdAt: FilterCompareTime): Audit
+  UserCategoriesList(ids: FilterCompareNumber, page: Page, orderBy: [UsersCategoriesRequestOrderInputType!]): UsersCategoriesList
+  UserCategory(id: Float): UserCategory
+  CustomerCategoriesList(ids: FilterCompareNumber, page: Page, orderBy: [CustomersCategoriesRequestOrderInputType!]): CustomersCategoriesList
+  CustomerCategory(id: Float): CustomerCategory
+}
+
+enum ReasonEnumType {
+  DE_AUTHORIZED
+  EMERGENCY_STOP
+  ENERGY_LIMIT_REACHED
+  EVDISCONNECTED
+  GROUND_FAULT
+  IMMEDIATE_RESET
+  LOCAL
+  LOCAL_OUT_OF_CREDIT
+  MASTER_PASS
+  OTHER
+  OVERCURRENT_FAULT
+  POWER_LOSS
+  POWER_QUALITY
+  REBOOT
+  REMOTE
+  SOCLIMIT_REACHED
+  STOPPED_BY_EV
+  TIME_LIMIT_REACHED
+  TIMEOUT
+}
+
+"""Payment Receipt Service"""
+enum ReceiptServiceEnum {
+  BUHTA
+  EKASSA
+}
+
+enum ResetStatusEnumType {
+  ACCEPTED
+  REJECTED
+  SCHEDULED
+}
+
+enum ResetTypeEnum {
+  HARD
+  SOFT
+}
+
+"""Roaming Access object"""
+type RoamingAccess {
+  id: ID!
+  name: String
+  description: String
+  tenant: String
+  chargingStationCategoryId: Float!
+  companyId: String
+  company: Company
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Sort order"""
+enum Sort {
+  asc
+  desc
+  descNullsLast
+}
+
+enum SpecialIdentifierEnum {
+  EVIKA
+  ZARYADKARF
+}
+
+enum SpeedEnum {
+  SLOW
+  FAST
+  ULTRAFAST
+}
+
+"""Start Transaction response"""
+type StartTransactionResponse {
+  remoteStartId: Float
+  error: Error
+}
+
+enum StopInitiatorEnum {
+  CUSTOMER
+  USER
+  CHARGING_STATION
+  CAR
+  OTHER
+}
+
+"""SubTenant"""
+type SubTenant {
+  id: ID
+  name: String!
+  seqNo: Float!
+  description: String!
+  internalPrivateUseDescription: String!
+  tenantId: Float!
+  tenant: Tenant!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""System Message object"""
+type SystemMessage {
+  id: ID!
+  title: String
+  text: String!
+  visibilityType: SystemMessageVisibilityEnum
+  androidAppVersion: String
+  iosAppVersion: String
+  tenant: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""System Message Visibility"""
+enum SystemMessageVisibilityEnum {
+  HIDEABLE
+  UNHIDEABLE
+  BLOCKABLE
+}
+
+"""Tariff Group"""
+type TariffGroup {
+  id: ID!
+  seqNo: Float
+  name: String
+  description: String
+  timetables: [TariffGroupTimetable!]
+  tenant: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Tariff Group Timetable"""
+type TariffGroupTimetable {
+  id: ID!
+  seqNo: Float
+  name: String
+  description: String
+  tariffId: String
+  tariff: TariffType
+  onHoliday: Boolean
+  country: CountryCodeEnumType
+
+  """
+  E.g. "America/New_York", "Europe/Berlin", "Asia/Bangkok"
+  """
+  timezone: String
+
+  """E.g. "[1,2]" Monday=1, Tuesday=2..."""
+  dayOfWeek: [Float!]
+  startTime: String
+  endTime: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input TariffGroupTimetableCreateInput {
+  """ТАРИФ ИД"""
+  tariffId: String!
+
+  """E.g. "[1,2]" Monday=1, Tuesday=2..."""
+  dayOfWeek: [Float!]!
+
+  """00:00:00 Military time "24h" format only"""
+  startTime: String!
+
+  """00:00:00 Military time "24h" format only"""
+  endTime: String!
+  onHoliday: Boolean
+
+  """
+  E.g. "America/New_York", "Europe/Berlin", "Asia/Bangkok"
+  """
+  timezone: String = "Europe/Moscow"
+}
+
+input TariffGroupTimetableUpdateInput {
+  tariffId: String!
+
+  """E.g. "[1,2]" Monday=1, Tuesday=2..."""
+  dayOfWeek: [Float!]!
+
+  """00:00:00 Military time "24h" format only"""
+  startTime: String!
+
+  """00:00:00 Military time "24h" format only"""
+  endTime: String!
+  onHoliday: Boolean
+
+  """
+  E.g. "America/New_York", "Europe/Berlin", "Asia/Bangkok"
+  """
+  timezone: String = "Europe/Moscow"
+  id: Float
+}
+
+"""Tariff object"""
+type TariffItem {
+  id: ID!
+  type: TariffTypeEnum!
+  amount: Float!
+  currency: CurrencyEnum!
+  name: String
+  seqNo: Float
+  description: String
+  tenant: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Tariffs list"""
+type TariffsList {
+  rows: [TariffItem!]!
+  count: Float!
+}
+
+input TariffsListFilter {
+  id: FilterCompareString
+  name: FilterCompareString
+  amount: FilterCompareNumber
+}
+
+input TariffsListRequestOrderInputType {
+  id: Sort
+  name: Sort
+}
+
+type TariffType {
+  id: String
+  type: TariffTypeEnum!
+  amount: Float!
+  currency: CurrencyEnum!
+  name: String
+}
+
+enum TariffTypeEnum {
+  PER_KW
+  PER_MIN
+  PER_E
+}
+
+"""Tenant"""
+type Tenant {
+  id: ID
+  name: String!
+}
+
+type TenantDataChargingStations {
+  tenant: String!
+  total: Float!
+  connected: Float!
+}
+
+type TenantDataCustomers {
+  tenant: String!
+  total: Float!
+  removed: Float!
+}
+
+type TenantDataNotPaidTransactions {
+  tenant: String!
+  total: Float!
+  amount: Float!
+  currency: CurrencyEnum!
+}
+
+type TenantDataPaidAmount {
+  tenant: String!
+  total: Float!
+  amount: Float!
+  currency: CurrencyEnum!
+}
+
+type TenantDataTotalKWH {
+  tenant: String!
+  total: Float!
+  paid: Float!
+}
+
+type TenantDataTransactions {
+  tenant: String!
+  total: Float!
+  success: Float!
+}
+
+"""Tenants"""
+type Tenants {
+  rows: [Tenant!]!
+  count: Float!
+}
+
+type TenantsBasedData {
+  customers: [TenantDataCustomers!]!
+  chargingStations: [TenantDataChargingStations!]!
+  transactions: [TenantDataTransactions!]!
+  totalKWH: [TenantDataTotalKWH!]!
+  paidAmount: [TenantDataPaidAmount!]!
+  notPaidTransactions: [TenantDataNotPaidTransactions!]!
+}
+
+type TenantSettings {
+  country: CountryCodeEnumType
+  featureBalance: Boolean
+  vatRate: VatRate
+  paymentService: PaymentServiceEnum
+  currency: CurrencyEnum
+}
+
+input TenantsRequestOrderInputType {
+  createdAt: Sort
+}
+
+"""TerritoryAccessData"""
+type TerritoryAccessData {
+  id: String!
+  name: String
+  description: String
+  requestDescription: String
+  requestType: AccessPermissionRequestTypeEnum
+  canChooseTime: Boolean
+  openingHours: OpeningHoursType
+}
+
+"""Transaction"""
+type Transaction {
+  id: ID!
+  seqNo: Float!
+  startedPercentage: Float
+  percentage: Float
+  chargingStationId: String!
+  chargingStation: ChargingStation
+  connector: Connector
+  chargingStationName: String
+  customerId: String
+  customerPhone: String
+  evseId: Float!
+  connectorId: Float
+  stoppedReason: ReasonEnumType
+  chargingState: ChargingStateEnumType
+  startedTimestamp: DateTime
+  startChargingTimestamp: DateTime
+  stoppedTimestamp: DateTime
+  currentKW: Float
+  totalKW: Float
+  totalDuration: Float
+  tariff: TariffType
+  payment: Payment
+  invoice: Invoice
+  transactionStep: TransactionStepsEnum
+  startedKW: Float
+  latestKW: Float
+  meterValues: [MeterValue!]
+  authorization: Authorization
+  stopInitiator: StopInitiatorEnum
+  stoppedBySystemUserId: String
+  stoppedBySystemUser: User
+  onReview: TransactionOnReview
+  tenant: String
+  roamingAccessId: Float
+  isRoaming: Boolean
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Transaction on review"""
+type TransactionOnReview {
+  id: Float
+  reviewed: Boolean!
+  description: String
+  reason: TransactionReviewReasonEnum
+  reviewerUser: User
+  tenant: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+enum TransactionReviewReasonEnum {
+  CHARGING_STATION_OFFLINE
+  TRANSACTION_LOST_BY_CHARGING_STATION
+  TRANSACTION_FORCE_SUSPENDED
+  TRANSACTION_FREEZED
+  SECOND_STOPTRANSACTION
+  METERSTOP_LOWER_METERSTART
+  ABNORMAL_CONSUMPTION
+  CUSTOMER_SUPPORT_REQUEST
+  OTHER
+}
+
+type TransactionsCount {
+  total: Float
+  success: Float
+}
+
+"""Transaction list"""
+type TransactionsList {
+  rows: [Transaction!]!
+  count: Float!
+}
+
+input TransactionsListFilter {
+  transactionSeqNo: FilterCompareNumber
+  seqNo: FilterCompareNumber
+  id: FilterUuid
+  customer: CustomerInputFilter
+  chargingStation: ChargingStationInputFilter
+  evseId: FilterCompareNumber
+  connectorId: FilterCompareNumber
+  authorization: FilterIsRoaming
+  transactionStep: FilterCompareTransactionSteps
+  payment: PaymentInputFilter
+  chargingState: FilterCompareChargingState
+  onReview: TransactionsOnReviewInputFilter
+  stoppedReason: FilterCompareStoppedReason
+  stopInitiator: FilterCompareStopInitiator
+  startedKW: FilterCompareNumber
+  latestKW: FilterCompareNumber
+  totalKW: FilterCompareNumber
+  tariff: TariffsListFilter
+  tenant: FilterCompareString
+  createdAt: FilterCompareTime
+  isRoaming: FilterCompareBoolean
+  updatedAt: FilterCompareTime
+}
+
+input TransactionsListRequestOrderInputType {
+  seqNo: Sort
+  totalKW: Sort
+  totalDuration: Sort
+  createdAt: Sort
+  updatedAt: Sort
+}
+
+input TransactionsOnReviewInputFilter {
+  reviewed: FilterCompareBoolean
+}
+
+enum TransactionStepsEnum {
+  CABLE_PLUGGED_IN
+  WAITING_FOR_CABLE_INSERT
+  CHARGING
+  FINISHED_SUCCESS
+  FINISHED_WITH_ERROR
+  OFFLINE
+  CANCELED
+}
+
+enum UnitOfMeasureEnumType {
+  WH
+  K_WH
+  VARH
+  KVARH
+  W
+  K_W
+  VA
+  K_VA
+  VAR
+  KVAR
+  A
+  V
+  CELCIUS
+  CELSIUS
+  FAHRENHEIT
+  K
+  PERCENT
+}
+
+enum UnlockStatusEnumType {
+  UNLOCKED
+  UNLOCK_FAILED
+  ONGOING_AUTHORIZED_TRANSACTION
+  UNKNOWN_CONNECTOR
+}
+
+type UptimeMonitoring {
+  status: UptimeStatusEnum!
+  createdAt: DateTime!
+}
+
+enum UptimeStatusEnum {
+  CONNECTED
+  DISCONNECTED
+}
+
+"""User"""
+type User {
+  id: ID!
+  seqNo: Float
+  role: UserRoleEnumType
+  company: Company
+  tenant: String
+  name: String!
+  surname: String!
+  middlename: String
+  description: String
+  phone: String
+  email: String
+  pendingEmail: String
+  emailVerified: Boolean
+  active: Boolean
+  lastLogin: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""User"""
+type UserAuthData {
+  id: ID!
+  seqNo: Float!
+  email: String
+  phone: String
+  name: String
+  surname: String
+  middlename: String
+  company: Company
+  tenant: String
+  tenantSettings: TenantSettings
+  country: CountryCodeEnumType
+  role: UserRoleEnumType
+  token: String!
+}
+
+"""User brief"""
+type UserBrief {
+  id: ID!
+  seqNo: Float!
+  email: String
+  phone: String
+  name: String
+  surname: String
+  middlename: String
+  company: Company
+  tenant: String
+  tenantSettings: TenantSettings
+  country: CountryCodeEnumType
+  role: UserRoleEnumType
+}
+
+"""UserCategory"""
+type UserCategory {
+  id: Float
+  name: String
+  description: String
+  tenant: String
+  users: [User!]
+  ownersAccessId: Float
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+enum UserRoleEnumType {
+  SUPER_ADMIN
+  ADMIN
+  INHOUSE_MANAGER
+  INHOUSE_DEVELOPER
+  INHOUSE_ACCOUNTANT
+  INHOUSE_ELECTRICITY_ENGINEER
+  INHOUSE_CONTENT_MANAGER
+  INHOUSE_CUSTOMER_SERVICE_L1
+  INHOUSE_CUSTOMER_SERVICE_L2
+  INHOUSE_CUSTOMER_SERVICE_L3
+  COMPANY_OWNER
+  COMPANY_MANAGER
+  COMPANY_ACCOUNTANT
+  COMPANY_DEVELOPER
+  COMPANY_CUSTOMER_SERVICE_L1
+  COMPANY_CUSTOMER_SERVICE_L2
+  COMPANY_ELECTRICITY_ENGINEER
+  CORPORATE_OWNER
+  CORPORATE_MANAGER
+  CORPORATE_ACCOUNTANT
+  VENDOR_OWNER
+  VENDOR_MANAGER
+}
+
+"""UserCategories list"""
+type UsersCategoriesList {
+  rows: [UserCategory!]!
+  count: Float!
+}
+
+input UsersCategoriesRequestOrderInputType {
+  id: Sort
+  createdAt: Sort
+  updatedAt: Sort
+}
+
+"""Validate reponse"""
+type ValidateResponse {
+  active: Boolean!
+}
+
+"""Vat Rate"""
+type VatRate {
+  id: Float!
+  name: String
+  description: String
+  amount: Float!
+  country: CountryCodeEnumType
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+

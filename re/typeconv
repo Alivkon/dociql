@@ -1,0 +1,1 @@
+typeconv --from-type gql --to-type oapi schema.graphql --output-directory rere

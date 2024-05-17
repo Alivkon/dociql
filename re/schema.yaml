@@ -1,0 +1,4892 @@
+openapi: 3.0.0
+info:
+  title: Converted from schema.yaml with typeconv
+  version: '1'
+  x-id: schema.yaml
+  x-comment: >-
+    Generated from schema.graphql by core-types-json-schema
+    (https://github.com/grantila/core-types-json-schema) on behalf of typeconv
+    (https://github.com/grantila/typeconv)
+paths: {}
+components:
+  schemas:
+    AccessPermissionEntryActionTypeEnum:
+      enum:
+        - OPEN_BARRIER
+        - OPEN_GATE
+        - INFORM_SECURITY_BEFORE_ENTER
+        - INFORM_SECURITY_ON_ENTER
+        - WAIT_SECURITY_CONFIRMATION
+        - GET_PARKING_TICKET
+        - GET_QR_CODE_ENTRY
+        - GET_QR_CODE_EXIT
+      title: AccessPermissionEntryActionTypeEnum
+      type: string
+    AccessPermissionRequestData:
+      properties:
+        entryActionType:
+          $ref: '#/components/schemas/AccessPermissionEntryActionTypeEnum'
+          title: AccessPermissionRequestData.entryActionType
+        autoConfirmed:
+          title: AccessPermissionRequestData.autoConfirmed
+          type: boolean
+        canChooseTime:
+          title: AccessPermissionRequestData.canChooseTime
+          type: boolean
+        openingHours:
+          $ref: '#/components/schemas/OpeningHoursType'
+          title: AccessPermissionRequestData.openingHours
+      required:
+        - entryActionType
+      additionalProperties: false
+      title: AccessPermissionRequestData
+      type: object
+    AccessPermissionRequestTypeEnum:
+      enum:
+        - SMS
+        - EMAIL
+        - CALL
+        - WEBSITE
+      title: AccessPermissionRequestTypeEnum
+      type: string
+    AppTypeEnum:
+      enum:
+        - IOS
+        - ANDROID
+        - CP
+        - QRC
+        - WEB
+        - OTHER
+      title: AppTypeEnum
+      description: App Type Enum
+      type: string
+    Audit:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: Audit.id
+        requestId:
+          title: Audit.requestId
+          type: string
+        model:
+          title: Audit.model
+          type: string
+        action:
+          title: Audit.action
+          type: string
+        userId:
+          title: Audit.userId
+          type: string
+        objectId:
+          title: Audit.objectId
+          type: string
+        changedFields:
+          items:
+            type: string
+          title: Audit.changedFields
+          type: array
+        oldData:
+          title: Audit.oldData
+          type: string
+        newData:
+          title: Audit.newData
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Audit.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Audit.updatedAt
+      additionalProperties: false
+      title: Audit
+      description: Audit object
+      type: object
+    AuditList:
+      properties:
+        rows:
+          items:
+            $ref: '#/components/schemas/Audit'
+          title: AuditList.rows
+          type: array
+        count:
+          title: AuditList.count
+          type: number
+      required:
+        - rows
+        - count
+      additionalProperties: false
+      title: AuditList
+      description: Audit list
+      type: object
+    AuthInitiatorEnum:
+      enum:
+        - CUSTOMER
+        - USER
+        - CHARGING_STATION
+        - OTHER
+      title: AuthInitiatorEnum
+      description: Auth Initiator Enum
+      type: string
+    Authorization:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: Authorization.id
+        seqNo:
+          title: Authorization.seqNo
+          type: number
+        idToken:
+          title: Authorization.idToken
+          type: string
+        idTokenType:
+          $ref: '#/components/schemas/IdTokenEnumType'
+          title: Authorization.idTokenType
+        chargingStationId:
+          title: Authorization.chargingStationId
+          type: string
+        chargingStation:
+          $ref: '#/components/schemas/ChargingStation'
+          title: Authorization.chargingStation
+        status:
+          $ref: '#/components/schemas/AuthorizationStatusEnumType'
+          title: Authorization.status
+        transactionId:
+          title: Authorization.transactionId
+          type: string
+        transaction:
+          $ref: '#/components/schemas/Transaction'
+          title: Authorization.transaction
+        customerId:
+          title: Authorization.customerId
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+          title: Authorization.customer
+        userId:
+          title: Authorization.userId
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+          title: Authorization.user
+        authorizationCardId:
+          title: Authorization.authorizationCardId
+          type: string
+        authorizationCard:
+          $ref: '#/components/schemas/AuthorizationCard'
+          title: Authorization.authorizationCard
+        ocppVersion:
+          $ref: '#/components/schemas/OcppSupportedEnum'
+          title: Authorization.ocppVersion
+        appVersion:
+          title: Authorization.appVersion
+          type: string
+        initiator:
+          $ref: '#/components/schemas/AuthInitiatorEnum'
+          title: Authorization.initiator
+        app:
+          $ref: '#/components/schemas/AppTypeEnum'
+          title: Authorization.app
+        tenant:
+          title: Authorization.tenant
+          type: string
+        roamingAccessId:
+          title: Authorization.roamingAccessId
+          type: number
+        roamingAccess:
+          $ref: '#/components/schemas/RoamingAccess'
+          title: Authorization.roamingAccess
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Authorization.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Authorization.updatedAt
+      required:
+        - id
+      additionalProperties: false
+      title: Authorization
+      description: Authorization object
+      type: object
+    AuthorizationCard:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: AuthorizationCard.id
+        seqNo:
+          title: AuthorizationCard.seqNo
+          type: number
+        cardId:
+          title: AuthorizationCard.cardId
+          type: string
+        blocked:
+          title: AuthorizationCard.blocked
+          type: boolean
+        freeCharging:
+          title: AuthorizationCard.freeCharging
+          type: boolean
+        name:
+          title: AuthorizationCard.name
+          type: string
+        description:
+          title: AuthorizationCard.description
+          type: string
+        type:
+          $ref: '#/components/schemas/AuthorizationCardTypeEnum'
+          title: AuthorizationCard.type
+        iso:
+          $ref: '#/components/schemas/AuthorizationCardIsoEnum'
+          title: AuthorizationCard.iso
+        amount:
+          title: AuthorizationCard.amount
+          type: number
+        amountType:
+          $ref: '#/components/schemas/AuthorizationCardAmountTypeEnum'
+          title: AuthorizationCard.amountType
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
+          title: AuthorizationCard.currency
+        customerId:
+          title: AuthorizationCard.customerId
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+          title: AuthorizationCard.customer
+        userId:
+          title: AuthorizationCard.userId
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+          title: AuthorizationCard.user
+        companyId:
+          title: AuthorizationCard.companyId
+          type: string
+        company:
+          $ref: '#/components/schemas/Company'
+          title: AuthorizationCard.company
+        chargingStations:
+          items:
+            $ref: '#/components/schemas/ChargingStation'
+          title: AuthorizationCard.chargingStations
+          type: array
+        tenant:
+          title: AuthorizationCard.tenant
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: AuthorizationCard.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: AuthorizationCard.updatedAt
+      required:
+        - id
+        - cardId
+      additionalProperties: false
+      title: AuthorizationCard
+      description: Authorization card object
+      type: object
+    AuthorizationCardAmountTypeEnum:
+      enum:
+        - WATT
+        - MINUTES
+        - MONEY
+      title: AuthorizationCardAmountTypeEnum
+      description: Authorization Card Amount Type
+      type: string
+    AuthorizationCardIsoEnum:
+      enum:
+        - ISO14443
+        - ISO15693
+      title: AuthorizationCardIsoEnum
+      description: Authorization card ISO
+      type: string
+    AuthorizationCardTypeEnum:
+      enum:
+        - RFID
+        - NFC
+      title: AuthorizationCardTypeEnum
+      description: Authorization card type
+      type: string
+    AuthorizationsList:
+      properties:
+        rows:
+          items:
+            $ref: '#/components/schemas/Authorization'
+          title: AuthorizationsList.rows
+          type: array
+        count:
+          title: AuthorizationsList.count
+          type: number
+      required:
+        - rows
+        - count
+      additionalProperties: false
+      title: AuthorizationsList
+      description: Authorizations list
+      type: object
+    AuthorizationStatusEnumType:
+      enum:
+        - ACCEPTED
+        - BLOCKED
+        - CONCURRENT_TX
+        - EXPIRED
+        - INVALID
+        - NO_CREDIT
+        - NOT_ALLOWED_TYPE_EVSE
+        - NOT_AT_THIS_LOCATION
+        - NOT_AT_THIS_TIME
+        - UNKNOWN
+      title: AuthorizationStatusEnumType
+      description: Authorization status enum
+      type: string
+    AvailabilityStatusEnumType:
+      enum:
+        - ACCEPTED
+        - REJECTED
+        - SCHEDULED
+      title: AvailabilityStatusEnumType
+      type: string
+    AvailabilityTypeEnumType:
+      enum:
+        - INOPERATIVE
+        - OPERATIVE
+      title: AvailabilityTypeEnumType
+      type: string
+    AvailableOCPP160Actions:
+      enum:
+        - AUTHORIZE
+        - BOOT_NOTIFICATION
+        - CANCEL_RESERVATION
+        - CHANGE_AVAILABILITY
+        - CHANGE_CONFIGURATION
+        - CLEAR_CACHE
+        - CLEAR_CHARGING_PROFILE
+        - DATA_TRANSFER
+        - DIAGNOSTICS_STATUS_NOTIFICATION
+        - FIRMWARE_STATUS_NOTIFICATION
+        - GET_COMPOSITE_SCHEDULE
+        - GET_CONFIGURATION
+        - GET_DIAGNOSTICS
+        - GET_LOCAL_LIST_VERSION
+        - HEARTBEAT
+        - METER_VALUES
+        - REMOTE_START_TRANSACTION
+        - REMOTE_STOP_TRANSACTION
+        - RESERVE_NOW
+        - RESET
+        - SEND_LOCAL_LIST
+        - SET_CHARGING_PROFILE
+        - START_TRANSACTION
+        - STATUS_NOTIFICATION
+        - STOP_TRANSACTION
+        - TRIGGER_MESSAGE
+        - UNLOCK_CONNECTOR
+        - UPDATE_FIRMWARE
+      title: AvailableOCPP160Actions
+      description: Available OCPP 1.6 Actions
+      type: string
+    Balance:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: Balance.id
+        customer:
+          $ref: '#/components/schemas/Customer'
+          title: Balance.customer
+        company:
+          $ref: '#/components/schemas/Company'
+          title: Balance.company
+        seqNo:
+          title: Balance.seqNo
+          type: number
+        total:
+          title: Balance.total
+          type: number
+        debit:
+          title: Balance.debit
+          type: number
+        credit:
+          title: Balance.credit
+          type: number
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
+          title: Balance.currency
+        description:
+          title: Balance.description
+          type: string
+        promocode:
+          $ref: '#/components/schemas/Promocode'
+          title: Balance.promocode
+        discount:
+          $ref: '#/components/schemas/Discount'
+          title: Balance.discount
+        invoice:
+          $ref: '#/components/schemas/Invoice'
+          title: Balance.invoice
+        payment:
+          $ref: '#/components/schemas/Payment'
+          title: Balance.payment
+        tenant:
+          title: Balance.tenant
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Balance.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Balance.updatedAt
+      required:
+        - id
+        - total
+        - currency
+      additionalProperties: false
+      title: Balance
+      description: Balance object
+      type: object
+    BalanceBrief:
+      properties:
+        total:
+          title: BalanceBrief.total
+          type: number
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
+          title: BalanceBrief.currency
+        status:
+          $ref: '#/components/schemas/BalanceStatusEnum'
+          title: BalanceBrief.status
+        invoicesInProcess:
+          items:
+            $ref: '#/components/schemas/Invoice'
+          title: BalanceBrief.invoicesInProcess
+          type: array
+      required:
+        - total
+        - status
+      additionalProperties: false
+      title: BalanceBrief
+      description: Balance Brief
+      type: object
+    BalanceStatus:
+      properties:
+        status:
+          $ref: '#/components/schemas/BalanceStatusEnum'
+          title: BalanceStatus.status
+      required:
+        - status
+      additionalProperties: false
+      title: BalanceStatus
+      description: Balance Brief
+      type: object
+    BalanceStatusEnum:
+      enum:
+        - POSITIVE
+        - NEGATIVE
+        - NEED_TOPUP
+      title: BalanceStatusEnum
+      type: string
+    Car:
+      properties:
+        id:
+          title: Car.id
+          type: integer
+        name:
+          title: Car.name
+          type: string
+        description:
+          title: Car.description
+          type: string
+        color:
+          $ref: '#/components/schemas/ColorEnum'
+          title: Car.color
+        vin:
+          title: Car.vin
+          type: string
+        plateNumber:
+          title: Car.plateNumber
+          type: string
+        year:
+          title: Car.year
+          type: string
+        batteryAmountKW:
+          title: Car.batteryAmountKW
+          type: number
+        model:
+          $ref: '#/components/schemas/CarModel'
+          title: Car.model
+        images:
+          items:
+            $ref: '#/components/schemas/File'
+          title: Car.images
+          type: array
+      required:
+        - id
+      additionalProperties: false
+      title: Car
+      description: Car
+      type: object
+    CarMaker:
+      properties:
+        id:
+          title: CarMaker.id
+          type: integer
+        name:
+          title: CarMaker.name
+          type: string
+        fullName:
+          title: CarMaker.fullName
+          type: string
+        models:
+          items:
+            $ref: '#/components/schemas/CarModel'
+          title: CarMaker.models
+          type: array
+        logo:
+          $ref: '#/components/schemas/File'
+          title: CarMaker.logo
+      required:
+        - id
+        - name
+      additionalProperties: false
+      title: CarMaker
+      description: Car Maker
+      type: object
+    CarModel:
+      properties:
+        id:
+          title: CarModel.id
+          type: integer
+        makerId:
+          title: CarModel.makerId
+          type: integer
+        name:
+          title: CarModel.name
+          type: string
+        fullName:
+          title: CarModel.fullName
+          type: string
+        description:
+          title: CarModel.description
+          type: string
+        batteryAmountKW:
+          title: CarModel.batteryAmountKW
+          type: number
+        country:
+          $ref: '#/components/schemas/CountryCodeEnumType'
+          title: CarModel.country
+        year:
+          title: CarModel.year
+          type: string
+        connectors:
+          items:
+            $ref: '#/components/schemas/CarModelConnector'
+          title: CarModel.connectors
+          type: array
+        maker:
+          $ref: '#/components/schemas/CarMaker'
+          title: CarModel.maker
+        images:
+          items:
+            $ref: '#/components/schemas/File'
+          title: CarModel.images
+          type: array
+      required:
+        - id
+        - name
+        - maker
+      additionalProperties: false
+      title: CarModel
+      description: Car Model
+      type: object
+    CarModelConnector:
+      properties:
+        id:
+          title: CarModelConnector.id
+          type: integer
+        type:
+          $ref: '#/components/schemas/ConnectorEnumType'
+          title: CarModelConnector.type
+        images:
+          items:
+            $ref: '#/components/schemas/File'
+          title: CarModelConnector.images
+          type: array
+      required:
+        - id
+      additionalProperties: false
+      title: CarModelConnector
+      description: Car Model Connector
+      type: object
+    ChargingStateEnumType:
+      enum:
+        - CHARGING
+        - EVCONNECTED
+        - SUSPENDED_EV
+        - SUSPENDED_EVSE
+        - IDLE
+      title: ChargingStateEnumType
+      type: string
+    ChargingStation:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: ChargingStation.id
+        seqNo:
+          title: ChargingStation.seqNo
+          type: number
+        forceBlocked:
+          title: ChargingStation.forceBlocked
+          type: boolean
+        coordinates:
+          $ref: '#/components/schemas/Coordinates'
+          title: ChargingStation.coordinates
+        evses:
+          items:
+            $ref: '#/components/schemas/Evses'
+          title: ChargingStation.evses
+          type: array
+        name:
+          title: ChargingStation.name
+          type: string
+        address:
+          title: ChargingStation.address
+          type: string
+        photoUrls:
+          items:
+            type: string
+          title: ChargingStation.photoUrls
+          type: array
+        plugshareLink:
+          title: ChargingStation.plugshareLink
+          type: string
+        description:
+          title: ChargingStation.description
+          type: string
+        internalPrivateUseDescription:
+          title: ChargingStation.internalPrivateUseDescription
+          type: string
+        openingHours:
+          $ref: '#/components/schemas/OpeningHoursType'
+          title: ChargingStation.openingHours
+        active:
+          title: ChargingStation.active
+          type: boolean
+        invisible:
+          title: ChargingStation.invisible
+          type: boolean
+        connected:
+          title: ChargingStation.connected
+          type: boolean
+        disconnectedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: ChargingStation.disconnectedAt
+        distance:
+          title: ChargingStation.distance
+          type: number
+        computedStatus:
+          $ref: '#/components/schemas/ChargingStationComputedStatusEnum'
+          title: ChargingStation.computedStatus
+        speed:
+          $ref: '#/components/schemas/SpeedEnum'
+          title: ChargingStation.speed
+        specialIdentifier:
+          $ref: '#/components/schemas/SpecialIdentifierEnum'
+          title: ChargingStation.specialIdentifier
+        ocppVersion:
+          $ref: '#/components/schemas/OcppSupportedEnum'
+          title: ChargingStation.ocppVersion
+        serialNumber:
+          title: ChargingStation.serialNumber
+          type: string
+        model:
+          title: ChargingStation.model
+          type: string
+        vendorName:
+          title: ChargingStation.vendorName
+          type: string
+        firmwareVersion:
+          title: ChargingStation.firmwareVersion
+          type: string
+        bootNotificationRequestAcceptedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: ChargingStation.bootNotificationRequestAcceptedAt
+        blacklisted:
+          title: ChargingStation.blacklisted
+          type: boolean
+        isTestCS:
+          title: ChargingStation.isTestCS
+          type: boolean
+        ip:
+          title: ChargingStation.ip
+          type: string
+        soapUrl:
+          title: ChargingStation.soapUrl
+          type: string
+        vpnServerIp:
+          title: ChargingStation.vpnServerIp
+          type: string
+        connectionHost:
+          title: ChargingStation.connectionHost
+          type: string
+        emulator:
+          title: ChargingStation.emulator
+          type: boolean
+        autoAcceptAuthorizeRequests:
+          title: ChargingStation.autoAcceptAuthorizeRequests
+          type: boolean
+        external:
+          title: ChargingStation.external
+          type: boolean
+        company:
+          $ref: '#/components/schemas/Company'
+          title: ChargingStation.company
+        uptimeMonitorings:
+          items:
+            $ref: '#/components/schemas/UptimeMonitoring'
+          title: ChargingStation.uptimeMonitorings
+          type: array
+        transactions:
+          items:
+            $ref: '#/components/schemas/Transaction'
+          title: ChargingStation.transactions
+          type: array
+        images:
+          items:
+            $ref: '#/components/schemas/File'
+          title: ChargingStation.images
+          type: array
+        territoryAccessData:
+          $ref: '#/components/schemas/TerritoryAccessData'
+          title: ChargingStation.territoryAccessData
+        accessPermissionRequestData:
+          $ref: '#/components/schemas/AccessPermissionRequestData'
+          title: ChargingStation.accessPermissionRequestData
+        timezone:
+          title: ChargingStation.timezone
+          description: E.g. "America/New_York", "Europe/Berlin", "Asia/Bangkok"
+          type: string
+        tenant:
+          title: ChargingStation.tenant
+          type: string
+        lastConnectionStatusChangedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: ChargingStation.lastConnectionStatusChangedAt
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: ChargingStation.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: ChargingStation.updatedAt
+      required:
+        - id
+        - seqNo
+      additionalProperties: false
+      title: ChargingStation
+      description: Charging station
+      type: object
+    ChargingStationBriefReportResponse:
+      properties:
+        chargingStationName:
+          title: ChargingStationBriefReportResponse.chargingStationName
+          type: string
+        evseId:
+          title: ChargingStationBriefReportResponse.evseId
+          type: number
+        connectorId:
+          title: ChargingStationBriefReportResponse.connectorId
+          type: number
+        connectorTypeTranslated:
+          title: ChargingStationBriefReportResponse.connectorTypeTranslated
+          type: string
+        transactionSeqNo:
+          title: ChargingStationBriefReportResponse.transactionSeqNo
+          type: number
+        totalKW:
+          title: ChargingStationBriefReportResponse.totalKW
+          type: number
+        amount:
+          title: ChargingStationBriefReportResponse.amount
+          type: number
+        transactionStep:
+          title: ChargingStationBriefReportResponse.transactionStep
+          type: string
+        transactionsPaid:
+          title: ChargingStationBriefReportResponse.transactionsPaid
+          type: string
+        transactionsFree:
+          title: ChargingStationBriefReportResponse.transactionsFree
+          type: string
+        paidKwh:
+          title: ChargingStationBriefReportResponse.paidKwh
+          type: number
+        freeKwh:
+          title: ChargingStationBriefReportResponse.freeKwh
+          type: number
+        totalDuration:
+          title: ChargingStationBriefReportResponse.totalDuration
+          type: number
+        transactionStartTimeMSK:
+          title: ChargingStationBriefReportResponse.transactionStartTimeMSK
+          type: string
+        SOCStart:
+          title: ChargingStationBriefReportResponse.SOCStart
+          type: string
+        SOCEnd:
+          title: ChargingStationBriefReportResponse.SOCEnd
+          type: string
+        specialTransactionInfo:
+          title: ChargingStationBriefReportResponse.specialTransactionInfo
+          type: string
+        tariffName:
+          title: ChargingStationBriefReportResponse.tariffName
+          type: string
+        tariffType:
+          title: ChargingStationBriefReportResponse.tariffType
+          type: string
+        tariffAmount:
+          title: ChargingStationBriefReportResponse.tariffAmount
+          type: string
+        tariffCurrency:
+          title: ChargingStationBriefReportResponse.tariffCurrency
+          type: string
+        customerId:
+          title: ChargingStationBriefReportResponse.customerId
+          type: string
+      required:
+        - chargingStationName
+        - evseId
+        - connectorId
+        - connectorTypeTranslated
+        - transactionSeqNo
+      additionalProperties: false
+      title: ChargingStationBriefReportResponse
+      description: Charging station brief report response
+      type: object
+    ChargingStationCategory:
+      properties:
+        id:
+          title: ChargingStationCategory.id
+          type: number
+        name:
+          title: ChargingStationCategory.name
+          type: string
+        description:
+          title: ChargingStationCategory.description
+          type: string
+        tenant:
+          title: ChargingStationCategory.tenant
+          type: string
+        chargingStations:
+          items:
+            $ref: '#/components/schemas/ChargingStation'
+          title: ChargingStationCategory.chargingStations
+          type: array
+        discountId:
+          title: ChargingStationCategory.discountId
+          type: string
+        privateAccess:
+          $ref: '#/components/schemas/PrivateAccess'
+          title: ChargingStationCategory.privateAccess
+        ownersAccess:
+          $ref: '#/components/schemas/OwnersAccess'
+          title: ChargingStationCategory.ownersAccess
+        roamingAccess:
+          $ref: '#/components/schemas/RoamingAccess'
+          title: ChargingStationCategory.roamingAccess
+        subTenant:
+          $ref: '#/components/schemas/SubTenant'
+          title: ChargingStationCategory.subTenant
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: ChargingStationCategory.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: ChargingStationCategory.updatedAt
+      additionalProperties: false
+      title: ChargingStationCategory
+      description: ChargingStationCategory
+      type: object
+    ChargingStationChangeAvailabilityResponse:
+      properties:
+        response:
+          $ref: '#/components/schemas/AvailabilityStatusEnumType'
+          title: ChargingStationChangeAvailabilityResponse.response
+      additionalProperties: false
+      title: ChargingStationChangeAvailabilityResponse
+      description: Charging station change availability response
+      type: object
+    ChargingStationClearCacheResponse:
+      properties:
+        response:
+          $ref: '#/components/schemas/ClearCacheStatusEnumType'
+          title: ChargingStationClearCacheResponse.response
+      additionalProperties: false
+      title: ChargingStationClearCacheResponse
+      description: Charging station clear cache response
+      type: object
+    ChargingStationComputedStatusEnum:
+      enum:
+        - ALL_AVAILABLE
+        - ALL_OCCUPIED
+        - ALL_UNAVAILABLE
+        - AVAILABLE_UNAVAILABLE
+        - AVAILABLE_OCCUPIED
+        - OCCUPIED_UNAVAILABLE
+      title: ChargingStationComputedStatusEnum
+      type: string
+    ChargingStationConfiguration:
+      properties:
+        configuration:
+          title: ChargingStationConfiguration.configuration
+          type: string
+      additionalProperties: false
+      title: ChargingStationConfiguration
+      type: object
+    ChargingStationGetDiagnosticsResponse:
+      properties:
+        fileName:
+          title: ChargingStationGetDiagnosticsResponse.fileName
+          type: string
+      additionalProperties: false
+      title: ChargingStationGetDiagnosticsResponse
+      description: Charging station get diagnostics response
+      type: object
+    ChargingStationGraphInfo:
+      properties:
+        lastTransactionStep:
+          $ref: '#/components/schemas/TransactionStepsEnum'
+          title: ChargingStationGraphInfo.lastTransactionStep
+        isOffline:
+          title: ChargingStationGraphInfo.isOffline
+          type: boolean
+        countUptimeForLast24H:
+          title: ChargingStationGraphInfo.countUptimeForLast24H
+          type: number
+        countUptimeForLast30D:
+          title: ChargingStationGraphInfo.countUptimeForLast30D
+          type: number
+        countKWForLast30D:
+          items:
+            type: number
+          title: ChargingStationGraphInfo.countKWForLast30D
+          type: array
+        last10Transactions:
+          items:
+            $ref: '#/components/schemas/LastTransactions'
+          title: ChargingStationGraphInfo.last10Transactions
+          type: array
+      additionalProperties: false
+      title: ChargingStationGraphInfo
+      type: object
+    ChargingStationLogResponse:
+      properties:
+        ocpp_action:
+          title: ChargingStationLogResponse.ocpp_action
+          type: string
+        ocpp_message_direction:
+          title: ChargingStationLogResponse.ocpp_message_direction
+          type: string
+        ocpp_request:
+          title: ChargingStationLogResponse.ocpp_request
+          type: string
+        ocpp_response:
+          title: ChargingStationLogResponse.ocpp_response
+          type: string
+        ocpp_raw_message:
+          title: ChargingStationLogResponse.ocpp_raw_message
+          type: string
+        ocpp_message:
+          title: ChargingStationLogResponse.ocpp_message
+          type: string
+        ocpp_raw_request:
+          title: ChargingStationLogResponse.ocpp_raw_request
+          type: string
+        ocpp_raw_response:
+          title: ChargingStationLogResponse.ocpp_raw_response
+          type: string
+        log_level:
+          title: ChargingStationLogResponse.log_level
+          type: string
+        message:
+          title: ChargingStationLogResponse.message
+          type: string
+        timestamp:
+          title: ChargingStationLogResponse.timestamp
+          type: string
+      additionalProperties: false
+      title: ChargingStationLogResponse
+      description: ChargingStation Log Data
+      type: object
+    ChargingStationReport:
+      properties:
+        fileName:
+          title: ChargingStationReport.fileName
+          type: string
+        fileBuffer:
+          title: ChargingStationReport.fileBuffer
+          type: string
+      required:
+        - fileName
+        - fileBuffer
+      additionalProperties: false
+      title: ChargingStationReport
+      description: Charging station report
+      type: object
+    ChargingStationResetResponse:
+      properties:
+        response:
+          $ref: '#/components/schemas/ResetStatusEnumType'
+          title: ChargingStationResetResponse.response
+      additionalProperties: false
+      title: ChargingStationResetResponse
+      description: Charging station reset response
+      type: object
+    ChargingStationsCategoriesList:
+      properties:
+        rows:
+          items:
+            $ref: '#/components/schemas/ChargingStationCategory'
+          title: ChargingStationsCategoriesList.rows
+          type: array
+        count:
+          title: ChargingStationsCategoriesList.count
+          type: number
+      required:
+        - rows
+        - count
+      additionalProperties: false
+      title: ChargingStationsCategoriesList
+      description: ChargingStationsCategories list
+      type: object
+    ChargingStationsList:
+      properties:
+        rows:
+          items:
+            $ref: '#/components/schemas/ChargingStation'
+          title: ChargingStationsList.rows
+          type: array
+        count:
+          title: ChargingStationsList.count
+          type: number
+      required:
+        - rows
+        - count
+      additionalProperties: false
+      title: ChargingStationsList
+      description: Charging stations list
+      type: object
+    ChargingStationUnlockConnectorResponse:
+      properties:
+        response:
+          $ref: '#/components/schemas/UnlockStatusEnumType'
+          title: ChargingStationUnlockConnectorResponse.response
+      additionalProperties: false
+      title: ChargingStationUnlockConnectorResponse
+      description: Charging station unlock connector response
+      type: object
+    ChartElementSplittable:
+      properties:
+        total:
+          title: ChartElementSplittable.total
+          type: number
+        fromFirstDayOfMonth:
+          title: ChartElementSplittable.fromFirstDayOfMonth
+          type: number
+        splitted:
+          items:
+            type: number
+          title: ChartElementSplittable.splitted
+          type: array
+      additionalProperties: false
+      title: ChartElementSplittable
+      type: object
+    ClearCacheStatusEnumType:
+      enum:
+        - ACCEPTED
+        - REJECTED
+      title: ClearCacheStatusEnumType
+      type: string
+    ColorEnum:
+      enum:
+        - BLACK
+        - WHITE
+        - SILVER
+        - BLUE
+        - GREY
+        - RED
+        - BROWN
+        - GREEN
+        - YELLOW
+        - OTHER
+      title: ColorEnum
+      type: string
+    CommonResponse:
+      properties:
+        success:
+          title: CommonResponse.success
+          type: boolean
+        error:
+          $ref: '#/components/schemas/Error'
+          title: CommonResponse.error
+      required:
+        - success
+      additionalProperties: false
+      title: CommonResponse
+      description: Common reponse
+      type: object
+    Company:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: Company.id
+        seqNo:
+          title: Company.seqNo
+          type: number
+        name:
+          title: Company.name
+          type: string
+        description:
+          title: Company.description
+          type: string
+        internalPrivateUseDescription:
+          title: Company.internalPrivateUseDescription
+          type: string
+        contactPerson:
+          title: Company.contactPerson
+          type: string
+        email:
+          title: Company.email
+          type: string
+        phone:
+          title: Company.phone
+          type: string
+        country:
+          $ref: '#/components/schemas/CountryCodeEnumType'
+          title: Company.country
+        type:
+          $ref: '#/components/schemas/CompanyTypeEnum'
+          title: Company.type
+        zip:
+          title: Company.zip
+          type: string
+        address:
+          title: Company.address
+          type: string
+        inn:
+          title: Company.inn
+          type: number
+        kpp:
+          title: Company.kpp
+          type: number
+        contractNumber:
+          title: Company.contractNumber
+          type: string
+        contractIssuedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Company.contractIssuedAt
+        contractValidTill:
+          $ref: '#/components/schemas/DateTime'
+          title: Company.contractValidTill
+        bankAcccountNumber:
+          title: Company.bankAcccountNumber
+          type: string
+        bankAcccountBic:
+          title: Company.bankAcccountBic
+          type: number
+        customers:
+          items:
+            $ref: '#/components/schemas/Customer'
+          title: Company.customers
+          type: array
+        chargingStations:
+          items:
+            $ref: '#/components/schemas/ChargingStation'
+          title: Company.chargingStations
+          type: array
+        authorizations:
+          items:
+            $ref: '#/components/schemas/Authorization'
+          title: Company.authorizations
+          type: array
+        transactions:
+          items:
+            $ref: '#/components/schemas/Transaction'
+          title: Company.transactions
+          type: array
+        payments:
+          items:
+            $ref: '#/components/schemas/Payment'
+          title: Company.payments
+          type: array
+        balances:
+          items:
+            $ref: '#/components/schemas/Balance'
+          title: Company.balances
+          type: array
+        invoices:
+          items:
+            $ref: '#/components/schemas/Invoice'
+          title: Company.invoices
+          type: array
+        lastMonthConsumption:
+          $ref: '#/components/schemas/LastMonthConsumption'
+          title: Company.lastMonthConsumption
+        transactionsCount:
+          $ref: '#/components/schemas/TransactionsCount'
+          title: Company.transactionsCount
+        last30dData:
+          $ref: '#/components/schemas/Last30dData'
+          title: Company.last30dData
+        mostPopularByWeek:
+          items:
+            $ref: '#/components/schemas/MostPopularByWeek'
+          title: Company.mostPopularByWeek
+          type: array
+        tenant:
+          title: Company.tenant
+          type: string
+        tenantSettings:
+          $ref: '#/components/schemas/TenantSettings'
+          title: Company.tenantSettings
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Company.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Company.updatedAt
+      required:
+        - id
+        - name
+      additionalProperties: false
+      title: Company
+      description: Company
+      type: object
+    CompanyTypeEnum:
+      enum:
+        - CHARGING_STATION_OPERATION
+        - CHARGING_STATION_MAINTENANCE
+        - CORPORATE_FLEET
+      title: CompanyTypeEnum
+      type: string
+    Connector:
+      properties:
+        id:
+          title: Connector.id
+          type: number
+        evseId:
+          title: Connector.evseId
+          type: number
+        pending:
+          title: Connector.pending
+          type: boolean
+        initiating:
+          title: Connector.initiating
+          type: boolean
+        emergencyButtonPressed:
+          title: Connector.emergencyButtonPressed
+          type: boolean
+        type:
+          $ref: '#/components/schemas/ConnectorEnumType'
+          title: Connector.type
+        status:
+          $ref: '#/components/schemas/ConnectorEnumStatus'
+          title: Connector.status
+        outletType:
+          $ref: '#/components/schemas/ConnectorOutletTypeEnum'
+          title: Connector.outletType
+        power:
+          title: Connector.power
+          type: number
+        tariff:
+          $ref: '#/components/schemas/TariffType'
+          title: Connector.tariff
+        tariffGroup:
+          $ref: '#/components/schemas/TariffGroup'
+          title: Connector.tariffGroup
+        oldOCPPStatus:
+          title: Connector.oldOCPPStatus
+          type: string
+        oldOCPPErrorCode:
+          title: Connector.oldOCPPErrorCode
+          type: string
+        info:
+          title: Connector.info
+          type: string
+        vendorId:
+          title: Connector.vendorId
+          type: string
+        vendorErrorCode:
+          title: Connector.vendorErrorCode
+          type: string
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Connector.updatedAt
+      required:
+        - id
+        - evseId
+        - status
+        - updatedAt
+      additionalProperties: false
+      title: Connector
+      description: Charging station connector
+      type: object
+    ConnectorEnumStatus:
+      enum:
+        - AVAILABLE
+        - OCCUPIED
+        - RESERVED
+        - UNAVAILABLE
+        - FAULTED
+      title: ConnectorEnumStatus
+      type: string
+    ConnectorEnumType:
+      enum:
+        - C_CCS1
+        - C_CCS2
+        - C_G105
+        - C_TESLA
+        - C_TYPE1
+        - C_TYPE2
+        - GBT_AC
+        - GBT_DC
+        - S3091_P16_A
+        - S3091_P32_A
+        - S3093_P16_A
+        - S3093_P32_A
+        - S_BS1361
+        - S_CEE77
+        - S_TYPE2
+        - S_TYPE3
+        - OTHER1_PH_MAX16_A
+        - OTHER1_PH_OVER16_A
+        - OTHER3_PH
+        - PAN
+        - W_INDUCTIVE
+        - W_RESONANT
+        - UNDETERMINED
+        - UNKNOWN
+      title: ConnectorEnumType
+      type: string
+    ConnectorOutletTypeEnum:
+      enum:
+        - SOCKET
+        - CABLE
+      title: ConnectorOutletTypeEnum
+      type: string
+    Coordinates:
+      properties:
+        latitude:
+          title: Coordinates.latitude
+          type: number
+        longitude:
+          title: Coordinates.longitude
+          type: number
+      required:
+        - latitude
+        - longitude
+      additionalProperties: false
+      title: Coordinates
+      description: Coordinates lat lang
+      type: object
+    CorporateFleetInfo:
+      properties:
+        company:
+          $ref: '#/components/schemas/Company'
+          title: CorporateFleetInfo.company
+        transactionsInProcess:
+          items:
+            $ref: '#/components/schemas/Transaction'
+          title: CorporateFleetInfo.transactionsInProcess
+          type: array
+        countTotalCustomers:
+          title: CorporateFleetInfo.countTotalCustomers
+          type: number
+        countTransactionsTotal:
+          title: CorporateFleetInfo.countTransactionsTotal
+          type: number
+        countKWAll:
+          title: CorporateFleetInfo.countKWAll
+          type: number
+        countKWChargable:
+          title: CorporateFleetInfo.countKWChargable
+          type: number
+        last30dData:
+          $ref: '#/components/schemas/Last30dData'
+          title: CorporateFleetInfo.last30dData
+        countKWForLast30D:
+          items:
+            type: number
+          title: CorporateFleetInfo.countKWForLast30D
+          type: array
+        countKWChargableForLast30D:
+          items:
+            type: number
+          title: CorporateFleetInfo.countKWChargableForLast30D
+          type: array
+        countTotalKWForLast30D:
+          items:
+            type: number
+          title: CorporateFleetInfo.countTotalKWForLast30D
+          type: array
+        countMoneyAll:
+          title: CorporateFleetInfo.countMoneyAll
+          type: number
+        countMoneyForLast30D:
+          items:
+            type: number
+          title: CorporateFleetInfo.countMoneyForLast30D
+          type: array
+        mostPopularByWeek:
+          items:
+            $ref: '#/components/schemas/MostPopularByWeek'
+          title: CorporateFleetInfo.mostPopularByWeek
+          type: array
+      additionalProperties: false
+      title: CorporateFleetInfo
+      type: object
+    CountryCodeEnumType:
+      enum:
+        - AFGHANISTAN
+        - ALAND_ISLANDS
+        - ALBANIA
+        - ALGERIA
+        - AMERICAN_SAMOA
+        - ANDORRA
+        - ANGOLA
+        - ANGUILLA
+        - ANTARCTICA
+        - ANTIGUA_AND_BARBUDA
+        - ARGENTINA
+        - ARMENIA
+        - ARUBA
+        - AUSTRALIA
+        - AUSTRIA
+        - AZERBAIJAN
+        - BAHAMAS
+        - BAHRAIN
+        - BANGLADESH
+        - BARBADOS
+        - BELARUS
+        - BELGIUM
+        - BELIZE
+        - BENIN
+        - BERMUDA
+        - BHUTAN
+        - BOLIVIA
+        - BONAIRE_SINT_EUSTATIUS_SABA
+        - BOSNIA_AND_HERZEGOVINA
+        - BOTSWANA
+        - BOUVET_ISLAND
+        - BRAZIL
+        - BRITISH_INDIAN_OCEAN_TERRITORY
+        - BRUNEI_DARUSSALAM
+        - BULGARIA
+        - BURKINA_FASO
+        - BURUNDI
+        - CAMBODIA
+        - CAMEROON
+        - CANADA
+        - CAPE_VERDE
+        - CAYMAN_ISLANDS
+        - CENTRAL_AFRICAN_REPUBLIC
+        - CHAD
+        - CHILE
+        - CHINA
+        - CHRISTMAS_ISLAND
+        - COCOS_KEELING_ISLANDS
+        - COLOMBIA
+        - COMOROS
+        - CONGO
+        - CONGO_DEMOCRATIC_REPUBLIC
+        - COOK_ISLANDS
+        - COSTA_RICA
+        - COTE_DIVOIRE
+        - CROATIA
+        - CUBA
+        - CURACAO
+        - CYPRUS
+        - CZECH_REPUBLIC
+        - DENMARK
+        - DJIBOUTI
+        - DOMINICA
+        - DOMINICAN_REPUBLIC
+        - ECUADOR
+        - EGYPT
+        - EL_SALVADOR
+        - EQUATORIAL_GUINEA
+        - ERITREA
+        - ESTONIA
+        - ETHIOPIA
+        - FALKLAND_ISLANDS
+        - FAROE_ISLANDS
+        - FIJI
+        - FINLAND
+        - FRANCE
+        - FRENCH_GUIANA
+        - FRENCH_POLYNESIA
+        - FRENCH_SOUTHERN_TERRITORIES
+        - GABON
+        - GAMBIA
+        - GEORGIA
+        - GERMANY
+        - GHANA
+        - GIBRALTAR
+        - GREECE
+        - GREENLAND
+        - GRENADA
+        - GUADELOUPE
+        - GUAM
+        - GUATEMALA
+        - GUERNSEY
+        - GUINEA
+        - GUINEA_BISSAU
+        - GUYANA
+        - HAITI
+        - HEARD_ISLAND_MCDONALD_ISLANDS
+        - HOLY_SEE_VATICAN_CITY_STATE
+        - HONDURAS
+        - HONG_KONG
+        - HUNGARY
+        - ICELAND
+        - INDIA
+        - INDONESIA
+        - IRAN
+        - IRAQ
+        - IRELAND
+        - ISLE_OF_MAN
+        - ISRAEL
+        - ITALY
+        - JAMAICA
+        - JAPAN
+        - JERSEY
+        - JORDAN
+        - KAZAKHSTAN
+        - KENYA
+        - KIRIBATI
+        - KOREA
+        - KOREA_DEMOCRATIC_PEOPLES_REPUBLIC
+        - KUWAIT
+        - KYRGYZSTAN
+        - LAO_PEOPLES_DEMOCRATIC_REPUBLIC
+        - LATVIA
+        - LEBANON
+        - LESOTHO
+        - LIBERIA
+        - LIBYAN_ARAB_JAMAHIRIYA
+        - LIECHTENSTEIN
+        - LITHUANIA
+        - LUXEMBOURG
+        - MACAO
+        - MACEDONIA
+        - MADAGASCAR
+        - MALAWI
+        - MALAYSIA
+        - MALDIVES
+        - MALI
+        - MALTA
+        - MARSHALL_ISLANDS
+        - MARTINIQUE
+        - MAURITANIA
+        - MAURITIUS
+        - MAYOTTE
+        - MEXICO
+        - MICRONESIA
+        - MOLDOVA
+        - MONACO
+        - MONGOLIA
+        - MONTENEGRO
+        - MONTSERRAT
+        - MOROCCO
+        - MOZAMBIQUE
+        - MYANMAR
+        - NAMIBIA
+        - NAURU
+        - NEPAL
+        - NETHERLANDS
+        - NEW_CALEDONIA
+        - NEW_ZEALAND
+        - NICARAGUA
+        - NIGER
+        - NIGERIA
+        - NIUE
+        - NORFOLK_ISLAND
+        - NORTHERN_MARIANA_ISLANDS
+        - NORWAY
+        - OMAN
+        - PAKISTAN
+        - PALAU
+        - PALESTINIAN_TERRITORY
+        - PANAMA
+        - PAPUA_NEW_GUINEA
+        - PARAGUAY
+        - PERU
+        - PHILIPPINES
+        - PITCAIRN
+        - POLAND
+        - PORTUGAL
+        - PUERTO_RICO
+        - QATAR
+        - REUNION
+        - ROMANIA
+        - RUSSIAN_FEDERATION
+        - RWANDA
+        - SAINT_BARTHELEMY
+        - SAINT_HELENA
+        - SAINT_KITTS_AND_NEVIS
+        - SAINT_LUCIA
+        - SAINT_MARTIN
+        - SAINT_PIERRE_AND_MIQUELON
+        - SAINT_VINCENT_AND_GRENADINES
+        - SAMOA
+        - SAN_MARINO
+        - SAO_TOME_AND_PRINCIPE
+        - SAUDI_ARABIA
+        - SENEGAL
+        - SERBIA
+        - SEYCHELLES
+        - SIERRA_LEONE
+        - SINGAPORE
+        - SINT_MAARTEN
+        - SLOVAKIA
+        - SLOVENIA
+        - SOLOMON_ISLANDS
+        - SOMALIA
+        - SOUTH_AFRICA
+        - SOUTH_GEORGIA_AND_SANDWICH_ISL
+        - SOUTH_SUDAN
+        - SPAIN
+        - SRI_LANKA
+        - SUDAN
+        - SURINAME
+        - SVALBARD_AND_JAN_MAYEN
+        - SWAZILAND
+        - SWEDEN
+        - SWITZERLAND
+        - SYRIAN_ARAB_REPUBLIC
+        - TAIWAN
+        - TAJIKISTAN
+        - TANZANIA
+        - THAILAND
+        - TIMOR_LESTE
+        - TOGO
+        - TOKELAU
+        - TONGA
+        - TRINIDAD_AND_TOBAGO
+        - TUNISIA
+        - TURKEY
+        - TURKMENISTAN
+        - TURKS_AND_CAICOS_ISLANDS
+        - TUVALU
+        - UGANDA
+        - UKRAINE
+        - UNITED_ARAB_EMIRATES
+        - UNITED_KINGDOM
+        - UNITED_STATES
+        - UNITED_STATES_OUTLYING_ISLANDS
+        - URUGUAY
+        - UZBEKISTAN
+        - VANUATU
+        - VENEZUELA
+        - VIETNAM
+        - VIRGIN_ISLANDS_BRITISH
+        - VIRGIN_ISLANDS_US
+        - WALLIS_AND_FUTUNA
+        - WESTERN_SAHARA
+        - YEMEN
+        - ZAMBIA
+        - ZIMBABWE
+      title: CountryCodeEnumType
+      type: string
+    CurrencyEnum:
+      enum:
+        - USD
+        - CAD
+        - EUR
+        - AED
+        - AFN
+        - ALL
+        - AMD
+        - ARS
+        - AUD
+        - AZN
+        - BAM
+        - BDT
+        - BGN
+        - BHD
+        - BIF
+        - BND
+        - BOB
+        - BRL
+        - BWP
+        - BYN
+        - BZD
+        - CDF
+        - CHF
+        - CLP
+        - CNY
+        - COP
+        - CRC
+        - CVE
+        - CZK
+        - DJF
+        - DKK
+        - DOP
+        - DZD
+        - EEK
+        - EGP
+        - ERN
+        - ETB
+        - GBP
+        - GEL
+        - GHS
+        - GNF
+        - GTQ
+        - HKD
+        - HNL
+        - HRK
+        - HUF
+        - IDR
+        - ILS
+        - INR
+        - IQD
+        - IRR
+        - ISK
+        - JMD
+        - JOD
+        - JPY
+        - KES
+        - KHR
+        - KGS
+        - KMF
+        - KRW
+        - KWD
+        - KZT
+        - LBP
+        - LKR
+        - LTL
+        - LVL
+        - LYD
+        - MAD
+        - MDL
+        - MGA
+        - MKD
+        - MMK
+        - MOP
+        - MUR
+        - MXN
+        - MYR
+        - MZN
+        - NAD
+        - NGN
+        - NIO
+        - NOK
+        - NPR
+        - NZD
+        - OMR
+        - PAB
+        - PEN
+        - PHP
+        - PKR
+        - PLN
+        - PYG
+        - QAR
+        - RON
+        - RSD
+        - RUB
+        - RWF
+        - SAR
+        - SDG
+        - SEK
+        - SGD
+        - SOS
+        - SYP
+        - THB
+        - TND
+        - TOP
+        - TRY
+        - TTD
+        - TWD
+        - TZS
+        - UAH
+        - UGX
+        - UYU
+        - UZS
+        - VEF
+        - VND
+        - XAF
+        - XOF
+        - YER
+        - ZAR
+        - ZMK
+        - ZWL
+      title: CurrencyEnum
+      type: string
+    Customer:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: Customer.id
+        seqNo:
+          title: Customer.seqNo
+          type: number
+        name:
+          title: Customer.name
+          type: string
+        surname:
+          title: Customer.surname
+          type: string
+        middlename:
+          title: Customer.middlename
+          type: string
+        description:
+          title: Customer.description
+          type: string
+        phone:
+          title: Customer.phone
+          type: string
+        email:
+          title: Customer.email
+          type: string
+        country:
+          $ref: '#/components/schemas/CountryCodeEnumType'
+          title: Customer.country
+        paymentMethods:
+          items:
+            $ref: '#/components/schemas/PaymentMethod'
+          title: Customer.paymentMethods
+          type: array
+        hasActivePaymentMethod:
+          title: Customer.hasActivePaymentMethod
+          type: boolean
+        activePaymentMethodIssuer:
+          title: Customer.activePaymentMethodIssuer
+          type: string
+        totalPaymentsCount:
+          title: Customer.totalPaymentsCount
+          type: number
+        directPaidTransactionsCount:
+          title: Customer.directPaidTransactionsCount
+          type: number
+        payments:
+          items:
+            $ref: '#/components/schemas/Payment'
+          title: Customer.payments
+          type: array
+        balances:
+          items:
+            $ref: '#/components/schemas/Balance'
+          title: Customer.balances
+          type: array
+        invoices:
+          items:
+            $ref: '#/components/schemas/Invoice'
+          title: Customer.invoices
+          type: array
+        authorizations:
+          items:
+            $ref: '#/components/schemas/Authorization'
+          title: Customer.authorizations
+          type: array
+        transactions:
+          items:
+            $ref: '#/components/schemas/Transaction'
+          title: Customer.transactions
+          type: array
+        lastMonthConsumption:
+          $ref: '#/components/schemas/LastMonthConsumption'
+          title: Customer.lastMonthConsumption
+        transactionsCount:
+          $ref: '#/components/schemas/TransactionsCount'
+          title: Customer.transactionsCount
+        last30dData:
+          $ref: '#/components/schemas/Last30dData'
+          title: Customer.last30dData
+        mostPopularByWeek:
+          items:
+            $ref: '#/components/schemas/MostPopularByWeek'
+          title: Customer.mostPopularByWeek
+          type: array
+        otp:
+          title: Customer.otp
+          type: string
+        otpCreatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Customer.otpCreatedAt
+        internalPrivateUseDescription:
+          title: Customer.internalPrivateUseDescription
+          type: string
+        tenant:
+          title: Customer.tenant
+          type: string
+        tenantSettings:
+          $ref: '#/components/schemas/TenantSettings'
+          title: Customer.tenantSettings
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Customer.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Customer.updatedAt
+      required:
+        - id
+      additionalProperties: false
+      title: Customer
+      description: Customer
+      type: object
+    CustomerCategory:
+      properties:
+        id:
+          title: CustomerCategory.id
+          type: number
+        name:
+          title: CustomerCategory.name
+          type: string
+        description:
+          title: CustomerCategory.description
+          type: string
+        discountId:
+          title: CustomerCategory.discountId
+          type: string
+        tenant:
+          title: CustomerCategory.tenant
+          type: string
+        customers:
+          items:
+            $ref: '#/components/schemas/Customer'
+          title: CustomerCategory.customers
+          type: array
+        privateAccessId:
+          title: CustomerCategory.privateAccessId
+          type: number
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: CustomerCategory.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: CustomerCategory.updatedAt
+      additionalProperties: false
+      title: CustomerCategory
+      description: UserCategory
+      type: object
+    CustomerPersonalData:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: CustomerPersonalData.id
+        phone:
+          title: CustomerPersonalData.phone
+          type: string
+        email:
+          title: CustomerPersonalData.email
+          type: string
+        fullName:
+          title: CustomerPersonalData.fullName
+          type: string
+      required:
+        - id
+      additionalProperties: false
+      title: CustomerPersonalData
+      description: Customer personal data
+      type: object
+    CustomersCategoriesList:
+      properties:
+        rows:
+          items:
+            $ref: '#/components/schemas/CustomerCategory'
+          title: CustomersCategoriesList.rows
+          type: array
+        count:
+          title: CustomersCategoriesList.count
+          type: number
+      required:
+        - rows
+        - count
+      additionalProperties: false
+      title: CustomersCategoriesList
+      description: CustomerCategories list
+      type: object
+    CustomersLeaderboard:
+      properties:
+        customerPhone:
+          title: CustomersLeaderboard.customerPhone
+          type: string
+        totalTransactions:
+          title: CustomersLeaderboard.totalTransactions
+          type: number
+        totalKWH:
+          title: CustomersLeaderboard.totalKWH
+          type: number
+        totalDuration:
+          title: CustomersLeaderboard.totalDuration
+          type: number
+        totalAmount:
+          title: CustomersLeaderboard.totalAmount
+          type: number
+      required:
+        - customerPhone
+        - totalTransactions
+      additionalProperties: false
+      title: CustomersLeaderboard
+      type: object
+    CustomersList:
+      properties:
+        rows:
+          items:
+            $ref: '#/components/schemas/Customer'
+          title: CustomersList.rows
+          type: array
+        count:
+          title: CustomersList.count
+          type: number
+      required:
+        - rows
+        - count
+      additionalProperties: false
+      title: CustomersList
+      description: Customers list
+      type: object
+    DashboardInfo:
+      properties:
+        transactionsInProcess:
+          items:
+            $ref: '#/components/schemas/Transaction'
+          title: DashboardInfo.transactionsInProcess
+          type: array
+        lastStatusChargingStations:
+          items:
+            $ref: '#/components/schemas/LastStatusChargingStation'
+          title: DashboardInfo.lastStatusChargingStations
+          type: array
+        unpaidAuthorizations:
+          items:
+            $ref: '#/components/schemas/Authorization'
+          title: DashboardInfo.unpaidAuthorizations
+          type: array
+        countTotalCustomers:
+          title: DashboardInfo.countTotalCustomers
+          type: number
+        countTransactionsTotal:
+          title: DashboardInfo.countTransactionsTotal
+          type: number
+        countTransactionsSuccess:
+          title: DashboardInfo.countTransactionsSuccess
+          type: number
+        countTransactionsError:
+          title: DashboardInfo.countTransactionsError
+          type: number
+        countChargingStationsTotal:
+          title: DashboardInfo.countChargingStationsTotal
+          type: number
+        countChargingStationsOnline:
+          title: DashboardInfo.countChargingStationsOnline
+          type: number
+        countKWAll:
+          title: DashboardInfo.countKWAll
+          type: number
+        countKWChargable:
+          title: DashboardInfo.countKWChargable
+          type: number
+        last30dData:
+          $ref: '#/components/schemas/Last30dData'
+          title: DashboardInfo.last30dData
+        countKWForLast30D:
+          items:
+            type: number
+          title: DashboardInfo.countKWForLast30D
+          type: array
+        countKWChargableForLast30D:
+          items:
+            type: number
+          title: DashboardInfo.countKWChargableForLast30D
+          type: array
+        countTotalKWForLast30D:
+          items:
+            type: number
+          title: DashboardInfo.countTotalKWForLast30D
+          type: array
+        countMoneyAll:
+          title: DashboardInfo.countMoneyAll
+          type: number
+        countMoneyForLast30D:
+          items:
+            type: number
+          title: DashboardInfo.countMoneyForLast30D
+          type: array
+        last10Transactions:
+          items:
+            $ref: '#/components/schemas/LastTransactions'
+          title: DashboardInfo.last10Transactions
+          type: array
+        mostPopularByWeek:
+          items:
+            $ref: '#/components/schemas/MostPopularByWeek'
+          title: DashboardInfo.mostPopularByWeek
+          type: array
+        mostPopularCSTotalKWPerMonth:
+          items:
+            $ref: '#/components/schemas/MostPopularCSTotalKWPerMonth'
+          title: DashboardInfo.mostPopularCSTotalKWPerMonth
+          type: array
+        mostPopularCSTotalDurationPerMonth:
+          items:
+            $ref: '#/components/schemas/MostPopularCSTotalDurationPerMonth'
+          title: DashboardInfo.mostPopularCSTotalDurationPerMonth
+          type: array
+        countNotPaidTransactions:
+          title: DashboardInfo.countNotPaidTransactions
+          type: number
+        countNotPaidAmount:
+          title: DashboardInfo.countNotPaidAmount
+          type: number
+        tenantsBasedData:
+          $ref: '#/components/schemas/TenantsBasedData'
+          title: DashboardInfo.tenantsBasedData
+        transactionsForReview:
+          items:
+            $ref: '#/components/schemas/Transaction'
+          title: DashboardInfo.transactionsForReview
+          type: array
+        countBalancesTotal:
+          title: DashboardInfo.countBalancesTotal
+          type: number
+        customersLeaderboard:
+          items:
+            $ref: '#/components/schemas/CustomersLeaderboard'
+          title: DashboardInfo.customersLeaderboard
+          type: array
+      additionalProperties: false
+      title: DashboardInfo
+      type: object
+    DayAndTimeType:
+      properties:
+        day:
+          title: DayAndTimeType.day
+          type: number
+        time:
+          title: DayAndTimeType.time
+          type: string
+      required:
+        - day
+        - time
+      additionalProperties: false
+      title: DayAndTimeType
+      type: object
+    Discount:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: Discount.id
+        seqNo:
+          title: Discount.seqNo
+          type: number
+        name:
+          title: Discount.name
+          type: string
+        description:
+          title: Discount.description
+          type: string
+        internalPrivateUseDescription:
+          title: Discount.internalPrivateUseDescription
+          type: string
+        percent:
+          title: Discount.percent
+          type: number
+        amount:
+          title: Discount.amount
+          type: number
+        freeCharging:
+          title: Discount.freeCharging
+          type: boolean
+        active:
+          title: Discount.active
+          type: boolean
+        validFrom:
+          $ref: '#/components/schemas/DateTime'
+          title: Discount.validFrom
+        validTill:
+          $ref: '#/components/schemas/DateTime'
+          title: Discount.validTill
+        discountTargets:
+          items:
+            $ref: '#/components/schemas/DiscountTarget'
+          title: Discount.discountTargets
+          type: array
+        tenant:
+          title: Discount.tenant
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Discount.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Discount.updatedAt
+      required:
+        - id
+      additionalProperties: false
+      title: Discount
+      description: Discount
+      type: object
+    DiscountTarget:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: DiscountTarget.id
+        discount:
+          $ref: '#/components/schemas/Discount'
+          title: DiscountTarget.discount
+        customer:
+          $ref: '#/components/schemas/Customer'
+          title: DiscountTarget.customer
+        chargingStation:
+          $ref: '#/components/schemas/ChargingStation'
+          title: DiscountTarget.chargingStation
+        tenant:
+          title: DiscountTarget.tenant
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: DiscountTarget.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: DiscountTarget.updatedAt
+      required:
+        - id
+        - chargingStation
+      additionalProperties: false
+      title: DiscountTarget
+      description: DiscountTarget
+      type: object
+    Error:
+      properties:
+        code:
+          title: Error.code
+          type: number
+        errorText:
+          title: Error.errorText
+          type: string
+      required:
+        - code
+      additionalProperties: false
+      title: Error
+      description: Common error reponse object
+      type: object
+    Evses:
+      properties:
+        id:
+          title: Evses.id
+          type: number
+        power:
+          title: Evses.power
+          type: number
+        connectors:
+          items:
+            $ref: '#/components/schemas/Connector'
+          title: Evses.connectors
+          type: array
+        tariff:
+          $ref: '#/components/schemas/TariffType'
+          title: Evses.tariff
+      required:
+        - id
+        - connectors
+      additionalProperties: false
+      title: Evses
+      type: object
+    ExternalCustomerAuthorizeResponse:
+      properties:
+        token:
+          title: ExternalCustomerAuthorizeResponse.token
+          type: string
+        customerId:
+          title: ExternalCustomerAuthorizeResponse.customerId
+          type: string
+        companies:
+          items:
+            $ref: '#/components/schemas/Company'
+          title: ExternalCustomerAuthorizeResponse.companies
+          type: array
+      required:
+        - token
+        - customerId
+      additionalProperties: false
+      title: ExternalCustomerAuthorizeResponse
+      description: External Customer Authorize Response
+      type: object
+    File:
+      properties:
+        id:
+          title: File.id
+          type: string
+        seqNo:
+          title: File.seqNo
+          type: number
+        name:
+          title: File.name
+          type: string
+        description:
+          title: File.description
+          type: string
+        fileType:
+          $ref: '#/components/schemas/FileTypeEnum'
+          title: File.fileType
+        url:
+          title: File.url
+          type: string
+        mimeType:
+          title: File.mimeType
+          type: string
+        extention:
+          title: File.extention
+          type: string
+        bucket:
+          title: File.bucket
+          type: string
+        path:
+          title: File.path
+          type: string
+        size:
+          title: File.size
+          type: number
+        imageInfo:
+          $ref: '#/components/schemas/ImageInfo'
+          title: File.imageInfo
+        active:
+          title: File.active
+          type: boolean
+      additionalProperties: false
+      title: File
+      type: object
+    FileTypeEnum:
+      enum:
+        - IMAGE
+        - VIDEO
+        - AUDIO
+        - TEXT
+        - APPLICATION
+      title: FileTypeEnum
+      type: string
+    ForcePaymentErrorEnum:
+      enum:
+        - ALREADY_PAID
+        - NO_PAYMENT
+        - NO_ACTIVE_PAYMENT_METHOD
+        - PAYMENT_SERVICE_ERROR
+      title: ForcePaymentErrorEnum
+      description: Force Payment Error Enum
+      type: string
+    ForcePaymentResponse:
+      properties:
+        status:
+          $ref: '#/components/schemas/PaymentStatusEnum'
+          title: ForcePaymentResponse.status
+        error:
+          $ref: '#/components/schemas/ForcePaymentErrorEnum'
+          title: ForcePaymentResponse.error
+      additionalProperties: false
+      title: ForcePaymentResponse
+      description: Force Payment Response
+      type: object
+    IdTokenEnumType:
+      enum:
+        - CENTRAL
+        - E_MAID
+        - ISO14443
+        - ISO15693
+        - KEY_CODE
+        - LOCAL
+        - MAC_ADDRESS
+        - NO_AUTHORIZATION
+      title: IdTokenEnumType
+      description: Id Token enum
+      type: string
+    ImageData:
+      properties:
+        id:
+          title: ImageData.id
+          type: string
+        width:
+          title: ImageData.width
+          type: number
+        height:
+          title: ImageData.height
+          type: number
+      required:
+        - id
+        - width
+        - height
+      additionalProperties: false
+      title: ImageData
+      type: object
+    ImageInfo:
+      properties:
+        original:
+          $ref: '#/components/schemas/ImageData'
+          title: ImageInfo.original
+        resized:
+          $ref: '#/components/schemas/ImageProcessedData'
+          title: ImageInfo.resized
+        cropped:
+          $ref: '#/components/schemas/ImageProcessedData'
+          title: ImageInfo.cropped
+        extracted:
+          $ref: '#/components/schemas/ImageProcessedData'
+          title: ImageInfo.extracted
+      additionalProperties: false
+      title: ImageInfo
+      type: object
+    ImageProcessedData:
+      properties:
+        small:
+          $ref: '#/components/schemas/ImageData'
+          title: ImageProcessedData.small
+        medium:
+          $ref: '#/components/schemas/ImageData'
+          title: ImageProcessedData.medium
+        large:
+          $ref: '#/components/schemas/ImageData'
+          title: ImageProcessedData.large
+      additionalProperties: false
+      title: ImageProcessedData
+      type: object
+    Invoice:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: Invoice.id
+        seqNo:
+          title: Invoice.seqNo
+          type: number
+        amount:
+          title: Invoice.amount
+          type: number
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
+          title: Invoice.currency
+        status:
+          $ref: '#/components/schemas/InvoiceStatusEnum'
+          title: Invoice.status
+        vatRate:
+          $ref: '#/components/schemas/VatRate'
+          title: Invoice.vatRate
+        internalPrivateUseDescription:
+          title: Invoice.internalPrivateUseDescription
+          type: string
+        invoiceItems:
+          items:
+            $ref: '#/components/schemas/InvoiceItem'
+          title: Invoice.invoiceItems
+          type: array
+        payments:
+          items:
+            $ref: '#/components/schemas/Payment'
+          title: Invoice.payments
+          type: array
+        customer:
+          $ref: '#/components/schemas/Customer'
+          title: Invoice.customer
+        company:
+          $ref: '#/components/schemas/Company'
+          title: Invoice.company
+        tenant:
+          title: Invoice.tenant
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Invoice.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Invoice.updatedAt
+      required:
+        - id
+        - amount
+        - currency
+      additionalProperties: false
+      title: Invoice
+      description: Invoice object
+      type: object
+    InvoiceItem:
+      properties:
+        id:
+          title: InvoiceItem.id
+          type: number
+        amount:
+          title: InvoiceItem.amount
+          type: number
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
+          title: InvoiceItem.currency
+        vatRate:
+          $ref: '#/components/schemas/VatRate'
+          title: InvoiceItem.vatRate
+        purpose:
+          $ref: '#/components/schemas/InvoiceItemPurposeEnum'
+          title: InvoiceItem.purpose
+        description:
+          title: InvoiceItem.description
+          type: string
+        transaction:
+          $ref: '#/components/schemas/Transaction'
+          title: InvoiceItem.transaction
+        discount:
+          $ref: '#/components/schemas/Discount'
+          title: InvoiceItem.discount
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: InvoiceItem.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: InvoiceItem.updatedAt
+      required:
+        - id
+        - amount
+        - currency
+      additionalProperties: false
+      title: InvoiceItem
+      description: Invoice item
+      type: object
+    InvoiceItemPurposeEnum:
+      enum:
+        - BOOKING
+        - TRANSACTION
+        - PARKING_TIME
+        - PRIORITY_CHARGING
+        - BALANCE_TOP_UP
+        - DISCOUNT
+        - GIFT
+        - ADJUSTMENT_ENTRY
+      title: InvoiceItemPurposeEnum
+      description: Invoice Item Purpose Enum
+      type: string
+    InvoiceStatusEnum:
+      enum:
+        - PAID
+        - PENDING
+        - CANCELED
+      title: InvoiceStatusEnum
+      description: Invoice Status Enum
+      type: string
+    Last30dData:
+      properties:
+        totalKWH:
+          $ref: '#/components/schemas/ChartElementSplittable'
+          title: Last30dData.totalKWH
+        paidKWH:
+          $ref: '#/components/schemas/ChartElementSplittable'
+          title: Last30dData.paidKWH
+        totalAmount:
+          $ref: '#/components/schemas/ChartElementSplittable'
+          title: Last30dData.totalAmount
+      additionalProperties: false
+      title: Last30dData
+      type: object
+    LastMonthConsumption:
+      properties:
+        totalKW:
+          title: LastMonthConsumption.totalKW
+          type: number
+        totalDuration:
+          title: LastMonthConsumption.totalDuration
+          type: number
+      additionalProperties: false
+      title: LastMonthConsumption
+      type: object
+    LastStatusChargingStation:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: LastStatusChargingStation.id
+        seqNo:
+          title: LastStatusChargingStation.seqNo
+          type: number
+        name:
+          title: LastStatusChargingStation.name
+          type: string
+        tenant:
+          title: LastStatusChargingStation.tenant
+          type: string
+        lastStatus:
+          $ref: '#/components/schemas/UptimeMonitoring'
+          title: LastStatusChargingStation.lastStatus
+        uptimeMonitorings:
+          items:
+            $ref: '#/components/schemas/UptimeMonitoring'
+          title: LastStatusChargingStation.uptimeMonitorings
+          type: array
+      required:
+        - id
+        - seqNo
+      additionalProperties: false
+      title: LastStatusChargingStation
+      type: object
+    LastTransactions:
+      properties:
+        totalKW:
+          title: LastTransactions.totalKW
+          type: number
+        transactionStep:
+          $ref: '#/components/schemas/TransactionStepsEnum'
+          title: LastTransactions.transactionStep
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: LastTransactions.updatedAt
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: LastTransactions.createdAt
+      additionalProperties: false
+      title: LastTransactions
+      type: object
+    MeterValue:
+      properties:
+        timestamp:
+          title: MeterValue.timestamp
+          type: string
+        messageId:
+          title: MeterValue.messageId
+          type: string
+        power:
+          $ref: '#/components/schemas/MeterValueUnit'
+          title: MeterValue.power
+        voltage:
+          $ref: '#/components/schemas/MeterValueUnit'
+          title: MeterValue.voltage
+        current:
+          $ref: '#/components/schemas/MeterValueUnit'
+          title: MeterValue.current
+        soc:
+          $ref: '#/components/schemas/MeterValueUnit'
+          title: MeterValue.soc
+        rawData:
+          title: MeterValue.rawData
+          type: string
+      required:
+        - rawData
+      additionalProperties: false
+      title: MeterValue
+      type: object
+    MeterValueUnit:
+      properties:
+        value:
+          title: MeterValueUnit.value
+          type: number
+        unit:
+          $ref: '#/components/schemas/UnitOfMeasureEnumType'
+          title: MeterValueUnit.unit
+      additionalProperties: false
+      title: MeterValueUnit
+      type: object
+    MostPopularByWeek:
+      properties:
+        id:
+          title: MostPopularByWeek.id
+          type: string
+        seqNo:
+          title: MostPopularByWeek.seqNo
+          type: number
+        name:
+          title: MostPopularByWeek.name
+          type: string
+        totalKWPerWeek:
+          items:
+            type: number
+          title: MostPopularByWeek.totalKWPerWeek
+          type: array
+      additionalProperties: false
+      title: MostPopularByWeek
+      type: object
+    MostPopularCSTotalDurationPerMonth:
+      properties:
+        id:
+          title: MostPopularCSTotalDurationPerMonth.id
+          type: string
+        seqNo:
+          title: MostPopularCSTotalDurationPerMonth.seqNo
+          type: number
+        name:
+          title: MostPopularCSTotalDurationPerMonth.name
+          type: string
+        totalDurationPerMonth:
+          title: MostPopularCSTotalDurationPerMonth.totalDurationPerMonth
+          type: number
+      additionalProperties: false
+      title: MostPopularCSTotalDurationPerMonth
+      type: object
+    MostPopularCSTotalKWPerMonth:
+      properties:
+        id:
+          title: MostPopularCSTotalKWPerMonth.id
+          type: string
+        seqNo:
+          title: MostPopularCSTotalKWPerMonth.seqNo
+          type: number
+        name:
+          title: MostPopularCSTotalKWPerMonth.name
+          type: string
+        totalKWPerMonth:
+          title: MostPopularCSTotalKWPerMonth.totalKWPerMonth
+          type: number
+      additionalProperties: false
+      title: MostPopularCSTotalKWPerMonth
+      type: object
+    Mutation:
+      properties:
+        AuthorizationCardCreate:
+          $ref: '#/components/schemas/AuthorizationCard'
+          title: Mutation.AuthorizationCardCreate
+        AuthorizationCardUpdate:
+          $ref: '#/components/schemas/AuthorizationCard'
+          title: Mutation.AuthorizationCardUpdate
+        AuthorizationCardRemove:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.AuthorizationCardRemove
+        BalanceRefund:
+          $ref: '#/components/schemas/BalanceBrief'
+          title: Mutation.BalanceRefund
+        CarMakerCreate:
+          $ref: '#/components/schemas/CarMaker'
+          title: Mutation.CarMakerCreate
+        CarMakerUpdate:
+          $ref: '#/components/schemas/CarMaker'
+          title: Mutation.CarMakerUpdate
+        CarMakerRemove:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.CarMakerRemove
+        CarModelCreate:
+          $ref: '#/components/schemas/CarModel'
+          title: Mutation.CarModelCreate
+        CarModelUpdate:
+          $ref: '#/components/schemas/CarModel'
+          title: Mutation.CarModelUpdate
+        CarModelRemove:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.CarModelRemove
+        CustomerCarCreate:
+          $ref: '#/components/schemas/Car'
+          title: Mutation.CustomerCarCreate
+        CustomerCarUpdate:
+          $ref: '#/components/schemas/Car'
+          title: Mutation.CustomerCarUpdate
+        CustomerCarRemove:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.CustomerCarRemove
+        ChargingStationCreateUpdate:
+          $ref: '#/components/schemas/ChargingStation'
+          title: Mutation.ChargingStationCreateUpdate
+        ChargingStationReset:
+          $ref: '#/components/schemas/ChargingStationResetResponse'
+          title: Mutation.ChargingStationReset
+        ChargingStationClearCache:
+          $ref: '#/components/schemas/ChargingStationClearCacheResponse'
+          title: Mutation.ChargingStationClearCache
+        ChargingStationChangeAvailability:
+          $ref: '#/components/schemas/ChargingStationChangeAvailabilityResponse'
+          title: Mutation.ChargingStationChangeAvailability
+        ChargingStationUnlockConnector:
+          $ref: '#/components/schemas/ChargingStationUnlockConnectorResponse'
+          title: Mutation.ChargingStationUnlockConnector
+        ChargingStationChangeConfiguration:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.ChargingStationChangeConfiguration
+        ChargingStationUpdateFirmwareRequest:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.ChargingStationUpdateFirmwareRequest
+        CompanyCreateUpdate:
+          $ref: '#/components/schemas/Company'
+          title: Mutation.CompanyCreateUpdate
+        CurrentUserEdit:
+          $ref: '#/components/schemas/UserBrief'
+          title: Mutation.CurrentUserEdit
+        CurrentUserDestroy:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.CurrentUserDestroy
+        CustomerCreateForCorporateFleet:
+          $ref: '#/components/schemas/Customer'
+          title: Mutation.CustomerCreateForCorporateFleet
+        CustomerUpdate:
+          $ref: '#/components/schemas/Customer'
+          title: Mutation.CustomerUpdate
+        CustomerRemove:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.CustomerRemove
+        DiscountCreate:
+          $ref: '#/components/schemas/Discount'
+          title: Mutation.DiscountCreate
+        DiscountUpdate:
+          $ref: '#/components/schemas/Discount'
+          title: Mutation.DiscountUpdate
+        DiscountRemove:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.DiscountRemove
+        PushTokenSave:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.PushTokenSave
+        PushTokenUpdate:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.PushTokenUpdate
+        PushTokenRemove:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.PushTokenRemove
+        OwnersGroupCreate:
+          $ref: '#/components/schemas/OwnersGroup'
+          title: Mutation.OwnersGroupCreate
+        OwnersGroupUpdate:
+          $ref: '#/components/schemas/OwnersGroup'
+          title: Mutation.OwnersGroupUpdate
+        OwnersGroupRemove:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.OwnersGroupRemove
+        AddNewPayment:
+          $ref: '#/components/schemas/PaymentResponse'
+          title: Mutation.AddNewPayment
+        RemovePaymentMethod:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.RemovePaymentMethod
+        SetPaymentMethodSelected:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.SetPaymentMethodSelected
+        PayTransaction:
+          $ref: '#/components/schemas/PaymentResponse'
+          title: Mutation.PayTransaction
+        ForcePayUnpaidTransaction:
+          $ref: '#/components/schemas/ForcePaymentResponse'
+          title: Mutation.ForcePayUnpaidTransaction
+        PaymentsTopUp:
+          $ref: '#/components/schemas/PaymentTopUpResponse'
+          title: Mutation.PaymentsTopUp
+        PromocodeGenerate:
+          $ref: '#/components/schemas/Promocode'
+          title: Mutation.PromocodeGenerate
+        PromocodeRedeem:
+          $ref: '#/components/schemas/Promocode'
+          title: Mutation.PromocodeRedeem
+        PromocodeEdit:
+          $ref: '#/components/schemas/Promocode'
+          title: Mutation.PromocodeEdit
+        PromocodeExpire:
+          $ref: '#/components/schemas/Promocode'
+          title: Mutation.PromocodeExpire
+        ProxyChargingStationCreateUpdate:
+          $ref: '#/components/schemas/ProxyChargingStation'
+          title: Mutation.ProxyChargingStationCreateUpdate
+        ProxyChargingStationRemove:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.ProxyChargingStationRemove
+        ProxyChargingStationRawRequest:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.ProxyChargingStationRawRequest
+        SystemMessageCreateUpdate:
+          $ref: '#/components/schemas/SystemMessage'
+          title: Mutation.SystemMessageCreateUpdate
+        SystemMessageRemove:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.SystemMessageRemove
+        TariffCreateUpdate:
+          items:
+            $ref: '#/components/schemas/TariffItem'
+          title: Mutation.TariffCreateUpdate
+          type: array
+        TariffRemove:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.TariffRemove
+        TariffGroupCreate:
+          $ref: '#/components/schemas/TariffGroup'
+          title: Mutation.TariffGroupCreate
+        TariffGroupUpdate:
+          $ref: '#/components/schemas/TariffGroup'
+          title: Mutation.TariffGroupUpdate
+        TariffGroupRemove:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.TariffGroupRemove
+        StartTransaction:
+          $ref: '#/components/schemas/StartTransactionResponse'
+          title: Mutation.StartTransaction
+        StopTransaction:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.StopTransaction
+        SuspendTransaction:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.SuspendTransaction
+        ForceFinalizeTransaction:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.ForceFinalizeTransaction
+        MarkTransactionReviewed:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.MarkTransactionReviewed
+        TransferTransaction:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.TransferTransaction
+        CreateUser:
+          $ref: '#/components/schemas/User'
+          title: Mutation.CreateUser
+        UpdateUser:
+          $ref: '#/components/schemas/User'
+          title: Mutation.UpdateUser
+        ChargingStationCategoryCreate:
+          $ref: '#/components/schemas/ChargingStationCategory'
+          title: Mutation.ChargingStationCategoryCreate
+        ChargingStationCategoryUpdate:
+          $ref: '#/components/schemas/ChargingStationCategory'
+          title: Mutation.ChargingStationCategoryUpdate
+        ChargingStationCategoryRemove:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.ChargingStationCategoryRemove
+        UserCategoryCreate:
+          $ref: '#/components/schemas/UserCategory'
+          title: Mutation.UserCategoryCreate
+        UserCategoryUpdate:
+          $ref: '#/components/schemas/UserCategory'
+          title: Mutation.UserCategoryUpdate
+        UserCategoryRemove:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.UserCategoryRemove
+        CustomerCategoryCreate:
+          $ref: '#/components/schemas/CustomerCategory'
+          title: Mutation.CustomerCategoryCreate
+        CustomerCategoryUpdate:
+          $ref: '#/components/schemas/CustomerCategory'
+          title: Mutation.CustomerCategoryUpdate
+        CustomerCategoryRemove:
+          $ref: '#/components/schemas/CommonResponse'
+          title: Mutation.CustomerCategoryRemove
+      required:
+        - AuthorizationCardCreate
+        - AuthorizationCardUpdate
+        - AuthorizationCardRemove
+        - CarMakerCreate
+        - CarMakerUpdate
+        - CarMakerRemove
+        - CarModelCreate
+        - CarModelUpdate
+        - CarModelRemove
+        - CustomerCarRemove
+        - ChargingStationCreateUpdate
+        - ChargingStationReset
+        - ChargingStationClearCache
+        - ChargingStationChangeAvailability
+        - ChargingStationUnlockConnector
+        - ChargingStationChangeConfiguration
+        - CompanyCreateUpdate
+        - CurrentUserEdit
+        - CurrentUserDestroy
+        - CustomerCreateForCorporateFleet
+        - CustomerUpdate
+        - CustomerRemove
+        - DiscountCreate
+        - DiscountUpdate
+        - DiscountRemove
+        - PushTokenSave
+        - PushTokenUpdate
+        - PushTokenRemove
+        - OwnersGroupCreate
+        - OwnersGroupUpdate
+        - OwnersGroupRemove
+        - PayTransaction
+        - ForcePayUnpaidTransaction
+        - PaymentsTopUp
+        - PromocodeGenerate
+        - PromocodeRedeem
+        - PromocodeEdit
+        - PromocodeExpire
+        - ProxyChargingStationCreateUpdate
+        - ProxyChargingStationRemove
+        - ProxyChargingStationRawRequest
+        - SystemMessageCreateUpdate
+        - SystemMessageRemove
+        - TariffCreateUpdate
+        - TariffRemove
+        - TariffGroupCreate
+        - TariffGroupUpdate
+        - TariffGroupRemove
+        - StartTransaction
+        - StopTransaction
+        - SuspendTransaction
+        - ForceFinalizeTransaction
+        - MarkTransactionReviewed
+        - TransferTransaction
+        - CreateUser
+        - UpdateUser
+        - ChargingStationCategoryCreate
+        - ChargingStationCategoryUpdate
+        - ChargingStationCategoryRemove
+        - UserCategoryCreate
+        - UserCategoryUpdate
+        - UserCategoryRemove
+        - CustomerCategoryCreate
+        - CustomerCategoryUpdate
+        - CustomerCategoryRemove
+      additionalProperties: false
+      title: Mutation
+      type: object
+    OcppMessageDirection:
+      enum:
+        - TO_CS
+        - TO_CSMS
+      title: OcppMessageDirection
+      description: OCPP Message Direction
+      type: string
+    OcppSupportedEnum:
+      enum:
+        - V120SOAP
+        - V150SOAP
+        - V160SOAP
+        - V160
+        - V200
+        - V201
+        - ENSTO
+      title: OcppSupportedEnum
+      type: string
+    OpeningHoursType:
+      properties:
+        periods:
+          items:
+            $ref: '#/components/schemas/PeriodType'
+          title: OpeningHoursType.periods
+          type: array
+      required:
+        - periods
+      additionalProperties: false
+      title: OpeningHoursType
+      type: object
+    OwnersAccess:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: OwnersAccess.id
+        name:
+          title: OwnersAccess.name
+          type: string
+        description:
+          title: OwnersAccess.description
+          type: string
+        chargingStationCategories:
+          items:
+            $ref: '#/components/schemas/ChargingStationCategory'
+          title: OwnersAccess.chargingStationCategories
+          type: array
+        userCategories:
+          items:
+            $ref: '#/components/schemas/UserCategory'
+          title: OwnersAccess.userCategories
+          type: array
+        tenant:
+          title: OwnersAccess.tenant
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: OwnersAccess.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: OwnersAccess.updatedAt
+      required:
+        - id
+      additionalProperties: false
+      title: OwnersAccess
+      description: Owners Access
+      type: object
+    OwnersGroup:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: OwnersGroup.id
+        name:
+          title: OwnersGroup.name
+          type: string
+        description:
+          title: OwnersGroup.description
+          type: string
+        users:
+          items:
+            $ref: '#/components/schemas/User'
+          title: OwnersGroup.users
+          type: array
+        chargingStations:
+          items:
+            $ref: '#/components/schemas/ChargingStation'
+          title: OwnersGroup.chargingStations
+          type: array
+        tenant:
+          title: OwnersGroup.tenant
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: OwnersGroup.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: OwnersGroup.updatedAt
+      required:
+        - id
+      additionalProperties: false
+      title: OwnersGroup
+      description: Owners Group object
+      type: object
+    Payment:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: Payment.id
+        seqNo:
+          title: Payment.seqNo
+          type: number
+        paid:
+          title: Payment.paid
+          type: boolean
+        refunded:
+          title: Payment.refunded
+          type: boolean
+        refundId:
+          title: Payment.refundId
+          type: string
+        test:
+          title: Payment.test
+          type: boolean
+        externalPaymentId:
+          title: Payment.externalPaymentId
+          type: string
+        customerId:
+          title: Payment.customerId
+          type: string
+        invoice:
+          $ref: '#/components/schemas/Invoice'
+          title: Payment.invoice
+        customerPhone:
+          title: Payment.customerPhone
+          type: string
+        paymentMethodId:
+          title: Payment.paymentMethodId
+          type: string
+        transactionId:
+          title: Payment.transactionId
+          type: string
+        transaction:
+          $ref: '#/components/schemas/Transaction'
+          title: Payment.transaction
+        chargingStationName:
+          title: Payment.chargingStationName
+          type: string
+        paymentService:
+          $ref: '#/components/schemas/PaymentServiceEnum'
+          title: Payment.paymentService
+        amount:
+          title: Payment.amount
+          type: string
+        vatRate:
+          $ref: '#/components/schemas/VatRate'
+          title: Payment.vatRate
+        incomeAmount:
+          title: Payment.incomeAmount
+          type: string
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
+          title: Payment.currency
+        description:
+          title: Payment.description
+          type: string
+        status:
+          $ref: '#/components/schemas/PaymentStatusEnum'
+          title: Payment.status
+        capturedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Payment.capturedAt
+        expiresAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Payment.expiresAt
+        receiptStatus:
+          $ref: '#/components/schemas/PaymentReceiptStatusEnum'
+          title: Payment.receiptStatus
+        receiptId:
+          title: Payment.receiptId
+          type: string
+        receiptUrl:
+          title: Payment.receiptUrl
+          type: string
+        receiptService:
+          $ref: '#/components/schemas/ReceiptServiceEnum'
+          title: Payment.receiptService
+        cancellationParty:
+          $ref: '#/components/schemas/PaymentCancellationPartyEnum'
+          title: Payment.cancellationParty
+        cancellationReason:
+          title: Payment.cancellationReason
+          type: string
+        tenant:
+          title: Payment.tenant
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Payment.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Payment.updatedAt
+      additionalProperties: false
+      title: Payment
+      type: object
+    PaymentCancellationPartyEnum:
+      enum:
+        - YANDEX_CHECKOUT
+        - YOO_MONEY
+        - PAYMENT_NETWORK
+        - MERCHANT
+      title: PaymentCancellationPartyEnum
+      description: Payment Cancellation Party
+      type: string
+    PaymentCardTypeEnum:
+      enum:
+        - MASTER_CARD
+        - VISA
+        - MIR
+        - UNION_PAY
+        - JCB
+        - AMERICAN_EXPRESS
+        - DINERS_CLUB
+        - UNKNOWN
+      title: PaymentCardTypeEnum
+      description: Please choose one of payment card type
+      type: string
+    PaymentMethod:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: PaymentMethod.id
+        paymentType:
+          $ref: '#/components/schemas/PaymentTypeEnum'
+          title: PaymentMethod.paymentType
+        paymentService:
+          $ref: '#/components/schemas/PaymentServiceEnum'
+          title: PaymentMethod.paymentService
+        selected:
+          title: PaymentMethod.selected
+          type: boolean
+        first6:
+          title: PaymentMethod.first6
+          type: number
+        last4:
+          title: PaymentMethod.last4
+          type: number
+        expiryMonth:
+          title: PaymentMethod.expiryMonth
+          type: string
+        expiryYear:
+          title: PaymentMethod.expiryYear
+          type: string
+        cardType:
+          $ref: '#/components/schemas/PaymentCardTypeEnum'
+          title: PaymentMethod.cardType
+        issuerCountry:
+          $ref: '#/components/schemas/CountryCodeEnumType'
+          title: PaymentMethod.issuerCountry
+        issuerName:
+          title: PaymentMethod.issuerName
+          type: string
+      required:
+        - id
+      additionalProperties: false
+      title: PaymentMethod
+      description: Available Payment Types
+      type: object
+    PaymentReceiptStatusEnum:
+      enum:
+        - PENDING
+        - SUCCEEDED
+        - CANCELED
+      title: PaymentReceiptStatusEnum
+      description: Payment Receipt Status
+      type: string
+    PaymentResponse:
+      properties:
+        status:
+          $ref: '#/components/schemas/PaymentStatusEnum'
+          title: PaymentResponse.status
+        redirectUrl:
+          title: PaymentResponse.redirectUrl
+          type: string
+        returnUrl:
+          title: PaymentResponse.returnUrl
+          type: string
+        confirmationToken:
+          title: PaymentResponse.confirmationToken
+          type: string
+      required:
+        - status
+      additionalProperties: false
+      title: PaymentResponse
+      description: Payments Add Payment Response
+      type: object
+    PaymentServiceEnum:
+      enum:
+        - YOOKASSA
+        - WEBPAY
+        - BELASSIST
+        - CLOUDPAYMENTS
+        - PAYBOX
+      title: PaymentServiceEnum
+      description: Payment service
+      type: string
+    PaymentStatusEnum:
+      enum:
+        - PENDING
+        - SUCCEEDED
+        - CANCELED
+        - WAITING_FOR_CAPTURE
+      title: PaymentStatusEnum
+      description: Payment Status
+      type: string
+    PaymentTopUpResponse:
+      properties:
+        redirectUrl:
+          title: PaymentTopUpResponse.redirectUrl
+          type: string
+      required:
+        - redirectUrl
+      additionalProperties: false
+      title: PaymentTopUpResponse
+      description: Payments Top up Response
+      type: object
+    PaymentTypeEnum:
+      enum:
+        - BANK_CARD
+        - APPLE_PAY
+        - GOOGLE_PAY
+      title: PaymentTypeEnum
+      description: Please choose one of payment type
+      type: string
+    PeriodType:
+      properties:
+        open:
+          $ref: '#/components/schemas/DayAndTimeType'
+          title: PeriodType.open
+        close:
+          $ref: '#/components/schemas/DayAndTimeType'
+          title: PeriodType.close
+      required:
+        - open
+      additionalProperties: false
+      title: PeriodType
+      type: object
+    PowerEnum:
+      enum:
+        - SLOW
+        - FAST
+        - ULTRAFAST
+      title: PowerEnum
+      type: string
+    PrivateAccess:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: PrivateAccess.id
+        name:
+          title: PrivateAccess.name
+          type: string
+        description:
+          title: PrivateAccess.description
+          type: string
+        chargingStationCategories:
+          items:
+            $ref: '#/components/schemas/ChargingStationCategory'
+          title: PrivateAccess.chargingStationCategories
+          type: array
+        customerCategories:
+          items:
+            $ref: '#/components/schemas/CustomerCategory'
+          title: PrivateAccess.customerCategories
+          type: array
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: PrivateAccess.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: PrivateAccess.updatedAt
+      required:
+        - id
+      additionalProperties: false
+      title: PrivateAccess
+      description: Private Access
+      type: object
+    Promocode:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: Promocode.id
+        seqNo:
+          title: Promocode.seqNo
+          type: number
+        code:
+          title: Promocode.code
+          type: string
+        name:
+          title: Promocode.name
+          type: string
+        amount:
+          title: Promocode.amount
+          type: number
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
+          title: Promocode.currency
+        active:
+          title: Promocode.active
+          type: boolean
+        internalPrivateUseDescription:
+          title: Promocode.internalPrivateUseDescription
+          type: string
+        customerId:
+          title: Promocode.customerId
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+          title: Promocode.customer
+        tenant:
+          title: Promocode.tenant
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Promocode.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Promocode.updatedAt
+      required:
+        - id
+        - code
+        - amount
+        - currency
+      additionalProperties: false
+      title: Promocode
+      description: Promocode object
+      type: object
+    ProxyChargingStation:
+      properties:
+        _id:
+          $ref: '#/components/schemas/ID'
+          title: ProxyChargingStation._id
+        serialNumber:
+          title: ProxyChargingStation.serialNumber
+          type: string
+        csmsURI:
+          title: ProxyChargingStation.csmsURI
+          type: string
+        name:
+          title: ProxyChargingStation.name
+          type: string
+        description:
+          title: ProxyChargingStation.description
+          type: string
+        connectedToCS:
+          title: ProxyChargingStation.connectedToCS
+          type: boolean
+        connectedToCSMS:
+          title: ProxyChargingStation.connectedToCSMS
+          type: boolean
+        coordinates:
+          $ref: '#/components/schemas/Coordinates'
+          title: ProxyChargingStation.coordinates
+      required:
+        - _id
+        - serialNumber
+        - csmsURI
+      additionalProperties: false
+      title: ProxyChargingStation
+      description: ProxyChargingStation
+      type: object
+    Query:
+      properties:
+        AuthorizationCards:
+          items:
+            $ref: '#/components/schemas/AuthorizationCard'
+          title: Query.AuthorizationCards
+          type: array
+        AuthorizationCard:
+          $ref: '#/components/schemas/AuthorizationCard'
+          title: Query.AuthorizationCard
+        Authorizations:
+          items:
+            $ref: '#/components/schemas/Authorization'
+          title: Query.Authorizations
+          type: array
+        AuthorizationsList:
+          $ref: '#/components/schemas/AuthorizationsList'
+          title: Query.AuthorizationsList
+        Balances:
+          items:
+            $ref: '#/components/schemas/Balance'
+          title: Query.Balances
+          type: array
+        Balance:
+          $ref: '#/components/schemas/Balance'
+          title: Query.Balance
+        BalanceBrief:
+          $ref: '#/components/schemas/BalanceBrief'
+          title: Query.BalanceBrief
+        BalanceCheckStatus:
+          $ref: '#/components/schemas/BalanceStatus'
+          title: Query.BalanceCheckStatus
+        CarMakers:
+          items:
+            $ref: '#/components/schemas/CarMaker'
+          title: Query.CarMakers
+          type: array
+        CarMaker:
+          $ref: '#/components/schemas/CarMaker'
+          title: Query.CarMaker
+        CarModel:
+          $ref: '#/components/schemas/CarModel'
+          title: Query.CarModel
+        CustomerCars:
+          items:
+            $ref: '#/components/schemas/Car'
+          title: Query.CustomerCars
+          type: array
+        ChargingStations:
+          items:
+            $ref: '#/components/schemas/ChargingStation'
+          title: Query.ChargingStations
+          type: array
+        ChargingStationsList:
+          $ref: '#/components/schemas/ChargingStationsList'
+          title: Query.ChargingStationsList
+        ChargingStation:
+          $ref: '#/components/schemas/ChargingStation'
+          title: Query.ChargingStation
+        ChargingStationGraphInfo:
+          $ref: '#/components/schemas/ChargingStationGraphInfo'
+          title: Query.ChargingStationGraphInfo
+        ChargingStationGetDiagnostics:
+          $ref: '#/components/schemas/ChargingStationGetDiagnosticsResponse'
+          title: Query.ChargingStationGetDiagnostics
+        ChargingStationGetConfiguration:
+          $ref: '#/components/schemas/ChargingStationConfiguration'
+          title: Query.ChargingStationGetConfiguration
+        ChargingStationGetLog:
+          items:
+            $ref: '#/components/schemas/ChargingStationLogResponse'
+          title: Query.ChargingStationGetLog
+          type: array
+        Companies:
+          items:
+            $ref: '#/components/schemas/Company'
+          title: Query.Companies
+          type: array
+        Company:
+          $ref: '#/components/schemas/Company'
+          title: Query.Company
+        CorporateFleetInfo:
+          $ref: '#/components/schemas/CorporateFleetInfo'
+          title: Query.CorporateFleetInfo
+        CurrentUserBrief:
+          $ref: '#/components/schemas/UserBrief'
+          title: Query.CurrentUserBrief
+        ExternalCustomerAuthorize:
+          $ref: '#/components/schemas/ExternalCustomerAuthorizeResponse'
+          title: Query.ExternalCustomerAuthorize
+        CustomersPersonalData:
+          $ref: '#/components/schemas/CustomerPersonalData'
+          title: Query.CustomersPersonalData
+        Customers:
+          items:
+            $ref: '#/components/schemas/Customer'
+          title: Query.Customers
+          type: array
+        CustomersList:
+          $ref: '#/components/schemas/CustomersList'
+          title: Query.CustomersList
+        Customer:
+          $ref: '#/components/schemas/Customer'
+          title: Query.Customer
+        DashboardInfo:
+          $ref: '#/components/schemas/DashboardInfo'
+          title: Query.DashboardInfo
+        Discounts:
+          items:
+            $ref: '#/components/schemas/Discount'
+          title: Query.Discounts
+          type: array
+        Discount:
+          $ref: '#/components/schemas/Discount'
+          title: Query.Discount
+        Invoices:
+          items:
+            $ref: '#/components/schemas/Invoice'
+          title: Query.Invoices
+          type: array
+        Invoice:
+          $ref: '#/components/schemas/Invoice'
+          title: Query.Invoice
+        PushTokenCheck:
+          $ref: '#/components/schemas/ValidateResponse'
+          title: Query.PushTokenCheck
+        OwnersGroups:
+          items:
+            $ref: '#/components/schemas/OwnersGroup'
+          title: Query.OwnersGroups
+          type: array
+        OwnersGroup:
+          $ref: '#/components/schemas/OwnersGroup'
+          title: Query.OwnersGroup
+        Payments:
+          items:
+            $ref: '#/components/schemas/Payment'
+          title: Query.Payments
+          type: array
+        Payment:
+          $ref: '#/components/schemas/Payment'
+          title: Query.Payment
+        PaymentMethods:
+          items:
+            $ref: '#/components/schemas/PaymentMethod'
+          title: Query.PaymentMethods
+          type: array
+        ActivePaymentMethod:
+          $ref: '#/components/schemas/PaymentMethod'
+          title: Query.ActivePaymentMethod
+        Promocodes:
+          items:
+            $ref: '#/components/schemas/Promocode'
+          title: Query.Promocodes
+          type: array
+        ProxyChargingStations:
+          items:
+            $ref: '#/components/schemas/ProxyChargingStation'
+          title: Query.ProxyChargingStations
+          type: array
+        ProxyChargingStation:
+          $ref: '#/components/schemas/ProxyChargingStation'
+          title: Query.ProxyChargingStation
+        ProxyLog:
+          items:
+            $ref: '#/components/schemas/ChargingStationLogResponse'
+          title: Query.ProxyLog
+          type: array
+        ChargingStationReport:
+          $ref: '#/components/schemas/ChargingStationReport'
+          title: Query.ChargingStationReport
+        CompanyFleetDriversReport:
+          $ref: '#/components/schemas/ChargingStationReport'
+          title: Query.CompanyFleetDriversReport
+        ChargingStationsAggregateReport:
+          $ref: '#/components/schemas/ChargingStationReport'
+          title: Query.ChargingStationsAggregateReport
+        ChargingStationsBriefReport:
+          items:
+            $ref: '#/components/schemas/ChargingStationBriefReportResponse'
+          title: Query.ChargingStationsBriefReport
+          type: array
+        SystemMessages:
+          items:
+            $ref: '#/components/schemas/SystemMessage'
+          title: Query.SystemMessages
+          type: array
+        Tariffs:
+          items:
+            $ref: '#/components/schemas/TariffItem'
+          title: Query.Tariffs
+          type: array
+        TariffsList:
+          $ref: '#/components/schemas/TariffsList'
+          title: Query.TariffsList
+        TariffGroups:
+          items:
+            $ref: '#/components/schemas/TariffGroup'
+          title: Query.TariffGroups
+          type: array
+        TariffGroup:
+          $ref: '#/components/schemas/TariffGroup'
+          title: Query.TariffGroup
+        TransactionsList:
+          $ref: '#/components/schemas/TransactionsList'
+          title: Query.TransactionsList
+        Transactions:
+          items:
+            $ref: '#/components/schemas/Transaction'
+          title: Query.Transactions
+          type: array
+        Transaction:
+          $ref: '#/components/schemas/Transaction'
+          title: Query.Transaction
+        UserLogin:
+          $ref: '#/components/schemas/UserAuthData'
+          title: Query.UserLogin
+        Users:
+          items:
+            $ref: '#/components/schemas/User'
+          title: Query.Users
+          type: array
+        User:
+          $ref: '#/components/schemas/User'
+          title: Query.User
+        Tenants:
+          $ref: '#/components/schemas/Tenants'
+          title: Query.Tenants
+        ChargingStationsCategoriesList:
+          $ref: '#/components/schemas/ChargingStationsCategoriesList'
+          title: Query.ChargingStationsCategoriesList
+        ChargingStationCategory:
+          $ref: '#/components/schemas/ChargingStationCategory'
+          title: Query.ChargingStationCategory
+        AuditList:
+          $ref: '#/components/schemas/AuditList'
+          title: Query.AuditList
+        Audit:
+          $ref: '#/components/schemas/Audit'
+          title: Query.Audit
+        UserCategoriesList:
+          $ref: '#/components/schemas/UsersCategoriesList'
+          title: Query.UserCategoriesList
+        UserCategory:
+          $ref: '#/components/schemas/UserCategory'
+          title: Query.UserCategory
+        CustomerCategoriesList:
+          $ref: '#/components/schemas/CustomersCategoriesList'
+          title: Query.CustomerCategoriesList
+        CustomerCategory:
+          $ref: '#/components/schemas/CustomerCategory'
+          title: Query.CustomerCategory
+      required:
+        - UserLogin
+      additionalProperties: false
+      title: Query
+      type: object
+    ReasonEnumType:
+      enum:
+        - DE_AUTHORIZED
+        - EMERGENCY_STOP
+        - ENERGY_LIMIT_REACHED
+        - EVDISCONNECTED
+        - GROUND_FAULT
+        - IMMEDIATE_RESET
+        - LOCAL
+        - LOCAL_OUT_OF_CREDIT
+        - MASTER_PASS
+        - OTHER
+        - OVERCURRENT_FAULT
+        - POWER_LOSS
+        - POWER_QUALITY
+        - REBOOT
+        - REMOTE
+        - SOCLIMIT_REACHED
+        - STOPPED_BY_EV
+        - TIME_LIMIT_REACHED
+        - TIMEOUT
+      title: ReasonEnumType
+      type: string
+    ReceiptServiceEnum:
+      enum:
+        - BUHTA
+        - EKASSA
+      title: ReceiptServiceEnum
+      description: Payment Receipt Service
+      type: string
+    ResetStatusEnumType:
+      enum:
+        - ACCEPTED
+        - REJECTED
+        - SCHEDULED
+      title: ResetStatusEnumType
+      type: string
+    ResetTypeEnum:
+      enum:
+        - HARD
+        - SOFT
+      title: ResetTypeEnum
+      type: string
+    RoamingAccess:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: RoamingAccess.id
+        name:
+          title: RoamingAccess.name
+          type: string
+        description:
+          title: RoamingAccess.description
+          type: string
+        tenant:
+          title: RoamingAccess.tenant
+          type: string
+        chargingStationCategoryId:
+          title: RoamingAccess.chargingStationCategoryId
+          type: number
+        companyId:
+          title: RoamingAccess.companyId
+          type: string
+        company:
+          $ref: '#/components/schemas/Company'
+          title: RoamingAccess.company
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: RoamingAccess.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: RoamingAccess.updatedAt
+      required:
+        - id
+        - chargingStationCategoryId
+      additionalProperties: false
+      title: RoamingAccess
+      description: Roaming Access object
+      type: object
+    Sort:
+      enum:
+        - asc
+        - desc
+        - descNullsLast
+      title: Sort
+      description: Sort order
+      type: string
+    SpecialIdentifierEnum:
+      enum:
+        - EVIKA
+        - ZARYADKARF
+      title: SpecialIdentifierEnum
+      type: string
+    SpeedEnum:
+      enum:
+        - SLOW
+        - FAST
+        - ULTRAFAST
+      title: SpeedEnum
+      type: string
+    StartTransactionResponse:
+      properties:
+        remoteStartId:
+          title: StartTransactionResponse.remoteStartId
+          type: number
+        error:
+          $ref: '#/components/schemas/Error'
+          title: StartTransactionResponse.error
+      additionalProperties: false
+      title: StartTransactionResponse
+      description: Start Transaction response
+      type: object
+    StopInitiatorEnum:
+      enum:
+        - CUSTOMER
+        - USER
+        - CHARGING_STATION
+        - CAR
+        - OTHER
+      title: StopInitiatorEnum
+      type: string
+    SubTenant:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: SubTenant.id
+        name:
+          title: SubTenant.name
+          type: string
+        seqNo:
+          title: SubTenant.seqNo
+          type: number
+        description:
+          title: SubTenant.description
+          type: string
+        internalPrivateUseDescription:
+          title: SubTenant.internalPrivateUseDescription
+          type: string
+        tenantId:
+          title: SubTenant.tenantId
+          type: number
+        tenant:
+          $ref: '#/components/schemas/Tenant'
+          title: SubTenant.tenant
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: SubTenant.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: SubTenant.updatedAt
+      required:
+        - name
+        - seqNo
+        - description
+        - internalPrivateUseDescription
+        - tenantId
+        - tenant
+        - createdAt
+        - updatedAt
+      additionalProperties: false
+      title: SubTenant
+      description: SubTenant
+      type: object
+    SystemMessage:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: SystemMessage.id
+        title:
+          title: SystemMessage.title
+          type: string
+        text:
+          title: SystemMessage.text
+          type: string
+        visibilityType:
+          $ref: '#/components/schemas/SystemMessageVisibilityEnum'
+          title: SystemMessage.visibilityType
+        androidAppVersion:
+          title: SystemMessage.androidAppVersion
+          type: string
+        iosAppVersion:
+          title: SystemMessage.iosAppVersion
+          type: string
+        tenant:
+          title: SystemMessage.tenant
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: SystemMessage.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: SystemMessage.updatedAt
+      required:
+        - id
+        - text
+      additionalProperties: false
+      title: SystemMessage
+      description: System Message object
+      type: object
+    SystemMessageVisibilityEnum:
+      enum:
+        - HIDEABLE
+        - UNHIDEABLE
+        - BLOCKABLE
+      title: SystemMessageVisibilityEnum
+      description: System Message Visibility
+      type: string
+    TariffGroup:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: TariffGroup.id
+        seqNo:
+          title: TariffGroup.seqNo
+          type: number
+        name:
+          title: TariffGroup.name
+          type: string
+        description:
+          title: TariffGroup.description
+          type: string
+        timetables:
+          items:
+            $ref: '#/components/schemas/TariffGroupTimetable'
+          title: TariffGroup.timetables
+          type: array
+        tenant:
+          title: TariffGroup.tenant
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: TariffGroup.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: TariffGroup.updatedAt
+      required:
+        - id
+      additionalProperties: false
+      title: TariffGroup
+      description: Tariff Group
+      type: object
+    TariffGroupTimetable:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: TariffGroupTimetable.id
+        seqNo:
+          title: TariffGroupTimetable.seqNo
+          type: number
+        name:
+          title: TariffGroupTimetable.name
+          type: string
+        description:
+          title: TariffGroupTimetable.description
+          type: string
+        tariffId:
+          title: TariffGroupTimetable.tariffId
+          type: string
+        tariff:
+          $ref: '#/components/schemas/TariffType'
+          title: TariffGroupTimetable.tariff
+        onHoliday:
+          title: TariffGroupTimetable.onHoliday
+          type: boolean
+        country:
+          $ref: '#/components/schemas/CountryCodeEnumType'
+          title: TariffGroupTimetable.country
+        timezone:
+          title: TariffGroupTimetable.timezone
+          description: E.g. "America/New_York", "Europe/Berlin", "Asia/Bangkok"
+          type: string
+        dayOfWeek:
+          items:
+            type: number
+          title: TariffGroupTimetable.dayOfWeek
+          description: E.g. "[1,2]" Monday=1, Tuesday=2...
+          type: array
+        startTime:
+          title: TariffGroupTimetable.startTime
+          type: string
+        endTime:
+          title: TariffGroupTimetable.endTime
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: TariffGroupTimetable.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: TariffGroupTimetable.updatedAt
+      required:
+        - id
+      additionalProperties: false
+      title: TariffGroupTimetable
+      description: Tariff Group Timetable
+      type: object
+    TariffItem:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: TariffItem.id
+        type:
+          $ref: '#/components/schemas/TariffTypeEnum'
+          title: TariffItem.type
+        amount:
+          title: TariffItem.amount
+          type: number
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
+          title: TariffItem.currency
+        name:
+          title: TariffItem.name
+          type: string
+        seqNo:
+          title: TariffItem.seqNo
+          type: number
+        description:
+          title: TariffItem.description
+          type: string
+        tenant:
+          title: TariffItem.tenant
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: TariffItem.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: TariffItem.updatedAt
+      required:
+        - id
+        - type
+        - amount
+        - currency
+      additionalProperties: false
+      title: TariffItem
+      description: Tariff object
+      type: object
+    TariffsList:
+      properties:
+        rows:
+          items:
+            $ref: '#/components/schemas/TariffItem'
+          title: TariffsList.rows
+          type: array
+        count:
+          title: TariffsList.count
+          type: number
+      required:
+        - rows
+        - count
+      additionalProperties: false
+      title: TariffsList
+      description: Tariffs list
+      type: object
+    TariffType:
+      properties:
+        id:
+          title: TariffType.id
+          type: string
+        type:
+          $ref: '#/components/schemas/TariffTypeEnum'
+          title: TariffType.type
+        amount:
+          title: TariffType.amount
+          type: number
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
+          title: TariffType.currency
+        name:
+          title: TariffType.name
+          type: string
+      required:
+        - type
+        - amount
+        - currency
+      additionalProperties: false
+      title: TariffType
+      type: object
+    TariffTypeEnum:
+      enum:
+        - PER_KW
+        - PER_MIN
+        - PER_E
+      title: TariffTypeEnum
+      type: string
+    Tenant:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: Tenant.id
+        name:
+          title: Tenant.name
+          type: string
+      required:
+        - name
+      additionalProperties: false
+      title: Tenant
+      description: Tenant
+      type: object
+    TenantDataChargingStations:
+      properties:
+        tenant:
+          title: TenantDataChargingStations.tenant
+          type: string
+        total:
+          title: TenantDataChargingStations.total
+          type: number
+        connected:
+          title: TenantDataChargingStations.connected
+          type: number
+      required:
+        - tenant
+        - total
+        - connected
+      additionalProperties: false
+      title: TenantDataChargingStations
+      type: object
+    TenantDataCustomers:
+      properties:
+        tenant:
+          title: TenantDataCustomers.tenant
+          type: string
+        total:
+          title: TenantDataCustomers.total
+          type: number
+        removed:
+          title: TenantDataCustomers.removed
+          type: number
+      required:
+        - tenant
+        - total
+        - removed
+      additionalProperties: false
+      title: TenantDataCustomers
+      type: object
+    TenantDataNotPaidTransactions:
+      properties:
+        tenant:
+          title: TenantDataNotPaidTransactions.tenant
+          type: string
+        total:
+          title: TenantDataNotPaidTransactions.total
+          type: number
+        amount:
+          title: TenantDataNotPaidTransactions.amount
+          type: number
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
+          title: TenantDataNotPaidTransactions.currency
+      required:
+        - tenant
+        - total
+        - amount
+        - currency
+      additionalProperties: false
+      title: TenantDataNotPaidTransactions
+      type: object
+    TenantDataPaidAmount:
+      properties:
+        tenant:
+          title: TenantDataPaidAmount.tenant
+          type: string
+        total:
+          title: TenantDataPaidAmount.total
+          type: number
+        amount:
+          title: TenantDataPaidAmount.amount
+          type: number
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
+          title: TenantDataPaidAmount.currency
+      required:
+        - tenant
+        - total
+        - amount
+        - currency
+      additionalProperties: false
+      title: TenantDataPaidAmount
+      type: object
+    TenantDataTotalKWH:
+      properties:
+        tenant:
+          title: TenantDataTotalKWH.tenant
+          type: string
+        total:
+          title: TenantDataTotalKWH.total
+          type: number
+        paid:
+          title: TenantDataTotalKWH.paid
+          type: number
+      required:
+        - tenant
+        - total
+        - paid
+      additionalProperties: false
+      title: TenantDataTotalKWH
+      type: object
+    TenantDataTransactions:
+      properties:
+        tenant:
+          title: TenantDataTransactions.tenant
+          type: string
+        total:
+          title: TenantDataTransactions.total
+          type: number
+        success:
+          title: TenantDataTransactions.success
+          type: number
+      required:
+        - tenant
+        - total
+        - success
+      additionalProperties: false
+      title: TenantDataTransactions
+      type: object
+    Tenants:
+      properties:
+        rows:
+          items:
+            $ref: '#/components/schemas/Tenant'
+          title: Tenants.rows
+          type: array
+        count:
+          title: Tenants.count
+          type: number
+      required:
+        - rows
+        - count
+      additionalProperties: false
+      title: Tenants
+      description: Tenants
+      type: object
+    TenantsBasedData:
+      properties:
+        customers:
+          items:
+            $ref: '#/components/schemas/TenantDataCustomers'
+          title: TenantsBasedData.customers
+          type: array
+        chargingStations:
+          items:
+            $ref: '#/components/schemas/TenantDataChargingStations'
+          title: TenantsBasedData.chargingStations
+          type: array
+        transactions:
+          items:
+            $ref: '#/components/schemas/TenantDataTransactions'
+          title: TenantsBasedData.transactions
+          type: array
+        totalKWH:
+          items:
+            $ref: '#/components/schemas/TenantDataTotalKWH'
+          title: TenantsBasedData.totalKWH
+          type: array
+        paidAmount:
+          items:
+            $ref: '#/components/schemas/TenantDataPaidAmount'
+          title: TenantsBasedData.paidAmount
+          type: array
+        notPaidTransactions:
+          items:
+            $ref: '#/components/schemas/TenantDataNotPaidTransactions'
+          title: TenantsBasedData.notPaidTransactions
+          type: array
+      required:
+        - customers
+        - chargingStations
+        - transactions
+        - totalKWH
+        - paidAmount
+        - notPaidTransactions
+      additionalProperties: false
+      title: TenantsBasedData
+      type: object
+    TenantSettings:
+      properties:
+        country:
+          $ref: '#/components/schemas/CountryCodeEnumType'
+          title: TenantSettings.country
+        featureBalance:
+          title: TenantSettings.featureBalance
+          type: boolean
+        vatRate:
+          $ref: '#/components/schemas/VatRate'
+          title: TenantSettings.vatRate
+        paymentService:
+          $ref: '#/components/schemas/PaymentServiceEnum'
+          title: TenantSettings.paymentService
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
+          title: TenantSettings.currency
+      additionalProperties: false
+      title: TenantSettings
+      type: object
+    TerritoryAccessData:
+      properties:
+        id:
+          title: TerritoryAccessData.id
+          type: string
+        name:
+          title: TerritoryAccessData.name
+          type: string
+        description:
+          title: TerritoryAccessData.description
+          type: string
+        requestDescription:
+          title: TerritoryAccessData.requestDescription
+          type: string
+        requestType:
+          $ref: '#/components/schemas/AccessPermissionRequestTypeEnum'
+          title: TerritoryAccessData.requestType
+        canChooseTime:
+          title: TerritoryAccessData.canChooseTime
+          type: boolean
+        openingHours:
+          $ref: '#/components/schemas/OpeningHoursType'
+          title: TerritoryAccessData.openingHours
+      required:
+        - id
+      additionalProperties: false
+      title: TerritoryAccessData
+      description: TerritoryAccessData
+      type: object
+    Transaction:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: Transaction.id
+        seqNo:
+          title: Transaction.seqNo
+          type: number
+        startedPercentage:
+          title: Transaction.startedPercentage
+          type: number
+        percentage:
+          title: Transaction.percentage
+          type: number
+        chargingStationId:
+          title: Transaction.chargingStationId
+          type: string
+        chargingStation:
+          $ref: '#/components/schemas/ChargingStation'
+          title: Transaction.chargingStation
+        connector:
+          $ref: '#/components/schemas/Connector'
+          title: Transaction.connector
+        chargingStationName:
+          title: Transaction.chargingStationName
+          type: string
+        customerId:
+          title: Transaction.customerId
+          type: string
+        customerPhone:
+          title: Transaction.customerPhone
+          type: string
+        evseId:
+          title: Transaction.evseId
+          type: number
+        connectorId:
+          title: Transaction.connectorId
+          type: number
+        stoppedReason:
+          $ref: '#/components/schemas/ReasonEnumType'
+          title: Transaction.stoppedReason
+        chargingState:
+          $ref: '#/components/schemas/ChargingStateEnumType'
+          title: Transaction.chargingState
+        startedTimestamp:
+          $ref: '#/components/schemas/DateTime'
+          title: Transaction.startedTimestamp
+        startChargingTimestamp:
+          $ref: '#/components/schemas/DateTime'
+          title: Transaction.startChargingTimestamp
+        stoppedTimestamp:
+          $ref: '#/components/schemas/DateTime'
+          title: Transaction.stoppedTimestamp
+        currentKW:
+          title: Transaction.currentKW
+          type: number
+        totalKW:
+          title: Transaction.totalKW
+          type: number
+        totalDuration:
+          title: Transaction.totalDuration
+          type: number
+        tariff:
+          $ref: '#/components/schemas/TariffType'
+          title: Transaction.tariff
+        payment:
+          $ref: '#/components/schemas/Payment'
+          title: Transaction.payment
+        invoice:
+          $ref: '#/components/schemas/Invoice'
+          title: Transaction.invoice
+        transactionStep:
+          $ref: '#/components/schemas/TransactionStepsEnum'
+          title: Transaction.transactionStep
+        startedKW:
+          title: Transaction.startedKW
+          type: number
+        latestKW:
+          title: Transaction.latestKW
+          type: number
+        meterValues:
+          items:
+            $ref: '#/components/schemas/MeterValue'
+          title: Transaction.meterValues
+          type: array
+        authorization:
+          $ref: '#/components/schemas/Authorization'
+          title: Transaction.authorization
+        stopInitiator:
+          $ref: '#/components/schemas/StopInitiatorEnum'
+          title: Transaction.stopInitiator
+        stoppedBySystemUserId:
+          title: Transaction.stoppedBySystemUserId
+          type: string
+        stoppedBySystemUser:
+          $ref: '#/components/schemas/User'
+          title: Transaction.stoppedBySystemUser
+        onReview:
+          $ref: '#/components/schemas/TransactionOnReview'
+          title: Transaction.onReview
+        tenant:
+          title: Transaction.tenant
+          type: string
+        roamingAccessId:
+          title: Transaction.roamingAccessId
+          type: number
+        isRoaming:
+          title: Transaction.isRoaming
+          type: boolean
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Transaction.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: Transaction.updatedAt
+      required:
+        - id
+        - seqNo
+        - chargingStationId
+        - evseId
+      additionalProperties: false
+      title: Transaction
+      description: Transaction
+      type: object
+    TransactionOnReview:
+      properties:
+        id:
+          title: TransactionOnReview.id
+          type: number
+        reviewed:
+          title: TransactionOnReview.reviewed
+          type: boolean
+        description:
+          title: TransactionOnReview.description
+          type: string
+        reason:
+          $ref: '#/components/schemas/TransactionReviewReasonEnum'
+          title: TransactionOnReview.reason
+        reviewerUser:
+          $ref: '#/components/schemas/User'
+          title: TransactionOnReview.reviewerUser
+        tenant:
+          title: TransactionOnReview.tenant
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: TransactionOnReview.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: TransactionOnReview.updatedAt
+      required:
+        - reviewed
+      additionalProperties: false
+      title: TransactionOnReview
+      description: Transaction on review
+      type: object
+    TransactionReviewReasonEnum:
+      enum:
+        - CHARGING_STATION_OFFLINE
+        - TRANSACTION_LOST_BY_CHARGING_STATION
+        - TRANSACTION_FORCE_SUSPENDED
+        - TRANSACTION_FREEZED
+        - SECOND_STOPTRANSACTION
+        - METERSTOP_LOWER_METERSTART
+        - ABNORMAL_CONSUMPTION
+        - CUSTOMER_SUPPORT_REQUEST
+        - OTHER
+      title: TransactionReviewReasonEnum
+      type: string
+    TransactionsCount:
+      properties:
+        total:
+          title: TransactionsCount.total
+          type: number
+        success:
+          title: TransactionsCount.success
+          type: number
+      additionalProperties: false
+      title: TransactionsCount
+      type: object
+    TransactionsList:
+      properties:
+        rows:
+          items:
+            $ref: '#/components/schemas/Transaction'
+          title: TransactionsList.rows
+          type: array
+        count:
+          title: TransactionsList.count
+          type: number
+      required:
+        - rows
+        - count
+      additionalProperties: false
+      title: TransactionsList
+      description: Transaction list
+      type: object
+    TransactionStepsEnum:
+      enum:
+        - CABLE_PLUGGED_IN
+        - WAITING_FOR_CABLE_INSERT
+        - CHARGING
+        - FINISHED_SUCCESS
+        - FINISHED_WITH_ERROR
+        - OFFLINE
+        - CANCELED
+      title: TransactionStepsEnum
+      type: string
+    UnitOfMeasureEnumType:
+      enum:
+        - WH
+        - K_WH
+        - VARH
+        - KVARH
+        - W
+        - K_W
+        - VA
+        - K_VA
+        - VAR
+        - KVAR
+        - A
+        - V
+        - CELCIUS
+        - CELSIUS
+        - FAHRENHEIT
+        - K
+        - PERCENT
+      title: UnitOfMeasureEnumType
+      type: string
+    UnlockStatusEnumType:
+      enum:
+        - UNLOCKED
+        - UNLOCK_FAILED
+        - ONGOING_AUTHORIZED_TRANSACTION
+        - UNKNOWN_CONNECTOR
+      title: UnlockStatusEnumType
+      type: string
+    UptimeMonitoring:
+      properties:
+        status:
+          $ref: '#/components/schemas/UptimeStatusEnum'
+          title: UptimeMonitoring.status
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: UptimeMonitoring.createdAt
+      required:
+        - status
+        - createdAt
+      additionalProperties: false
+      title: UptimeMonitoring
+      type: object
+    UptimeStatusEnum:
+      enum:
+        - CONNECTED
+        - DISCONNECTED
+      title: UptimeStatusEnum
+      type: string
+    User:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: User.id
+        seqNo:
+          title: User.seqNo
+          type: number
+        role:
+          $ref: '#/components/schemas/UserRoleEnumType'
+          title: User.role
+        company:
+          $ref: '#/components/schemas/Company'
+          title: User.company
+        tenant:
+          title: User.tenant
+          type: string
+        name:
+          title: User.name
+          type: string
+        surname:
+          title: User.surname
+          type: string
+        middlename:
+          title: User.middlename
+          type: string
+        description:
+          title: User.description
+          type: string
+        phone:
+          title: User.phone
+          type: string
+        email:
+          title: User.email
+          type: string
+        pendingEmail:
+          title: User.pendingEmail
+          type: string
+        emailVerified:
+          title: User.emailVerified
+          type: boolean
+        active:
+          title: User.active
+          type: boolean
+        lastLogin:
+          $ref: '#/components/schemas/DateTime'
+          title: User.lastLogin
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: User.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: User.updatedAt
+      required:
+        - id
+        - name
+        - surname
+      additionalProperties: false
+      title: User
+      description: User
+      type: object
+    UserAuthData:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: UserAuthData.id
+        seqNo:
+          title: UserAuthData.seqNo
+          type: number
+        email:
+          title: UserAuthData.email
+          type: string
+        phone:
+          title: UserAuthData.phone
+          type: string
+        name:
+          title: UserAuthData.name
+          type: string
+        surname:
+          title: UserAuthData.surname
+          type: string
+        middlename:
+          title: UserAuthData.middlename
+          type: string
+        company:
+          $ref: '#/components/schemas/Company'
+          title: UserAuthData.company
+        tenant:
+          title: UserAuthData.tenant
+          type: string
+        tenantSettings:
+          $ref: '#/components/schemas/TenantSettings'
+          title: UserAuthData.tenantSettings
+        country:
+          $ref: '#/components/schemas/CountryCodeEnumType'
+          title: UserAuthData.country
+        role:
+          $ref: '#/components/schemas/UserRoleEnumType'
+          title: UserAuthData.role
+        token:
+          title: UserAuthData.token
+          type: string
+      required:
+        - id
+        - seqNo
+        - token
+      additionalProperties: false
+      title: UserAuthData
+      description: User
+      type: object
+    UserBrief:
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+          title: UserBrief.id
+        seqNo:
+          title: UserBrief.seqNo
+          type: number
+        email:
+          title: UserBrief.email
+          type: string
+        phone:
+          title: UserBrief.phone
+          type: string
+        name:
+          title: UserBrief.name
+          type: string
+        surname:
+          title: UserBrief.surname
+          type: string
+        middlename:
+          title: UserBrief.middlename
+          type: string
+        company:
+          $ref: '#/components/schemas/Company'
+          title: UserBrief.company
+        tenant:
+          title: UserBrief.tenant
+          type: string
+        tenantSettings:
+          $ref: '#/components/schemas/TenantSettings'
+          title: UserBrief.tenantSettings
+        country:
+          $ref: '#/components/schemas/CountryCodeEnumType'
+          title: UserBrief.country
+        role:
+          $ref: '#/components/schemas/UserRoleEnumType'
+          title: UserBrief.role
+      required:
+        - id
+        - seqNo
+      additionalProperties: false
+      title: UserBrief
+      description: User brief
+      type: object
+    UserCategory:
+      properties:
+        id:
+          title: UserCategory.id
+          type: number
+        name:
+          title: UserCategory.name
+          type: string
+        description:
+          title: UserCategory.description
+          type: string
+        tenant:
+          title: UserCategory.tenant
+          type: string
+        users:
+          items:
+            $ref: '#/components/schemas/User'
+          title: UserCategory.users
+          type: array
+        ownersAccessId:
+          title: UserCategory.ownersAccessId
+          type: number
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: UserCategory.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: UserCategory.updatedAt
+      additionalProperties: false
+      title: UserCategory
+      description: UserCategory
+      type: object
+    UserRoleEnumType:
+      enum:
+        - SUPER_ADMIN
+        - ADMIN
+        - INHOUSE_MANAGER
+        - INHOUSE_DEVELOPER
+        - INHOUSE_ACCOUNTANT
+        - INHOUSE_ELECTRICITY_ENGINEER
+        - INHOUSE_CONTENT_MANAGER
+        - INHOUSE_CUSTOMER_SERVICE_L1
+        - INHOUSE_CUSTOMER_SERVICE_L2
+        - INHOUSE_CUSTOMER_SERVICE_L3
+        - COMPANY_OWNER
+        - COMPANY_MANAGER
+        - COMPANY_ACCOUNTANT
+        - COMPANY_DEVELOPER
+        - COMPANY_CUSTOMER_SERVICE_L1
+        - COMPANY_CUSTOMER_SERVICE_L2
+        - COMPANY_ELECTRICITY_ENGINEER
+        - CORPORATE_OWNER
+        - CORPORATE_MANAGER
+        - CORPORATE_ACCOUNTANT
+        - VENDOR_OWNER
+        - VENDOR_MANAGER
+      title: UserRoleEnumType
+      type: string
+    UsersCategoriesList:
+      properties:
+        rows:
+          items:
+            $ref: '#/components/schemas/UserCategory'
+          title: UsersCategoriesList.rows
+          type: array
+        count:
+          title: UsersCategoriesList.count
+          type: number
+      required:
+        - rows
+        - count
+      additionalProperties: false
+      title: UsersCategoriesList
+      description: UserCategories list
+      type: object
+    ValidateResponse:
+      properties:
+        active:
+          title: ValidateResponse.active
+          type: boolean
+      required:
+        - active
+      additionalProperties: false
+      title: ValidateResponse
+      description: Validate reponse
+      type: object
+    VatRate:
+      properties:
+        id:
+          title: VatRate.id
+          type: number
+        name:
+          title: VatRate.name
+          type: string
+        description:
+          title: VatRate.description
+          type: string
+        amount:
+          title: VatRate.amount
+          type: number
+        country:
+          $ref: '#/components/schemas/CountryCodeEnumType'
+          title: VatRate.country
+        createdAt:
+          $ref: '#/components/schemas/DateTime'
+          title: VatRate.createdAt
+        updatedAt:
+          $ref: '#/components/schemas/DateTime'
+          title: VatRate.updatedAt
+      required:
+        - id
+        - amount
+      additionalProperties: false
+      title: VatRate
+      description: Vat Rate
+      type: object
